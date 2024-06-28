@@ -1,93 +1,84 @@
-# sabangnet-server
+# fulfillment-server
 
+# 프로젝트 README
 
+## 소개
 
-## Getting started
+환영합니다! 🖐️🖐️
+이 프로젝트는 다우기술 인턴분들이 다양한 과제를 진행하고 실무 경험을 쌓을 수 있도록 설계되었습니다.
+아래는 기본 설정, 의존성 및 브랜치 전략에 대한 설명입니다.
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+## 기본 설정
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+이 프로젝트는 다음을 사용합니다:
 
-## Add your files
+- **Spring Boot**: 3.2.2
+- **Java**: 21
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+### Gradle 의존성
 
-```
-cd existing_repo
-git remote add origin http://sb-dev-intern-alb-410301540.ap-northeast-2.elb.amazonaws.com/daou-2024/sabangnet-server.git
-git branch -M main
-git push -uf origin main
-```
+프로젝트에는 다음과 같은 Gradle 의존성이 포함되어 있습니다:
 
-## Integrate with your tools
+| Dependency                                   | 설명                                                         |
+|----------------------------------------------|------------------------------------------------------------|
+| org.springframework.boot:spring-boot-starter | Spring Boot 기본 스타터로, 스프링 프레임워크의 기본 설정을 포함합니다.              |
+| org.projectlombok:lombok                     | 보일러플레이트 코드를 줄이기 위한 라이브러리로, annotation 을 사용해서 코드 생성을 도와줍니다. |
+| org.springframework.boot:spring-boot-starter-web | Spring MVC와 내장형 톰캣 서버를 포함하여 웹 애플리케이션 개발을 지원합니다.            |
+| org.springframework.boot:spring-boot-starter-data-jpa | Spring Data JPA를 사용하여 데이터베이스 작업을 간단하게 처리할 수 있도록 지원합니다.     |
+| org.springframework.boot:spring-boot-starter-validation | 데이터 유효성 검사를 위한 스타터로, Bean Validation을 지원합니다.               |
+| org.springframework.boot:spring-boot-starter-test | 테스트를 위한 기본 설정을 포함한 스타터로, JUnit, Hamcrest 및 Mockito를 지원합니다. |
+| com.h2database:h2                            | 인메모리 데이터베이스 H2를 포함하여, 테스트 및 개발 환경에서 사용됩니다.                 |
 
-- [ ] [Set up project integrations](http://sb-dev-intern-alb-410301540.ap-northeast-2.elb.amazonaws.com/daou-2024/sabangnet-server/-/settings/integrations)
+이 외 과제에 필요한 gradle dependency 를 별도로 추가하실 수 있습니다.
 
-## Collaborate with your team
+### 애플리케이션 설정
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+애플리케이션 관련 설정은 `application.yml` 파일에 YAML 형식으로 작성합니다.
 
-## Test and Deploy
+## 브랜치 전략
 
-Use the built-in continuous integration in GitLab.
+브랜치별 Jenkins pipeline 구축을 위해 구조화된 브랜치 전략을 따릅니다.
+메인 브랜치는 기본 브랜치이며, 과제에 따라 하기의 브랜치를 체크아웃하여 사용합니다.
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+- `develop-fulfillment`
+- `develop-sabangnet`
 
-***
+각 서브 브랜치는 과제의 특정 측면을 다루며, 해당 작업이나 기능을 반영하는 이름으로 지정됩니다. (멘토 가이드에 따라 진행)
+ex)
+- `develop-fulfillment-admin-page`
+- `develop-sabangnet-external-validation`
 
-# Editing this README
+## 시작하기
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+1. **레포지토리 클론**:
+   ```bash
+   git clone http://sb-dev-intern-alb-410301540.ap-northeast-2.elb.amazonaws.com/daou-2024/sabangnet-server.git
+   cd <repository_directory>
+   ```
 
-## Suggestions for a good README
+2. **서브 브랜치 체크아웃**:
+   ```bash
+   git checkout -b <sub-branch-name>
+   ```
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+3. **프로젝트 빌드**:
+   ```bash
+   ./gradlew build
+   ```
 
-## Name
-Choose a self-explaining name for your project.
+4. **프로젝트 실행**:
+   ```bash
+   ./gradlew bootRun
+   ```
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+## 연락처
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+질문이나 도움이 필요할 경우, 프로젝트 멘토에게 문의주세요😉
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+---
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+다우기술 인턴활동으로 좋은 학습 경험이 되시길 바랍니다!
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+---
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+이 README는 인턴들이 프로젝트를 시작하고, 의존성을 이해하기위한 개요를 제공합니다.
