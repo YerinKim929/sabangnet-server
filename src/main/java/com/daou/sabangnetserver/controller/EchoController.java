@@ -17,6 +17,10 @@ public class EchoController {
 
     @GetMapping("/info")
     public ResponseEntity<ProjectInfo> echoInfo() {
+
+        //HttpClientTest test = new HttpClientTest("http://www.google.co.kr"); // 통신 성공
+        //HttpClientTest test = new HttpClientTest("https://www.google.co.kr"); // 통신 실패(SSL)
+
         return ResponseEntity.ok(new ProjectInfo());
     }
 }
