@@ -12,7 +12,10 @@ public class EchoController {
 
     @GetMapping("/hi")
     public ResponseEntity<String> echo() {
+        System.out.println("/say/hi");
         return ResponseEntity.ok("Welcome to Daou Tech");
+
+
     }
 
     @GetMapping("/info")
