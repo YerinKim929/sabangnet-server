@@ -1,6 +1,6 @@
 package com.daou.sabangnetserver.controller;
 
-import com.daou.sabangnetserver.dto.ProjectInfo;
+
 import com.daou.sabangnetserver.dto.TokenRequestDto;
 import com.daou.sabangnetserver.dto.TokenResponseDto;
 import com.daou.sabangnetserver.service.AuthService;
@@ -23,11 +23,12 @@ public class AuthController {
     @Value("${sltnCd.no}")
     private String sltnCd;
 
-
-    @PostMapping("/tokens/create")
-    public ResponseEntity<TokenResponseDto> createTokens() {
+    //현재 시각과 만료 시각 비교하여 토큰 자동 검증
+    //토큰 갱신 및 발급 자동화
+    @PostMapping("/tokens/{sellerNo}")
+    public ResponseEntity<TokenResponseDto> autoValidateTokens(@PathVariable String sellerNo) {
         TokenRequestDto request = new TokenRequestDto(apiKey, sltnCd);
-        TokenResponseDto tokenResponse = authService.createTokens(request);
+        TokenResponseDto tokenResponse = authService.validateAndRefreshTokens(request, sellerNo);
         return ResponseEntity.ok(tokenResponse);
     }
 }
