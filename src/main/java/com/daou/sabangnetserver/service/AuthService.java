@@ -24,7 +24,6 @@ public class AuthService {
     @Value("${external.api.base-url}")
     private String baseUrl;
 
-
     private final RestTemplate restTemplate = new RestTemplate();
 
     // 토큰 검증 함수
@@ -63,7 +62,7 @@ public class AuthService {
         return createAndSaveOrUpdateTokens(request, sellerNumber);
     }
 
-    // 토큰이 테이블에 없거나 모든 토큰이 유효기간이 지났을 때, 새로운 토큰을 발급해주는 메소드
+    // 토큰이 테이블에 없거나 모든 토큰이 유효기간이 지났을 때, 새로 발급된 토큰을 DB에 저장하는 메소드
     // requestNewTokens 메소드를 통해 새로운 토큰을 발급한다.
     private TokenResponseDto createAndSaveOrUpdateTokens(TokenRequestDto request, Integer sellerNumber) {
         TokenResponseDto newTokensResponse = requestNewTokens(request, sellerNumber.toString());
@@ -101,7 +100,7 @@ public class AuthService {
         tokens.setRefreshExpiresAt(LocalDateTime.now().plusDays(1));
     }
 
-    // AccessToken을 발급받는 메소드
+    // AccessToken을 발급받는 메소드 (Refresh Token 사용)
     private TokenResponseDto requestNewAccessToken(String sellerNo, String refreshToken) {
         String url = String.format("%s/openapi/v2/seller/%s/account/tokens/refresh", baseUrl, sellerNo);
 
@@ -120,7 +119,7 @@ public class AuthService {
         return responseEntity.getBody();
     }
 
-
+    // 토큰 자체를 새로 발급 받는 메소드
     private TokenResponseDto requestNewTokens(TokenRequestDto request, String sellerNo) {
         String url = String.format("%s/openapi/v2/seller/%s/account/tokens/create", baseUrl, sellerNo);
 
