@@ -25,6 +25,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Slf4j
@@ -56,16 +57,20 @@ public class OrderCollectService {
     @Value("${siteCd.no}")
     private String siteCd;
 
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+
     // 주문 데이터를 외부 API로부터 가져와서 데이터베이스에 저장하는 함수
-    public ResponseEntity<OrderApiResponse> fetchAndSaveOrders(int sellerNo, String startDate, String endDate, String status) {
+    public void fetchAndSaveOrders(int sellerNo, String startDate, String endDate, String status) {
 
         TokenRequestDto tokenRequest = new TokenRequestDto(apiKey, sltnCd);
         TokenResponseDto tokenResponse = authService.validateAndRefreshTokens(tokenRequest, sellerNo);
         String accessToken = tokenResponse.getAccessToken();
 
-        ResponseEntity<OrderApiResponse> orders = fetchOrders(startDate, endDate, status, accessToken);
-        return orders;
-       // saveOrders(orders);
+        ResponseEntity<OrderApiResponse> response = fetchOrders(startDate, endDate, status, accessToken);
+
+        if (response.getBody() != null && response.getBody().getResponse() != null) {
+            saveOrders(response.getBody().getResponse().getListElements());
+        }
     }
 
     // 타다닥 API에서 결과 받아오는 함수
@@ -105,8 +110,8 @@ public class OrderCollectService {
 
 
     // 테이블에 저장하는 함수
-    /*
     private void saveOrders(List<OrderApiResponseBase> orders) {
+
         for (OrderApiResponseBase order : orders) {
             if (ordersBaseRepository.existsById(order.getOrdNo())) {
                 continue;
@@ -114,12 +119,12 @@ public class OrderCollectService {
 
             OrdersBase ordersBase = new OrdersBase();
             ordersBase.setOrdNo(order.getOrdNo());
-            ordersBase.setOrdDttm(LocalDateTime.parse(order.getOrdDttm()));
+            ordersBase.setOrdDttm(LocalDateTime.parse(order.getOrdDttm(), DATE_TIME_FORMATTER));
             ordersBase.setRcvrNm(order.getRcvrNm());
-            ordersBase.setRcvrAddr(order.getRcvrBaseAddr() + order.getRcvrDtlsAddr());
+            ordersBase.setRcvrAddr(order.getRcvrBaseAddr() + " " + order.getRcvrDtlsAddr());
             ordersBase.setRcvrMphnNo(order.getRcvrMphnNo());
             ordersBase.setSellerNo(order.getSellerNo());
-            ordersBase.setOrdCollectDttm(LocalDateTime.now());
+            ordersBase.setOrdCollectDttm(LocalDateTime.parse(LocalDateTime.now().format(DATE_TIME_FORMATTER),DATE_TIME_FORMATTER));
 
             ordersBaseRepository.save(ordersBase);
 
@@ -135,7 +140,5 @@ public class OrderCollectService {
             }
         }
     }
-
-     */
 }
 

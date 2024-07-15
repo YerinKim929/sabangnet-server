@@ -19,15 +19,15 @@ public class OrderCollectController {
     private String sltnCd;
 
     @GetMapping("/order/{sellerNo}")
-    public ResponseEntity<OrderApiResponse> orderCollectData(
+    public ResponseEntity<String> orderCollectData(
             @PathVariable int sellerNo,
             @RequestParam("startDate") @DateTimeFormat(pattern = "yyyy/MM/dd") String startDate,
             @RequestParam("endDate") @DateTimeFormat(pattern = "yyyy/MM/dd") String endDate,
             @RequestParam("status") String status) {
 
-        ResponseEntity<OrderApiResponse> res = orderCollectService.fetchAndSaveOrders(sellerNo, startDate, endDate, status);
+        orderCollectService.fetchAndSaveOrders(sellerNo, startDate, endDate, status);
 
-        return res;
+        return ResponseEntity.ok("Orders fetched and saved successfully.");
 
     }
 }
