@@ -1,5 +1,6 @@
 package com.daou.sabangnetserver.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,16 +9,16 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 @Embeddable
-@AllArgsConstructor
-@NoArgsConstructor
-@EqualsAndHashCode
 @Data
-
-//복합키 설정
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode
 public class OrdersDetailId implements Serializable {
 
+    @Column(name = "ord_prd_no")
     private int ordPrdNo;
-    private int ordNo;
 
+    @Column(name = "ord_no")
+    private int ordNo;
 }
 

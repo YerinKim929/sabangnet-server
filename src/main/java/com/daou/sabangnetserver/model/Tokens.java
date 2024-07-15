@@ -12,24 +12,25 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @Entity
+@Table(name = "tokens")
 public class Tokens {
 
     @Id
-    @Column(nullable = false)
+    @Column(name = "seller_no", nullable = false)
     private int sellerNo;
 
-    @Column(nullable = false, length = 512)
+    @Column(name = "access_token", nullable = false, length = 512)
     private String accessToken;
 
-    @Column(nullable = false, length = 512)
+    @Column(name = "refresh_token", nullable = false, length = 512)
     private String refreshToken;
 
-    @Column(nullable = false)
+    @Column(name = "issued_at", nullable = false)
     private LocalDateTime issuedAt;
 
-    @Column(nullable = false)
+    @Column(name = "expires_at", nullable = false)
     private LocalDateTime expiresAt;
 
-    @Column(nullable = false)
+    @Column(name = "refresh_expires_at", nullable = false)
     private LocalDateTime refreshExpiresAt;
 }
