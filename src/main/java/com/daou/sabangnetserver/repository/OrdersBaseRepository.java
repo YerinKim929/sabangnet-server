@@ -1,0 +1,7 @@
+package com.daou.sabangnetserver.repository;
+
+import com.daou.sabangnetserver.model.OrdersBase;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface OrdersBaseRepository extends JpaRepository<OrdersBase, Integer> {
+}
