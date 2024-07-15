@@ -26,7 +26,7 @@ public class AuthController {
     //현재 시각과 만료 시각 비교하여 토큰 자동 검증
     //토큰 갱신 및 발급 자동화
     @PostMapping("/tokens/{sellerNo}")
-    public ResponseEntity<TokenResponseDto> autoValidateTokens(@PathVariable String sellerNo) {
+    public ResponseEntity<TokenResponseDto> autoValidateTokens(@PathVariable int sellerNo) {
         TokenRequestDto request = new TokenRequestDto(apiKey, sltnCd);
         TokenResponseDto tokenResponse = authService.validateAndRefreshTokens(request, sellerNo);
         return ResponseEntity.ok(tokenResponse);

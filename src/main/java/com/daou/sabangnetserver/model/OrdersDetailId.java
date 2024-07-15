@@ -19,6 +19,6 @@ public class OrdersDetailId implements Serializable {
     private int ordPrdNo;
 
     @Column(name = "ord_no")
-    private int ordNo;
+    private Long ordNo;
 }
 

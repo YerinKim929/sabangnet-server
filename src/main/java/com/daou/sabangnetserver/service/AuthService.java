@@ -28,8 +28,8 @@ public class AuthService {
 
     // 토큰 검증 함수
     // 토큰 유효기간 판단 후 작업 수행 1) 토큰 발급 , 2) 토큰 갱신
-    public TokenResponseDto validateAndRefreshTokens(TokenRequestDto request, String sellerNo) {
-        Integer sellerNumber = Integer.parseInt(sellerNo);
+    public TokenResponseDto validateAndRefreshTokens(TokenRequestDto request, int sellerNo) {
+        Integer sellerNumber = sellerNo;
         Optional<Tokens> existingTokensOpt = tokensRepository.findById(sellerNumber);
 
         // 토큰 값이 테이블 내에 존재할 시,
@@ -65,7 +65,7 @@ public class AuthService {
     // 토큰이 테이블에 없거나 모든 토큰이 유효기간이 지났을 때, 새로 발급된 토큰을 DB에 저장하는 메소드
     // requestNewTokens 메소드를 통해 새로운 토큰을 발급한다.
     private TokenResponseDto createAndSaveOrUpdateTokens(TokenRequestDto request, Integer sellerNumber) {
-        TokenResponseDto newTokensResponse = requestNewTokens(request, sellerNumber.toString());
+        TokenResponseDto newTokensResponse = requestNewTokens(request, sellerNumber);
         Optional<Tokens> existingTokensOpt = tokensRepository.findById(sellerNumber);
         Tokens tokens;
 
@@ -101,7 +101,7 @@ public class AuthService {
     }
 
     // AccessToken을 발급받는 메소드 (Refresh Token 사용)
-    private TokenResponseDto requestNewAccessToken(String sellerNo, String refreshToken) {
+    private TokenResponseDto requestNewAccessToken(int sellerNo, String refreshToken) {
         String url = String.format("%s/openapi/v2/seller/%s/account/tokens/refresh", baseUrl, sellerNo);
 
         // 요청 Http 객체 선언
@@ -120,7 +120,7 @@ public class AuthService {
     }
 
     // 토큰 자체를 새로 발급 받는 메소드
-    private TokenResponseDto requestNewTokens(TokenRequestDto request, String sellerNo) {
+    private TokenResponseDto requestNewTokens(TokenRequestDto request, int sellerNo) {
         String url = String.format("%s/openapi/v2/seller/%s/account/tokens/create", baseUrl, sellerNo);
 
         // 요청 Http 객체 선언
