@@ -1,6 +1,7 @@
 package com.daou.sabangnetserver.model;
 
 import com.daou.sabangnetserver.model.OrdersDetail;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,5 +41,6 @@ public class OrdersBase {
     private LocalDateTime ordCollectDttm;
 
     @OneToMany(mappedBy = "ordersBase", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<OrdersDetail> ordersDetail;
 }

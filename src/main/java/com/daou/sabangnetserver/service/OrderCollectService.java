@@ -12,7 +12,6 @@ import com.daou.sabangnetserver.repository.OrdersDetailRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.extern.slf4j.Slf4j;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -165,5 +164,7 @@ public class OrderCollectService {
             }
         }
     }
+
+
 }
 

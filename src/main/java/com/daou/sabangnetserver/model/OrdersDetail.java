@@ -1,6 +1,7 @@
 package com.daou.sabangnetserver.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,6 +22,7 @@ public class OrdersDetail {
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("ordNo")
     @JoinColumn(name = "ord_no", nullable = false)
+    @JsonBackReference
     private OrdersBase ordersBase;
 
     @Column(name = "prd_nm", nullable = false)
