@@ -80,7 +80,7 @@ public class OrderCollectService {
 
         // 불러온 주문 목록을 테이블 저장하는 함수 (빈데이터 예외 처리)
         if (response.getBody() != null && response.getBody().getResponse() != null) {
-            saveOrders(response.getBody().getResponse().getListElements());
+            saveOrders(response.getBody().getResponse().getListElements(),sellerNo);
         }
     }
 
@@ -109,6 +109,7 @@ public class OrderCollectService {
                 uri, HttpMethod.GET, entity, String.class); // 응답 String으로 받음
 
 
+
         // JSON 객체를 DTO로 변환
         ObjectMapper mapper = new ObjectMapper();
         OrderApiResponse orderApiResponse = null;
@@ -124,7 +125,7 @@ public class OrderCollectService {
 
 
     // 불러온 주문 목록을 테이블 저장하는 함수
-    private void saveOrders(List<OrderApiResponseBase> orders) {
+    private void saveOrders(List<OrderApiResponseBase> orders, int sellerNo) {
 
         // OrderApiResponseBase에 속하는 주문 하나하나 마다 반복
         for (OrderApiResponseBase order : orders) {
@@ -141,7 +142,7 @@ public class OrderCollectService {
             ordersBase.setRcvrNm(order.getRcvrNm());
             ordersBase.setRcvrAddr(order.getRcvrBaseAddr() + " " + order.getRcvrDtlsAddr());
             ordersBase.setRcvrMphnNo(order.getRcvrMphnNo());
-            ordersBase.setSellerNo(order.getSellerNo());
+            ordersBase.setSellerNo(sellerNo);
             ordersBase.setOrdCollectDttm(LocalDateTime.parse(LocalDateTime.now().format(DATE_TIME_FORMATTER),DATE_TIME_FORMATTER));
 
             // ordersBase 테이블에 데이터 저장
