@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -18,87 +17,119 @@ import java.util.Optional;
 @Service
 public class AuthService {
 
+    // 토큰 데이터 저장을 위한 tokensRepository DI
     @Autowired
     private TokensRepository tokensRepository;
 
+    // 환경 변수 값 불러오기
     @Value("${external.api.base-url}")
-    private String baseUrl;
+    private String baseUrl; // 기본 url
 
+    // RestTemplate 인스턴스 생성
     private final RestTemplate restTemplate = new RestTemplate();
 
     // 토큰 검증 함수
-    // 토큰 유효기간 판단 후 작업 수행 1) 토큰 발급 , 2) 토큰 갱신
+    // 토큰 유효기간 판단 후 작업 수행 (토큰 갱신/발급)
     public TokenResponseDto validateAndRefreshTokens(TokenRequestDto request, int sellerNo) {
-        Integer sellerNumber = sellerNo;
-        Optional<Tokens> existingTokensOpt = tokensRepository.findById(sellerNumber);
 
-        // 토큰 값이 테이블 내에 존재할 시,
+        Optional<Tokens> existingTokensOpt = tokensRepository.findById(sellerNo);
+
+        // sellerNo 기준 토큰 데이터가 테이블 내에 존재할 시,
         if (existingTokensOpt.isPresent()) {
             Tokens existingTokens = existingTokensOpt.get(); // 토큰 객체 받기
             LocalDateTime now = LocalDateTime.now(); // 현재시간 받기
 
-            // 현재 시각이 access token의 유효기간 이전 일 때, 테이블 내 토큰 반환
-            if (now.isBefore(existingTokens.getExpiresAt())) {
-                log.info("토큰이 유효합니다. Access Token: {}", existingTokens.getAccessToken());
-                return new TokenResponseDto(existingTokens.getAccessToken(), existingTokens.getRefreshToken());
+            // 현재 시각 기준 accessToken이 유효하면, 테이블 내 토큰 반환
+            if (isAccessTokenValid(existingTokens, now)) {
+                return returnExistingTokens(existingTokens);
             }
 
-            // 현재 시각이 Refresh token의 유효기간 이전 일 때, access token 새로 발급
-            else if (now.isBefore(existingTokens.getRefreshExpiresAt())) {
-                log.info("엑세스 토큰이 만료되었습니다. 새로운 엑세스 토큰을 요청합니다.");
-                // requestNewAccessToken 메소드 실행하여 새로운 토큰 값 받기
-                // 토큰 값을 현재 테이블 속 토큰으로 대체 및 DB 저장
-                TokenResponseDto newAccessTokenResponse = requestNewAccessToken(sellerNo, existingTokens.getRefreshToken());
-                updateToken(existingTokens, newAccessTokenResponse);
-                tokensRepository.save(existingTokens);
-
-                log.info("새로운 엑세스 토큰이 발급되었습니다. Access Token: {}", newAccessTokenResponse.getAccessToken());
-                return newAccessTokenResponse;
+            // 현재 시각 기준 accessToken이 만료되고 RefreshToken이 유효하면, accessToken 새로 발급
+            if (isRefreshTokenValid(existingTokens, now)) {
+                return refreshAccessToken(existingTokens, sellerNo);
             }
         }
-        // 토큰이 테이블에 없거나 모든 토큰이 유효기간이 지났을 때, 새로운 토큰 발급
-        // createAndSaveOrUpdateTokens 메소드 실행하여 새로운 토큰 값 받기
-        log.info("토큰 정보가 없거나 리프레시 토큰이 만료되었습니다. 새로운 토큰을 요청합니다.");
-        return createAndSaveOrUpdateTokens(request, sellerNumber);
+        // 현재 시각 기준 accessToken 및 RefreshToken이 만료되면 토큰 새로 발급
+        // 또는, 테이블 내 사용자 토큰 정보 없을 시 토큰 새로 발급
+        return createAndSaveNewTokens(request, sellerNo);
     }
 
-    // 토큰이 테이블에 없거나 모든 토큰이 유효기간이 지났을 때, 새로 발급된 토큰을 DB에 저장하는 메소드
-    // requestNewTokens 메소드를 통해 새로운 토큰을 발급한다.
-    private TokenResponseDto createAndSaveOrUpdateTokens(TokenRequestDto request, Integer sellerNumber) {
+
+    // Access Token이 유효한지 검사
+    private boolean isAccessTokenValid(Tokens tokens, LocalDateTime now) {
+        return now.isBefore(tokens.getExpiresAt());
+    }
+
+    // Refresh Token이 유효한지 검사
+    private boolean isRefreshTokenValid(Tokens tokens, LocalDateTime now) {
+        return now.isBefore(tokens.getRefreshExpiresAt());
+    }
+
+    //테이블 내 토큰 반환
+    private TokenResponseDto returnExistingTokens(Tokens tokens) {
+        log.info("토큰이 유효합니다. Access Token: {}", tokens.getAccessToken());
+        return new TokenResponseDto(tokens.getAccessToken(), tokens.getRefreshToken());
+    }
+
+    // Access Token 갱신
+    private TokenResponseDto refreshAccessToken(Tokens tokens, int sellerNo) {
+        log.info("엑세스 토큰이 만료되었습니다. 새로운 엑세스 토큰을 요청합니다.");
+
+        TokenResponseDto newAccessTokenResponse = requestNewAccessToken(sellerNo, tokens.getRefreshToken());
+        updateToken(tokens, newAccessTokenResponse);
+
+        log.info("새로운 엑세스 토큰이 발급되었습니다. Access Token: {}", newAccessTokenResponse.getAccessToken());
+        return newAccessTokenResponse;
+    }
+
+
+    // 새로운 토큰 발급 및 저장
+    private TokenResponseDto createAndSaveNewTokens(TokenRequestDto request, Integer sellerNumber) {
+        log.info("토큰 정보가 없거나 리프레시 토큰이 만료되었습니다. 새로운 토큰을 요청합니다.");
+
         TokenResponseDto newTokensResponse = requestNewTokens(request, sellerNumber);
-        Optional<Tokens> existingTokensOpt = tokensRepository.findById(sellerNumber);
-        Tokens tokens;
+        saveOrUpdateTokens(newTokensResponse, sellerNumber);
 
-        // 토큰에 값이 존재하면, updateToken 메소드를 통해 토큰 업데이트
-        if (existingTokensOpt.isPresent()) {
-            tokens = existingTokensOpt.get();
-            updateToken(tokens, newTokensResponse);
-        } else { // 토큰이 테이블에 없다면 builder를 통해 초기 값 세팅
-            tokens = Tokens.builder()
-                    .sellerNo(sellerNumber)
-                    .accessToken(newTokensResponse.getAccessToken())
-                    .refreshToken(newTokensResponse.getRefreshToken())
-                    .issuedAt(LocalDateTime.now())
-                    .expiresAt(LocalDateTime.now().plusHours(3))
-                    .refreshExpiresAt(LocalDateTime.now().plusDays(1))
-                    .build();
-        }
-
-        // 토큰 테이블 삽입
-        tokensRepository.save(tokens);
-
-        log.info("새로운 토큰이 발급되었습니다. Access Token: {}, Refresh Token: {}", newTokensResponse.getAccessToken(), newTokensResponse.getRefreshToken());
         return newTokensResponse;
     }
 
-    // 토큰 관련 값 테이블 최신화
+
+    // 토큰이 테이블에 없거나 모든 토큰이 유효기간이 지났을 때, 새로 발급된 토큰을 DB에 저장하는 메소드
+    private void saveOrUpdateTokens(TokenResponseDto newTokensResponse, Integer sellerNumber) {
+
+        Optional<Tokens> existingTokensOpt = tokensRepository.findById(sellerNumber);
+
+        if (existingTokensOpt.isPresent()) {
+            Tokens existingTokens = existingTokensOpt.get();
+            updateToken(existingTokens, newTokensResponse);
+        } else {
+            saveNewToken(newTokensResponse, sellerNumber);
+        }
+    }
+
+    // 새로운 토큰 저장
+    private void saveNewToken(TokenResponseDto newTokensResponse, Integer sellerNumber) {
+        Tokens newTokens = Tokens.builder()
+                .sellerNo(sellerNumber)
+                .accessToken(newTokensResponse.getAccessToken())
+                .refreshToken(newTokensResponse.getRefreshToken())
+                .issuedAt(LocalDateTime.now())
+                .expiresAt(LocalDateTime.now().plusHours(3))
+                .refreshExpiresAt(LocalDateTime.now().plusDays(1))
+                .build();
+        tokensRepository.save(newTokens);
+    }
+
+    // 새로운 토큰 데이터로 테이블 최신화
     private void updateToken(Tokens tokens, TokenResponseDto tokenResponse) {
         tokens.setAccessToken(tokenResponse.getAccessToken());
         tokens.setRefreshToken(tokenResponse.getRefreshToken());
         tokens.setIssuedAt(LocalDateTime.now());
         tokens.setExpiresAt(LocalDateTime.now().plusHours(3));
         tokens.setRefreshExpiresAt(LocalDateTime.now().plusDays(1));
+        tokensRepository.save(tokens);
     }
+
 
     // AccessToken을 발급받는 메소드 (Refresh Token 사용)
     private TokenResponseDto requestNewAccessToken(int sellerNo, String refreshToken) {
