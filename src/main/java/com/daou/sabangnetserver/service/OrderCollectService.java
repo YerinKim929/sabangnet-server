@@ -12,6 +12,7 @@ import com.daou.sabangnetserver.repository.OrdersDetailRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.extern.slf4j.Slf4j;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -26,6 +27,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Iterator;
 import java.util.List;
 
 @Slf4j
@@ -74,7 +76,7 @@ public class OrderCollectService {
         String accessToken = tokenResponse.getAccessToken();
 
         // 주문 목록 조회하는 함수
-        ResponseEntity<OrderApiResponse> response = fetchOrders(startDate, endDate, status, accessToken);
+        ResponseEntity<OrderApiResponse> response = fetchOrders(sellerNo, startDate, endDate, status, accessToken);
 
         // 불러온 주문 목록을 테이블 저장하는 함수 (빈데이터 예외 처리)
         if (response.getBody() != null && response.getBody().getResponse() != null) {
@@ -84,11 +86,12 @@ public class OrderCollectService {
 
 
     // 타다닥 API에서 주문 목록 결과 받아오는 함수
-    public ResponseEntity<OrderApiResponse> fetchOrders(String startDate, String endDate, String status, String accessToken) {
+    public ResponseEntity<OrderApiResponse> fetchOrders(int sellerNo, String startDate, String endDate, String status, String accessToken) {
 
         // 파라미터 삽입하여 URL 작성
         String sumUrl = baseUrl + orderUrl;
-        URI uri = UriComponentsBuilder.fromHttpUrl(sumUrl)
+        String sellerOrderUrl = sumUrl.replace("sellerNo", String.valueOf(sellerNo));
+        URI uri = UriComponentsBuilder.fromHttpUrl(sellerOrderUrl)
                 .queryParam("ordDtFrom", startDate)
                 .queryParam("ordDtTo", endDate)
                 .queryParam("siteCd", siteCd)
@@ -106,12 +109,14 @@ public class OrderCollectService {
         ResponseEntity<String> response = restTemplate.exchange(
                 uri, HttpMethod.GET, entity, String.class); // 응답 String으로 받음
 
+        // String으로 받은 Response를 JSON 객체로 변환
+        JSONObject jsonResponse = new JSONObject(response.getBody());
 
-        // String 응답을 DTO로 변환
+        // JSON 객체를 DTO로 변환
         ObjectMapper mapper = new ObjectMapper();
         OrderApiResponse orderApiResponse = null;
         try {
-            orderApiResponse = mapper.readValue(response.getBody(), OrderApiResponse.class);
+            orderApiResponse = mapper.readValue(jsonResponse.toString(), OrderApiResponse.class);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
