@@ -84,7 +84,6 @@ public class OrderCollectService {
         }
     }
 
-
     // 타다닥 API에서 주문 목록 결과 받아오는 함수
     public ResponseEntity<OrderApiResponse> fetchOrders(int sellerNo, String startDate, String endDate, String status, String accessToken) {
 
@@ -109,14 +108,12 @@ public class OrderCollectService {
         ResponseEntity<String> response = restTemplate.exchange(
                 uri, HttpMethod.GET, entity, String.class); // 응답 String으로 받음
 
-        // String으로 받은 Response를 JSON 객체로 변환
-        JSONObject jsonResponse = new JSONObject(response.getBody());
 
         // JSON 객체를 DTO로 변환
         ObjectMapper mapper = new ObjectMapper();
         OrderApiResponse orderApiResponse = null;
         try {
-            orderApiResponse = mapper.readValue(jsonResponse.toString(), OrderApiResponse.class);
+            orderApiResponse = mapper.readValue(response.getBody(), OrderApiResponse.class);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
