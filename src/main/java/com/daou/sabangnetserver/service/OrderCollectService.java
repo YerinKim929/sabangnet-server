@@ -32,51 +32,62 @@ import java.util.List;
 @Service
 public class OrderCollectService {
 
+    // 토큰 발급을 위한 AuthService DI
     @Autowired
     private AuthService authService;
 
+    // 주문조회 데이터 저장을 위한 ordersBaseRepository DI
     @Autowired
     private OrdersBaseRepository ordersBaseRepository;
     @Autowired
     private OrdersDetailRepository ordersDetailRepository;
 
-    private final RestTemplate restTemplate = new RestTemplate();
-
+    // 환경 변수 값 불러오기
     @Value("${external.api.base-url}")
-    private String baseUrl;
+    private String baseUrl; // 기본 url
 
     @Value("${external.api.order-url}")
-    private String orderUrl;
+    private String orderUrl; // 주소 url
 
     @Value("${apiKey.no}")
-    private String apiKey;
+    private String apiKey; // apikey
 
     @Value("${sltnCd.no}")
-    private String sltnCd;
+    private String sltnCd; // 인증값
 
     @Value("${siteCd.no}")
-    private String siteCd;
+    private String siteCd; // 사이트 코드
 
+    // Datetime 형식 Format
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 
-    // 주문 데이터를 외부 API로부터 가져와서 데이터베이스에 저장하는 함수
+    // RestTemplate 인스턴스 생성
+    private final RestTemplate restTemplate = new RestTemplate();
+
+
+    // 주문 데이터를 타다닥 API로부터 가져와서 데이터베이스에 저장하는 함수
     public void fetchAndSaveOrders(int sellerNo, String startDate, String endDate, String status) {
 
+        // 토큰 값 받기
         TokenRequestDto tokenRequest = new TokenRequestDto(apiKey, sltnCd);
         TokenResponseDto tokenResponse = authService.validateAndRefreshTokens(tokenRequest, sellerNo);
         String accessToken = tokenResponse.getAccessToken();
 
+        // 주문 목록 조회하는 함수
         ResponseEntity<OrderApiResponse> response = fetchOrders(startDate, endDate, status, accessToken);
 
+        // 불러온 주문 목록을 테이블 저장하는 함수 (빈데이터 예외 처리)
         if (response.getBody() != null && response.getBody().getResponse() != null) {
             saveOrders(response.getBody().getResponse().getListElements());
         }
     }
 
-    // 타다닥 API에서 결과 받아오는 함수
-    public ResponseEntity<OrderApiResponse> fetchOrders(String startDate, String endDate, String status, String accessToken) {
-        String sumUrl = baseUrl + orderUrl;
 
+    // 타다닥 API에서 주문 목록 결과 받아오는 함수
+    public ResponseEntity<OrderApiResponse> fetchOrders(String startDate, String endDate, String status, String accessToken) {
+
+        // 파라미터 삽입하여 URL 작성
+        String sumUrl = baseUrl + orderUrl;
         URI uri = UriComponentsBuilder.fromHttpUrl(sumUrl)
                 .queryParam("ordDtFrom", startDate)
                 .queryParam("ordDtTo", endDate)
@@ -84,16 +95,16 @@ public class OrderCollectService {
                 .queryParam("status", status)
                 .build()
                 .toUri();
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", accessToken);
-
-        HttpEntity<String> entity = new HttpEntity<>("", headers);
-
         log.info("요청 URI : " + uri);
 
+        // Http Request
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", accessToken);
+        HttpEntity<String> entity = new HttpEntity<>("", headers);
+
+        // Http Response
         ResponseEntity<String> response = restTemplate.exchange(
-                uri, HttpMethod.GET, entity, String.class); // 응답을 String으로 받아 디버깅
+                uri, HttpMethod.GET, entity, String.class); // 응답 String으로 받음
 
 
         // String 응답을 DTO로 변환
@@ -105,18 +116,23 @@ public class OrderCollectService {
             e.printStackTrace();
         }
 
+        // 타다닥 API 주문조회 Response 반환
         return new ResponseEntity<>(orderApiResponse, response.getStatusCode());
     }
 
 
-    // 테이블에 저장하는 함수
+    // 불러온 주문 목록을 테이블 저장하는 함수
     private void saveOrders(List<OrderApiResponseBase> orders) {
 
+        // OrderApiResponseBase에 속하는 주문 하나하나 마다 반복
         for (OrderApiResponseBase order : orders) {
+
+            // 중복 예외 처리
             if (ordersBaseRepository.existsById(order.getOrdNo())) {
                 continue;
             }
 
+            // ordersBase 테이블에 넣을 객체 생성
             OrdersBase ordersBase = new OrdersBase();
             ordersBase.setOrdNo(order.getOrdNo());
             ordersBase.setOrdDttm(LocalDateTime.parse(order.getOrdDttm(), DATE_TIME_FORMATTER));
@@ -126,16 +142,22 @@ public class OrderCollectService {
             ordersBase.setSellerNo(order.getSellerNo());
             ordersBase.setOrdCollectDttm(LocalDateTime.parse(LocalDateTime.now().format(DATE_TIME_FORMATTER),DATE_TIME_FORMATTER));
 
+            // ordersBase 테이블에 데이터 저장
             ordersBaseRepository.save(ordersBase);
 
+
+            // 주문 하나에 속하는 세부주문(OrderApiResponseDetail) 마다 반복
             for (OrderApiResponseDetail item : order.getOrderItems()) {
-                OrdersDetailId detailId = new OrdersDetailId(item.getOrdPrdNo(), item.getOrdNo());
+                OrdersDetailId detailId = new OrdersDetailId(item.getOrdPrdNo(), item.getOrdNo()); // 복합키 선언
+
+                // ordersDetail 테이블에 넣을 객체 생성
                 OrdersDetail ordersDetail = new OrdersDetail();
                 ordersDetail.setId(detailId);
                 ordersDetail.setOrdersBase(ordersBase);
                 ordersDetail.setPrdNm(item.getPrdNm());
                 ordersDetail.setOptVal(item.getOptVal());
 
+                // ordersDetail 테이블에 데이터 저장
                 ordersDetailRepository.save(ordersDetail);
             }
         }

@@ -5,8 +5,8 @@ import lombok.Data;
 
 import java.util.List;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
 @Data
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class OrderApiResponseListElements {
     private List<OrderApiResponseBase> listElements;
 }

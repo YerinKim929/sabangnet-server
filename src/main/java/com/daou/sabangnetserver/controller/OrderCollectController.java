@@ -15,9 +15,6 @@ public class OrderCollectController {
     @Autowired
     private OrderCollectService orderCollectService;
 
-    @Value("${sltnCd.no}")
-    private String sltnCd;
-
     @GetMapping("/order/{sellerNo}")
     public ResponseEntity<String> orderCollectData(
             @PathVariable int sellerNo,
