@@ -36,6 +36,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -174,9 +175,7 @@ public class OrderCollectService {
         }
     }
 
-    public List<OrdersBase> getOrderWithItems(int sellerNo) {
-        return ordersBaseRepository.findBySellerNo(sellerNo).orElseThrow(() -> new IllegalArgumentException("user doesn't exist"));
-    }
+
 
     @Transactional
     public void insertDummyData(String startDate, String endDate) {
@@ -215,4 +214,3 @@ public class OrderCollectService {
     }
 
 }
-
