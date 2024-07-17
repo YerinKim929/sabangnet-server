@@ -164,7 +164,9 @@ public class OrderCollectService {
             }
         }
     }
-
+    public List<OrdersBase> getOrdersBySellerNo(int sellerNo) {
+        return ordersBaseRepository.findBySellerNo(sellerNo);
+    }
 
 }
 
