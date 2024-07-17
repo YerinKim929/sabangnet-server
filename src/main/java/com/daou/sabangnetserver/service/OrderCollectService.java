@@ -118,7 +118,6 @@ public class OrderCollectService {
                 uri, HttpMethod.GET, entity, String.class); // 응답 String으로 받음
 
 
-
         // JSON 객체를 DTO로 변환
         ObjectMapper mapper = new ObjectMapper();
         OrderApiResponse orderApiResponse = null;
@@ -175,8 +174,6 @@ public class OrderCollectService {
         }
     }
 
-
-
     @Transactional
     public void insertDummyData(String startDate, String endDate) {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -212,5 +209,4 @@ public class OrderCollectService {
     public List<OrdersBase> getOrdersBySellerNo(int sellerNo) {
         return ordersBaseRepository.findBySellerNo(sellerNo);
     }
-
 }
