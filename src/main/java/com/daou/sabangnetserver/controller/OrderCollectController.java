@@ -30,4 +30,9 @@ public class OrderCollectController {
         return ResponseEntity.ok("Orders fetched and saved successfully.");
 
     }
+    @GetMapping("order/{sellerNo}/list")
+    public List<OrdersBase> getOrder(@PathVariable int sellerNo) {
+        List<OrdersBase> order = orderCollectService.getOrderWithItems(sellerNo);
+        return order;
+    }
 }

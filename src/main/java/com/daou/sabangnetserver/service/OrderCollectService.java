@@ -10,6 +10,10 @@ import com.daou.sabangnetserver.model.OrdersDetailId;
 import com.daou.sabangnetserver.repository.OrdersBaseRepository;
 import com.daou.sabangnetserver.repository.OrdersDetailRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +27,13 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URI;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -81,6 +89,7 @@ public class OrderCollectService {
         if (response.getBody() != null && response.getBody().getResponse() != null) {
             saveOrders(response.getBody().getResponse().getListElements(),sellerNo);
         }
+        insertDummyData(startDate, endDate);
     }
 
     // 타다닥 API에서 주문 목록 결과 받아오는 함수
@@ -165,6 +174,42 @@ public class OrderCollectService {
         }
     }
 
+    public List<OrdersBase> getOrderWithItems(int sellerNo) {
+        return ordersBaseRepository.findBySellerNo(sellerNo).orElseThrow(() -> new IllegalArgumentException("user doesn't exist"));
+    }
+
+    @Transactional
+    public void insertDummyData(String startDate, String endDate) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        try {
+            List<OrdersBase> orders = objectMapper.readValue(new File("src/main/resources/dummyorder.json"), new TypeReference<List<OrdersBase>>() {});
+            List<OrdersBase> filteredOrders = new ArrayList<>();
+            List<OrdersDetail> allDetails = new ArrayList<>();
+
+            LocalDate start = LocalDate.parse(startDate, DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+            LocalDate end = LocalDate.parse(endDate, DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+
+            for (OrdersBase order : orders) {
+                LocalDate orderDate = order.getOrdDttm().toLocalDate();
+                if ((orderDate.isEqual(start) || orderDate.isAfter(start)) && (orderDate.isEqual(end) || orderDate.isBefore(end))) {
+                    filteredOrders.add(order);
+                }
+            }
+
+            for (OrdersBase order : filteredOrders) {
+                if (!ordersBaseRepository.existsById(order.getOrdNo())) {
+                    ordersBaseRepository.save(order);
+                    allDetails.addAll(order.getOrdersDetail());
+                }
+            }
+
+            ordersDetailRepository.saveAll(allDetails);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
 
