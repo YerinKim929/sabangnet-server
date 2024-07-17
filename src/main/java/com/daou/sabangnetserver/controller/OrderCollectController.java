@@ -18,6 +18,8 @@ public class OrderCollectController {
     @Autowired
     private OrderCollectService orderCollectService;
 
+
+
     @GetMapping("/order/{sellerNo}")
     public ResponseEntity<String> orderCollectData(
             @PathVariable int sellerNo,
@@ -28,11 +30,12 @@ public class OrderCollectController {
         orderCollectService.fetchAndSaveOrders(sellerNo, startDate, endDate, status);
 
         return ResponseEntity.ok("Orders fetched and saved successfully.");
+    }
 
+    @GetMapping("/order/{sellerNo}/list")
+    public ResponseEntity<List<OrdersBase>> getOrderList(@PathVariable int sellerNo) {
+        List<OrdersBase> ordersList = orderCollectService.getOrdersBySellerNo(sellerNo);
+        return ResponseEntity.ok(ordersList);
     }
-    @GetMapping("order/{sellerNo}/list")
-    public List<OrdersBase> getOrder(@PathVariable int sellerNo) {
-        List<OrdersBase> order = orderCollectService.getOrderWithItems(sellerNo);
-        return order;
-    }
+
 }

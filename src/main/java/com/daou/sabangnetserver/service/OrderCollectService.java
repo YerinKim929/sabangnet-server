@@ -210,6 +210,9 @@ public class OrderCollectService {
             e.printStackTrace();
         }
     }
+    public List<OrdersBase> getOrdersBySellerNo(int sellerNo) {
+        return ordersBaseRepository.findBySellerNo(sellerNo);
+    }
 
 }
 
