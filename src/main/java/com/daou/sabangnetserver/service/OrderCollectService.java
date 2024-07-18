@@ -4,6 +4,7 @@ import com.daou.sabangnetserver.dto.*;
 import com.daou.sabangnetserver.dto.order.OrderApiResponse;
 import com.daou.sabangnetserver.dto.order.OrderApiResponseBase;
 import com.daou.sabangnetserver.dto.order.OrderApiResponseDetail;
+import com.daou.sabangnetserver.dto.order.OrderRequestDto;
 import com.daou.sabangnetserver.model.OrdersBase;
 import com.daou.sabangnetserver.model.OrdersDetail;
 import com.daou.sabangnetserver.model.OrdersDetailId;
@@ -34,9 +35,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Service
@@ -76,7 +75,12 @@ public class OrderCollectService {
 
 
     // 주문 데이터를 타다닥 API로부터 가져와서 데이터베이스에 저장하는 함수
-    public void fetchAndSaveOrders(int sellerNo, String startDate, String endDate, String status) {
+    public void fetchAndSaveOrders(OrderRequestDto orderRequestDto) {
+
+        int sellerNo = orderRequestDto.getSellerNo();
+        String startDate = orderRequestDto.getStartDate();
+        String endDate = orderRequestDto.getEndDate();
+        String status = orderRequestDto.getStatus();
 
         // 토큰 값 받기
         TokenRequestDto tokenRequest = new TokenRequestDto(apiKey, sltnCd);
