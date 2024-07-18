@@ -19,11 +19,12 @@ public class TableController {
     private TableService tableService;
 
     @GetMapping("/table")
-    public ResponseEntity<List<TableOrdersBaseDto>> getPagenation(@RequestParam("currentPage") int currentPage) {
-        List<TableOrdersBaseDto> ordersList = tableService.getPagenation(currentPage);
+    public ResponseEntity<List<TableOrdersBaseDto>> getPagination(@RequestParam("currentPage") int currentPage) {
+        List<TableOrdersBaseDto> ordersList = tableService.getPagination(currentPage);
 
         // 로그에 페이지 호출 완료 메시지 출력
         log.info("{} 페이지 호출 완료", currentPage);
         return ResponseEntity.ok(ordersList);
     }
+
 }

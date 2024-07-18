@@ -30,7 +30,7 @@ public class TableService {
     private OrdersDetailRepository ordersDetailRepository;
 
     // 특정 페이지에 따라 페이지네이션을 한 데이터 반환
-    public List<TableOrdersBaseDto> getPagenation(int page) {
+    public List<TableOrdersBaseDto> getPagination(int page) {
 
         // 페이지당 데이터 수
         int pageSize = 10;

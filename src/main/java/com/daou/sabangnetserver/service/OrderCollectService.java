@@ -99,9 +99,13 @@ public class OrderCollectService {
         // 파라미터 삽입하여 URL 작성
         String sumUrl = baseUrl + orderUrl;
         String sellerOrderUrl = sumUrl.replace("sellerNo", String.valueOf(sellerNo));
+
+        String newStartDate = startDate.replace("-", "/");
+        String newEndDate = endDate.replace("-", "/");
+
         URI uri = UriComponentsBuilder.fromHttpUrl(sellerOrderUrl)
-                .queryParam("ordDtFrom", startDate)
-                .queryParam("ordDtTo", endDate)
+                .queryParam("ordDtFrom", newStartDate)
+                .queryParam("ordDtTo", newEndDate)
                 .queryParam("siteCd", siteCd)
                 .queryParam("status", status)
                 .build()
@@ -174,6 +178,8 @@ public class OrderCollectService {
         }
     }
 
+
+
     @Transactional
     public void insertDummyData(String startDate, String endDate) {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -184,8 +190,8 @@ public class OrderCollectService {
             List<OrdersBase> filteredOrders = new ArrayList<>();
             List<OrdersDetail> allDetails = new ArrayList<>();
 
-            LocalDate start = LocalDate.parse(startDate, DateTimeFormatter.ofPattern("yyyy/MM/dd"));
-            LocalDate end = LocalDate.parse(endDate, DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+            LocalDate start = LocalDate.parse(startDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            LocalDate end = LocalDate.parse(endDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
             for (OrdersBase order : orders) {
                 LocalDate orderDate = order.getOrdDttm().toLocalDate();

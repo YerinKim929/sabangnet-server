@@ -18,24 +18,15 @@ public class OrderCollectController {
     @Autowired
     private OrderCollectService orderCollectService;
 
-
-
     @GetMapping("/order/{sellerNo}")
     public ResponseEntity<String> orderCollectData(
             @PathVariable int sellerNo,
-            @RequestParam("startDate") @DateTimeFormat(pattern = "yyyy/MM/dd") String startDate,
-            @RequestParam("endDate") @DateTimeFormat(pattern = "yyyy/MM/dd") String endDate,
+            @RequestParam("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") String startDate,
+            @RequestParam("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") String endDate,
             @RequestParam("status") String status) {
-
         orderCollectService.fetchAndSaveOrders(sellerNo, startDate, endDate, status);
 
         return ResponseEntity.ok("Orders fetched and saved successfully.");
-    }
-
-    @GetMapping("/order/{sellerNo}/list")
-    public ResponseEntity<List<OrdersBase>> getOrderList(@PathVariable int sellerNo) {
-        List<OrdersBase> ordersList = orderCollectService.getOrdersBySellerNo(sellerNo);
-        return ResponseEntity.ok(ordersList);
     }
 
 }
