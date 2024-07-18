@@ -116,6 +116,10 @@ public class TableService {
             ordersDetailDtos.get(i).setIndexAndRowspan(globalIndex.getAndIncrement(), rowspan);
         }
     }
+
+    public List<OrdersBase> getOrdersBySellerNo(int sellerNo) {
+        return ordersBaseRepository.findBySellerNo(sellerNo);
+    }
 }
 
 

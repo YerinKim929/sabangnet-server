@@ -34,7 +34,7 @@ public class TableController {
 
     @GetMapping("/order/{sellerNo}/list")
     public ResponseEntity<List<OrdersBase>> getOrderList(@PathVariable int sellerNo) {
-        List<OrdersBase> ordersList = orderCollectService.getOrdersBySellerNo(sellerNo);
+        List<OrdersBase> ordersList = tableService.getOrdersBySellerNo(sellerNo);
         return ResponseEntity.ok(ordersList);
     }
 }
