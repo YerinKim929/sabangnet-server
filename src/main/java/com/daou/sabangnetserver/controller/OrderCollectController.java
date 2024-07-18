@@ -32,10 +32,4 @@ public class OrderCollectController {
         return ResponseEntity.ok("Orders fetched and saved successfully.");
     }
 
-    @GetMapping("/order/{sellerNo}/list")
-    public ResponseEntity<List<OrdersBase>> getOrderList(@PathVariable int sellerNo) {
-        List<OrdersBase> ordersList = orderCollectService.getOrdersBySellerNo(sellerNo);
-        return ResponseEntity.ok(ordersList);
-    }
-
 }
