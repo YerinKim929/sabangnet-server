@@ -11,14 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
-import java.util.ArrayList;
-import java.util.Objects;
 
 @Slf4j
 @Service
@@ -74,6 +72,7 @@ public class TableService {
 
      // 그룹화된 주문 데이터를 반환할 DTO 형태로 변환
     private List<TableOrdersBaseDto> mapToTableOrdersBaseDto(Map<OrdersBase, List<OrdersDetail>> ordersBaseMap, int page) {
+        AtomicInteger globalIndex = new AtomicInteger(1);
 
         // entrySet()은 Map의 메서드로, Map에 있는 모든 키와 값을 Set<Map.Entry<K,V>> 형태로 반환
         // ordersBaseMap.entrySet().stream()은 각 엔트리를 순차적으로 처리할 수 있는 스트림을 반환
@@ -95,6 +94,8 @@ public class TableService {
                     .map(TableOrdersDetailDto::new)
                     .collect(Collectors.toList());
 
+            // 인덱스,rowspan 계산
+            setIndexAndRowspanForOrder(ordersDetailDtos, globalIndex);
             // 앞서 만든 ordersDetailDtos를 ordersBaseDto에 할당
             ordersBaseDto.setOrdersDetail(ordersDetailDtos);
 
@@ -104,47 +105,17 @@ public class TableService {
         }).collect(Collectors.toList()); // ordersBaseDto 객체를 리스트로 collect
     }
 
-    private int[] calRowspanAndIndex(List<OrdersBase> ordersList) {
 
-        if (ordersList == null || ordersList.isEmpty()) {
-            return new int[0]; // 데이터가 없으면 빈 배열 반환
+
+    // index와 rowspan을 설정하는 메소드
+    private void setIndexAndRowspanForOrder(List<TableOrdersDetailDto> ordersDetailDtos, AtomicInteger globalIndex) {
+        int n = ordersDetailDtos.size();
+        for (int i = 0; i < n; i++) {
+            // 첫 번째 항목의 rowspan은 리스트의 크기로 설정
+            int rowspan = (i == 0) ? n : 0;
+            ordersDetailDtos.get(i).setIndexAndRowspan(globalIndex.getAndIncrement(), rowspan);
         }
-
-        //결과 저장 정수 리스트
-        List<Integer> idxSpansArray = new ArrayList<>();
-        int currentIndex = 1;
-        int currentRowspan = 1;
-        Long currentOrdNo = null;
-
-        //주문목록 순회
-        for (OrdersBase order : ordersList ) {
-            //주문 번호가 다르거나 첫 번째 항목일 경우
-            if(currentOrdNo == null || !Objects.equals(currentOrdNo, order.getOrdNo())) {
-                if(currentOrdNo != null) {
-                    idxSpansArray.add(currentRowspan);
-                    idxSpansArray.add(currentIndex);
-                    currentIndex++;
-                }
-                currentOrdNo = order.getOrdNo();
-                currentRowspan = 1;
-            }
-            // 주문 번호가 같다면
-            else {
-                currentRowspan++;
-            }
-
-        }
-
-        // 마지막 주문 항목에 대한 번호 추가
-        idxSpansArray.add(currentRowspan);
-        idxSpansArray.add(currentIndex);
-
-        return idxSpansArray.stream().mapToInt(Integer::intValue).toArray();
     }
-
-
-
-
 }
 
 

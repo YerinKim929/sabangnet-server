@@ -5,17 +5,21 @@ import lombok.Data;
 
 @Data
 public class TableOrdersDetailDto {
-    //private int index;
+    private int index;
     private int ordPrdNo;
     private String prdNm;
     private String optVal;
-    //private int rowspan;
+    private int rowspan;
 
     public TableOrdersDetailDto(OrdersDetail ordersDetail) {
-       // this.index = index;
         this.ordPrdNo = ordersDetail.getId().getOrdPrdNo();
         this.prdNm = ordersDetail.getPrdNm();
         this.optVal = ordersDetail.getOptVal();
-       // this.rowspan = rowspan;
+    }
+
+    // index와 rowspan을 설정하는 메소드
+    public void setIndexAndRowspan(int index, int rowspan) {
+        this.index = index;
+        this.rowspan = rowspan;
     }
 }
