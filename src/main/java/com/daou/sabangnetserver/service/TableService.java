@@ -11,16 +11,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import java.util.ArrayList;
+import java.util.Objects;
 
 @Slf4j
 @Service
 public class TableService {
 
+    // 주문조회 데이터 저장을 위한 ordersBaseRepository DI
     @Autowired
     private OrdersBaseRepository ordersBaseRepository;
 
@@ -99,6 +103,48 @@ public class TableService {
 
         }).collect(Collectors.toList()); // ordersBaseDto 객체를 리스트로 collect
     }
+
+    private int[] calRowspanAndIndex(List<OrdersBase> ordersList) {
+
+        if (ordersList == null || ordersList.isEmpty()) {
+            return new int[0]; // 데이터가 없으면 빈 배열 반환
+        }
+
+        //결과 저장 정수 리스트
+        List<Integer> idxSpansArray = new ArrayList<>();
+        int currentIndex = 1;
+        int currentRowspan = 1;
+        Long currentOrdNo = null;
+
+        //주문목록 순회
+        for (OrdersBase order : ordersList ) {
+            //주문 번호가 다르거나 첫 번째 항목일 경우
+            if(currentOrdNo == null || !Objects.equals(currentOrdNo, order.getOrdNo())) {
+                if(currentOrdNo != null) {
+                    idxSpansArray.add(currentRowspan);
+                    idxSpansArray.add(currentIndex);
+                    currentIndex++;
+                }
+                currentOrdNo = order.getOrdNo();
+                currentRowspan = 1;
+            }
+            // 주문 번호가 같다면
+            else {
+                currentRowspan++;
+            }
+
+        }
+
+        // 마지막 주문 항목에 대한 번호 추가
+        idxSpansArray.add(currentRowspan);
+        idxSpansArray.add(currentIndex);
+
+        return idxSpansArray.stream().mapToInt(Integer::intValue).toArray();
+    }
+
+
+
+
 }
 
 
