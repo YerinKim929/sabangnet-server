@@ -196,10 +196,13 @@ public class OrderCollectService {
 
             LocalDate start = LocalDate.parse(startDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             LocalDate end = LocalDate.parse(endDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            LocalDateTime now = LocalDateTime.now();
+            String nowFormatted = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"));
 
             for (OrdersBase order : orders) {
                 LocalDate orderDate = order.getOrdDttm().toLocalDate();
                 if ((orderDate.isEqual(start) || orderDate.isAfter(start)) && (orderDate.isEqual(end) || orderDate.isBefore(end))) {
+                    order.setOrdCollectDttm(LocalDateTime.parse(nowFormatted));
                     filteredOrders.add(order);
                 }
             }
