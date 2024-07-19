@@ -128,24 +128,6 @@ public class TableService {
     public List<OrdersBase> getOrdersBySellerNo(int sellerNo) {
         return ordersBaseRepository.findBySellerNo(sellerNo);
     }
-
-    public void printAllPagesOrderNumbers() {
-        int page = 0;
-        int pageSize = 10;
-        Page<OrdersDetail> ordersDetailPage;
-
-        do {
-            PageRequest pageRequest = PageRequest.of(page, pageSize);
-            ordersDetailPage = getOrdersDetailPage(pageRequest);
-
-            log.info("Page: {}", page);
-            ordersDetailPage.getContent().forEach(orderDetail -> {
-                log.info("Order No: {}", orderDetail.getOrdersBase().getOrdNo());
-            });
-
-            page++;
-        } while (ordersDetailPage.hasNext());
-    }
 }
 
 
