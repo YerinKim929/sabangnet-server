@@ -12,6 +12,8 @@ public interface OrdersDetailRepository extends JpaRepository<OrdersDetail, Orde
 
     // OrdersDetail 데이터를 ordersBase와 함께 가져오는 JPQL 쿼리
     // 페이징 요청 정보를 받아 Page<OrdersDetail> 타입의 결과를 반환
-    @Query("SELECT od FROM OrdersDetail od JOIN FETCH od.ordersBase")
+    @Query("SELECT od FROM OrdersDetail od JOIN FETCH od.ordersBase ob ORDER BY ob.ordNo ASC, od.id.ordPrdNo ASC")
     Page<OrdersDetail> findAllWithOrdersBase(Pageable pageable);
+
+
 }

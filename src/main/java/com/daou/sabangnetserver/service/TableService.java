@@ -10,8 +10,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -64,7 +66,11 @@ public class TableService {
         // ordersDetailPage.getContent()는 현재 페이지의 OrdersDetail 데이터 목록을 가져옴
         // stream()을 통해 데이터들을 순차적으로 처리
         return ordersDetailPage.getContent().stream()
-                .collect(Collectors.groupingBy(OrdersDetail::getOrdersBase));
+                .collect(Collectors.groupingBy(OrdersDetail::getOrdersBase, Collectors.mapping(orderDetail -> orderDetail,
+                        Collectors.collectingAndThen(Collectors.toList(), list -> {
+                            list.sort(Comparator.comparingLong(d -> d.getId().getOrdNo()));
+                            return list;
+                        }))));
                 //  Collectors.groupingBy를 사용하여 스트림의 각 요소를 OrdersBase 기준으로 그룹화하겠다는 의미
                 // 새롭게 그룹화 한 각 OrdersBase에 대해 collect 메소드를 활용 -> List<OrdersDetail>을 값으로 가지는 Map 생성
     }
@@ -77,7 +83,9 @@ public class TableService {
         // entrySet()은 Map의 메서드로, Map에 있는 모든 키와 값을 Set<Map.Entry<K,V>> 형태로 반환
         // ordersBaseMap.entrySet().stream()은 각 엔트리를 순차적으로 처리할 수 있는 스트림을 반환
         // 순차적으로 처리한 데이터를 매핑해서 List<TableOrdersBaseDto> 형태로 리턴하는 것이 목적
-        return ordersBaseMap.entrySet().stream().map(entry -> {
+        return ordersBaseMap.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey(Comparator.comparingLong(OrdersBase::getOrdNo)))
+                .map(entry -> {
 
             // 람다 표현식을 통해 entry 객체의 key와 Value를 할당
             OrdersBase ordersBase = entry.getKey(); // key == 현재 주문 정보
@@ -119,6 +127,24 @@ public class TableService {
 
     public List<OrdersBase> getOrdersBySellerNo(int sellerNo) {
         return ordersBaseRepository.findBySellerNo(sellerNo);
+    }
+
+    public void printAllPagesOrderNumbers() {
+        int page = 0;
+        int pageSize = 10;
+        Page<OrdersDetail> ordersDetailPage;
+
+        do {
+            PageRequest pageRequest = PageRequest.of(page, pageSize);
+            ordersDetailPage = getOrdersDetailPage(pageRequest);
+
+            log.info("Page: {}", page);
+            ordersDetailPage.getContent().forEach(orderDetail -> {
+                log.info("Order No: {}", orderDetail.getOrdersBase().getOrdNo());
+            });
+
+            page++;
+        } while (ordersDetailPage.hasNext());
     }
 }
 

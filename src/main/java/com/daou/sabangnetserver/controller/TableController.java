@@ -37,4 +37,10 @@ public class TableController {
         List<OrdersBase> ordersList = tableService.getOrdersBySellerNo(sellerNo);
         return ResponseEntity.ok(ordersList);
     }
+
+    @GetMapping("/print-all-orders")
+    public ResponseEntity<String> printAllOrders() {
+        tableService.printAllPagesOrderNumbers();
+        return ResponseEntity.ok("Order numbers printed to log successfully.");
+    }
 }
