@@ -1,6 +1,7 @@
 package com.daou.sabangnetserver.service;
 
 import com.daou.sabangnetserver.dto.table.TableOrdersBaseDto;
+import com.daou.sabangnetserver.dto.table.TableOrdersBaseResponseDto;
 import com.daou.sabangnetserver.dto.table.TableOrdersDetailDto;
 import com.daou.sabangnetserver.model.OrdersBase;
 import com.daou.sabangnetserver.model.OrdersDetail;
@@ -31,7 +32,7 @@ public class TableService {
     private OrdersDetailRepository ordersDetailRepository;
 
     // 특정 페이지에 따라 페이지네이션을 한 데이터 반환
-    public List<TableOrdersBaseDto> getPagination(int page) {
+    public TableOrdersBaseResponseDto getPagination(int page) {
 
         // 페이지당 데이터 수
         int pageSize = 10;
@@ -47,9 +48,12 @@ public class TableService {
 
         // 앞서 받은 데이터를 기존 테이블 속 데이터 형태로 재매핑
         Map<OrdersBase, List<OrdersDetail>> ordersBaseMap = groupOrdersBase(ordersDetailPage);
+        List<TableOrdersBaseDto> orders = mapToTableOrdersBaseDto(ordersBaseMap, page);
 
-        // rowspan,index 포함하여
-        return mapToTableOrdersBaseDto(ordersBaseMap, page);
+        // 총 페이지 같이 매핑
+        int totalPages = ordersDetailPage.getTotalPages();
+
+        return new TableOrdersBaseResponseDto(orders, totalPages);
     }
 
 

@@ -1,6 +1,7 @@
 package com.daou.sabangnetserver.controller;
 
 import com.daou.sabangnetserver.dto.table.TableOrdersBaseDto;
+import com.daou.sabangnetserver.dto.table.TableOrdersBaseResponseDto;
 import com.daou.sabangnetserver.model.OrdersBase;
 import com.daou.sabangnetserver.service.TableService;
 import com.daou.sabangnetserver.service.OrderCollectService;
@@ -24,8 +25,8 @@ public class TableController {
     private OrderCollectService orderCollectService;
 
     @GetMapping("/table")
-    public ResponseEntity<List<TableOrdersBaseDto>> getPagination(@RequestParam("currentPage") int currentPage) {
-        List<TableOrdersBaseDto> ordersList = tableService.getPagination(currentPage);
+    public ResponseEntity<TableOrdersBaseResponseDto> getPagination(@RequestParam("currentPage") int currentPage) {
+        TableOrdersBaseResponseDto ordersList = tableService.getPagination(currentPage);
 
         // 로그에 페이지 호출 완료 메시지 출력
         log.info("{} 페이지 호출 완료", currentPage);
