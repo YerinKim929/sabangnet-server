@@ -21,10 +21,7 @@ public class OrderCollectController {
 
     @GetMapping("/order/{sellerNo}")
     public ResponseEntity<String> orderCollectData(@ModelAttribute OrderRequestDto orderRequestDto) {
-        orderCollectService.fetchAndSaveOrders(
-                orderRequestDto
-        );
-
+        orderCollectService.fetchAndSaveOrders(orderRequestDto);
         return ResponseEntity.ok("Orders fetched and saved successfully.");
     }
 

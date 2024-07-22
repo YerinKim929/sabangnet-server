@@ -137,7 +137,6 @@ public class AuthService {
 
         // 요청 Http 객체 선언
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
         headers.set("Authorization", refreshToken); // 헤더에 리프레시 토큰 추가
 
         HttpEntity<String> entity = new HttpEntity<>("", headers); // 빈 바디 명시
