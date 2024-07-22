@@ -26,7 +26,7 @@ public class OrderCollectController {
         orderCollectService.fetchAndSaveOrders(orderRequestDto);
         LocalDate start = LocalDate.parse(orderRequestDto.getStartDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         LocalDate end = LocalDate.parse(orderRequestDto.getEndDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        String message = String.format("선택하신 날짜 %s부터 %s까지 주문 수집이 완료되었습니다.", start, end);
+        String message = String.format("%s부터 %s까지 주문 수집이 완료되었습니다.", start, end);
         return ResponseEntity.ok(message);
     }
 
