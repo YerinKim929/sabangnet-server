@@ -105,8 +105,8 @@ public class OrderCollectService {
         if (response.getBody() != null && response.getBody().getResponse() != null) {
             saveOrders(response.getBody().getResponse().getListElements(),sellerNo);
         }
-        log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        //insertDummyData(startDate, endDate);
+        log.info("더미 데이터 삽입");
+        insertDummyData(startDate, endDate);
     }
 
     // 타다닥 API에서 주문 목록 결과 받아오는 함수
