@@ -1,10 +1,7 @@
 package com.daou.sabangnetserver.service;
 
 import com.daou.sabangnetserver.dto.*;
-import com.daou.sabangnetserver.dto.order.OrderApiResponse;
-import com.daou.sabangnetserver.dto.order.OrderApiResponseBase;
-import com.daou.sabangnetserver.dto.order.OrderApiResponseDetail;
-import com.daou.sabangnetserver.dto.order.OrderRequestDto;
+import com.daou.sabangnetserver.dto.order.*;
 import com.daou.sabangnetserver.model.OrdersBase;
 import com.daou.sabangnetserver.model.OrdersDetail;
 import com.daou.sabangnetserver.model.OrdersDetailId;
@@ -86,7 +83,7 @@ public class OrderCollectService {
 
     @Transactional
     // 주문 데이터를 타다닥 API로부터 가져와서 데이터베이스에 저장하는 함수
-    public void fetchAndSaveOrders(OrderRequestDto orderRequestDto) {
+    public OrderResponseDto fetchAndSaveOrders(OrderRequestDto orderRequestDto) {
 
         int sellerNo = orderRequestDto.getSellerNo();
         String startDate = orderRequestDto.getStartDate();
@@ -101,12 +98,23 @@ public class OrderCollectService {
         // 주문 목록 조회하는 함수
         ResponseEntity<OrderApiResponse> response = fetchOrders(sellerNo, startDate, endDate, status, accessToken);
 
+        // 주문 결과를 저장할 리스트 생성
+        List<OrderResponseDto.OrderResult> orderResults = new ArrayList<>();
+
         // 불러온 주문 목록을 테이블 저장하는 함수 (빈데이터 예외 처리)
         if (response.getBody() != null && response.getBody().getResponse() != null) {
-            saveOrders(response.getBody().getResponse().getListElements(),sellerNo);
+            saveOrders(response.getBody().getResponse().getListElements(), sellerNo, orderResults);
         }
+
         log.info("더미 데이터 삽입");
-        insertDummyData(startDate, endDate);
+        insertDummyData(startDate, endDate, orderResults);
+
+        // 성공 및 실패 카운트 계산
+        int successCount = (int) orderResults.stream().filter(OrderResponseDto.OrderResult::isSuccess).count();
+        int failCount = orderResults.size() - successCount;
+
+        // OrderResponseDto 생성 및 반환
+        return new OrderResponseDto(orderResults, orderResults.size(), successCount, failCount);
     }
 
     // 타다닥 API에서 주문 목록 결과 받아오는 함수
@@ -152,7 +160,7 @@ public class OrderCollectService {
     }
 
     @Transactional
-    private void saveOrders(List<OrderApiResponseBase> orders, int sellerNo) {
+    private void saveOrders(List<OrderApiResponseBase> orders, int sellerNo, List<OrderResponseDto.OrderResult> orderResults) {
 
         // 주문 번호 목록을 추출하여 리스트로 저장
         List<Long> orderNos = orders.stream()
@@ -173,45 +181,51 @@ public class OrderCollectService {
         for (OrderApiResponseBase order : orders) {
             // 이미 데이터베이스에 존재하는 주문 번호는 넘기기
             if (existingOrderNos.contains(order.getOrdNo())) {
+                orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo(), false));
                 continue;
             }
 
             // ordersBase 테이블에 넣을 객체 생성
-            OrdersBase ordersBase = new OrdersBase();
-            ordersBase.setOrdNo(order.getOrdNo());
-            ordersBase.setOrdDttm(LocalDateTime.parse(order.getOrdDttm(), DATE_TIME_FORMATTER));
-            ordersBase.setRcvrNm(order.getRcvrNm());
-            ordersBase.setRcvrAddr(order.getRcvrBaseAddr() + " " + order.getRcvrDtlsAddr());
-            ordersBase.setRcvrMphnNo(order.getRcvrMphnNo());
-            ordersBase.setSellerNo(sellerNo);
-            ordersBase.setOrdCollectDttm(LocalDateTime.parse(LocalDateTime.now().format(DATE_TIME_FORMATTER), DATE_TIME_FORMATTER));
+            try {
+                // ordersBase 테이블에 넣을 객체 생성
+                OrdersBase ordersBase = new OrdersBase();
+                ordersBase.setOrdNo(order.getOrdNo());
+                ordersBase.setOrdDttm(LocalDateTime.parse(order.getOrdDttm(), DATE_TIME_FORMATTER));
+                ordersBase.setRcvrNm(order.getRcvrNm());
+                ordersBase.setRcvrAddr(order.getRcvrBaseAddr() + " " + order.getRcvrDtlsAddr());
+                ordersBase.setRcvrMphnNo(order.getRcvrMphnNo());
+                ordersBase.setSellerNo(sellerNo);
+                ordersBase.setOrdCollectDttm(LocalDateTime.parse(LocalDateTime.now().format(DATE_TIME_FORMATTER), DATE_TIME_FORMATTER));
 
-            // 생성한 OrdersBase 객체를 데이터베이스에 저장
-            // persist 메서드를 사용 -> 엔티티가 영속성 컨텍스트에 관리되는 상태가
-            // 엔티티가 데이터베이스에 반영되기 전에 일단 메모리 내의 영속성 컨텍스트에 저장되고,
-            // 트랜잭션이 커밋될 때 데이터베이스에 실제로 저장
-            entityManager.persist(ordersBase);
-            count++; // 처리된 주문 개수를 증가
+                // 생성한 OrdersBase 객체를 데이터베이스에 저장
+                entityManager.persist(ordersBase);
+                count++; // 처리된 주문 개수를 증가
 
-            // 주문 하나에 속하는 세부주문(OrderApiResponseDetail) 마다 반복
-            for (OrderApiResponseDetail item : order.getOrderItems()) {
-                OrdersDetailId detailId = new OrdersDetailId(item.getOrdPrdNo(), item.getOrdNo()); // 복합키 선언
+                // 주문 하나에 속하는 세부주문(OrderApiResponseDetail) 마다 반복
+                for (OrderApiResponseDetail item : order.getOrderItems()) {
+                    OrdersDetailId detailId = new OrdersDetailId(item.getOrdPrdNo(), item.getOrdNo()); // 복합키 선언
 
-                // ordersDetail 테이블에 넣을 객체 생성
-                OrdersDetail ordersDetail = new OrdersDetail();
-                ordersDetail.setId(detailId);
-                ordersDetail.setOrdersBase(ordersBase);
-                ordersDetail.setPrdNm(item.getPrdNm());
-                ordersDetail.setOptVal(item.getOptVal());
+                    // ordersDetail 테이블에 넣을 객체 생성
+                    OrdersDetail ordersDetail = new OrdersDetail();
+                    ordersDetail.setId(detailId);
+                    ordersDetail.setOrdersBase(ordersBase);
+                    ordersDetail.setPrdNm(item.getPrdNm());
+                    ordersDetail.setOptVal(item.getOptVal());
 
-                entityManager.persist(ordersDetail);
-                count++;
-            }
+                    entityManager.persist(ordersDetail);
+                    count++;
+                }
 
-            // 배치 처리 및 클리어
-            if (count % batchSize == 0) {
-                entityManager.flush();
-                entityManager.clear();
+                // 배치 처리 및 클리어
+                if (count % batchSize == 0) {
+                    entityManager.flush();
+                    entityManager.clear();
+                }
+
+                orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo(), true));
+            } catch (Exception e) {
+                orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo(), false));
+                log.error("Failed to save order: " + order.getOrdNo(), e);
             }
         }
 
@@ -223,9 +237,8 @@ public class OrderCollectService {
     }
 
 
-
     @Transactional
-    public void insertDummyData(String startDate, String endDate) {
+    public void insertDummyData(String startDate, String endDate, List<OrderResponseDto.OrderResult> orderResults) {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -249,8 +262,16 @@ public class OrderCollectService {
 
             for (OrdersBase order : filteredOrders) {
                 if (!ordersBaseRepository.existsById(order.getOrdNo())) {
-                    ordersBaseRepository.save(order);
-                    allDetails.addAll(order.getOrdersDetail());
+                    try {
+                        ordersBaseRepository.save(order);
+                        allDetails.addAll(order.getOrdersDetail());
+                        orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo(), true));
+                    } catch (Exception e) {
+                        orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo(), false));
+                        log.error("Failed to save order: " + order.getOrdNo(), e);
+                    }
+                } else {
+                    orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo(), false));
                 }
             }
 
@@ -258,9 +279,5 @@ public class OrderCollectService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public List<OrdersBase> getOrdersBySellerNo(int sellerNo) {
-        return ordersBaseRepository.findBySellerNo(sellerNo);
     }
 }
