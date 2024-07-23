@@ -14,6 +14,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -35,7 +37,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -74,6 +79,12 @@ public class OrderCollectService {
     private final RestTemplate restTemplate = new RestTemplate();
 
 
+    // @PersistenceContext 어노테이션은 Spring에서 JPA의 EntityManager를 주입받기 위해 사용 (영속성 컨텍스트)
+    // EntityManager는 기존 Repository 인터페이스 보다 데이터베이스 작업을 보다 세밀하게 제어가능
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    @Transactional
     // 주문 데이터를 타다닥 API로부터 가져와서 데이터베이스에 저장하는 함수
     public void fetchAndSaveOrders(OrderRequestDto orderRequestDto) {
 
@@ -94,7 +105,8 @@ public class OrderCollectService {
         if (response.getBody() != null && response.getBody().getResponse() != null) {
             saveOrders(response.getBody().getResponse().getListElements(),sellerNo);
         }
-        insertDummyData(startDate, endDate);
+        log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+        //insertDummyData(startDate, endDate);
     }
 
     // 타다닥 API에서 주문 목록 결과 받아오는 함수
@@ -139,15 +151,28 @@ public class OrderCollectService {
         return new ResponseEntity<>(orderApiResponse, response.getStatusCode());
     }
 
-
-    // 불러온 주문 목록을 테이블 저장하는 함수
+    @Transactional
     private void saveOrders(List<OrderApiResponseBase> orders, int sellerNo) {
+
+        // 주문 번호 목록을 추출하여 리스트로 저장
+        List<Long> orderNos = orders.stream()
+                .map(OrderApiResponseBase::getOrdNo)
+                .collect(Collectors.toList());
+
+        // 기존에 데이터베이스에 있는 주문 번호를 조회하여 Set으로 저장
+        Set<Long> existingOrderNos = new HashSet<>(ordersBaseRepository.findAllById(orderNos)
+                .stream()
+                .map(OrdersBase::getOrdNo)
+                .collect(Collectors.toList()));
+
+
+        int batchSize = 200; // 한 번에 처리할 배치 크기
+        int count = 0; // 현재 처리된 주문의 개수
 
         // OrderApiResponseBase에 속하는 주문 하나하나 마다 반복
         for (OrderApiResponseBase order : orders) {
-
-            // 중복 예외 처리
-            if (ordersBaseRepository.existsById(order.getOrdNo())) {
+            // 이미 데이터베이스에 존재하는 주문 번호는 넘기기
+            if (existingOrderNos.contains(order.getOrdNo())) {
                 continue;
             }
 
@@ -159,11 +184,14 @@ public class OrderCollectService {
             ordersBase.setRcvrAddr(order.getRcvrBaseAddr() + " " + order.getRcvrDtlsAddr());
             ordersBase.setRcvrMphnNo(order.getRcvrMphnNo());
             ordersBase.setSellerNo(sellerNo);
-            ordersBase.setOrdCollectDttm(LocalDateTime.parse(LocalDateTime.now().format(DATE_TIME_FORMATTER),DATE_TIME_FORMATTER));
+            ordersBase.setOrdCollectDttm(LocalDateTime.parse(LocalDateTime.now().format(DATE_TIME_FORMATTER), DATE_TIME_FORMATTER));
 
-            // ordersBase 테이블에 데이터 저장
-            ordersBaseRepository.save(ordersBase);
-
+            // 생성한 OrdersBase 객체를 데이터베이스에 저장
+            // persist 메서드를 사용 -> 엔티티가 영속성 컨텍스트에 관리되는 상태가
+            // 엔티티가 데이터베이스에 반영되기 전에 일단 메모리 내의 영속성 컨텍스트에 저장되고,
+            // 트랜잭션이 커밋될 때 데이터베이스에 실제로 저장
+            entityManager.persist(ordersBase);
+            count++; // 처리된 주문 개수를 증가
 
             // 주문 하나에 속하는 세부주문(OrderApiResponseDetail) 마다 반복
             for (OrderApiResponseDetail item : order.getOrderItems()) {
@@ -176,9 +204,21 @@ public class OrderCollectService {
                 ordersDetail.setPrdNm(item.getPrdNm());
                 ordersDetail.setOptVal(item.getOptVal());
 
-                // ordersDetail 테이블에 데이터 저장
-                ordersDetailRepository.save(ordersDetail);
+                entityManager.persist(ordersDetail);
+                count++;
             }
+
+            // 배치 처리 및 클리어
+            if (count % batchSize == 0) {
+                entityManager.flush();
+                entityManager.clear();
+            }
+        }
+
+        // 남아 있는 데이터 플러시 및 클리어
+        if (count % batchSize != 0) {
+            entityManager.flush();
+            entityManager.clear();
         }
     }
 
@@ -219,6 +259,7 @@ public class OrderCollectService {
             e.printStackTrace();
         }
     }
+
     public List<OrdersBase> getOrdersBySellerNo(int sellerNo) {
         return ordersBaseRepository.findBySellerNo(sellerNo);
     }

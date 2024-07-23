@@ -12,6 +12,11 @@ spring:
   jpa:
     open-in-view: true
     hibernate:
+      jdbc:
+        batch_size: 20
+      order_inserts: true
+      order_updates: true
+      generate_statistics: true
       ddl-auto: create
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl

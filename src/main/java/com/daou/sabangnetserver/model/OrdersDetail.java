@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.BatchSize;
 
 @Data
 @NoArgsConstructor
@@ -14,6 +15,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity
 @Table(name = "orders_detail")
+@BatchSize(size = 200)
 public class OrdersDetail {
 
     @EmbeddedId
