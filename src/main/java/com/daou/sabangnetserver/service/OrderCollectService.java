@@ -107,7 +107,7 @@ public class OrderCollectService {
         }
 
         log.info("더미 데이터 삽입");
-        //insertDummyData(startDate, endDate, orderResults);
+        insertDummyData(startDate, endDate, orderResults);
 
         // 성공 및 실패 카운트 계산
         int successCount = (int) orderResults.stream().filter(OrderResponseDto.OrderResult::isSuccess).count();
