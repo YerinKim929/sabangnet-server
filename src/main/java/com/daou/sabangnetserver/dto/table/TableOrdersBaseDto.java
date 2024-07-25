@@ -9,7 +9,7 @@ import java.util.List;
 
 @Data
 public class TableOrdersBaseDto {
-    private Long ordNo;
+    private String ordNo;
     private LocalDateTime ordDttm;
     private String rcvrNm;
     private String rcvrAddr;

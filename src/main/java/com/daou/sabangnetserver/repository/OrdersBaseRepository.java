@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface OrdersBaseRepository extends JpaRepository<OrdersBase, Long> {
+public interface OrdersBaseRepository extends JpaRepository<OrdersBase, String> {
     List<OrdersBase> findBySellerNo(int sellerNo);
 }

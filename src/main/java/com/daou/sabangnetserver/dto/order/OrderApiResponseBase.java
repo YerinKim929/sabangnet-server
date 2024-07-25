@@ -8,7 +8,7 @@ import java.util.List;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true) // 알 수 없는 필드는 무시
 public class OrderApiResponseBase {
-    private long ordNo;
+    private String ordNo;
     private String ordDttm;
     private String rcvrNm;
     private String rcvrMphnNo;

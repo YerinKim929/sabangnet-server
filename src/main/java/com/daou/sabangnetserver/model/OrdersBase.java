@@ -23,7 +23,7 @@ public class OrdersBase {
 
     @Id
     @Column(name = "ord_no", nullable = false, unique = true)
-    private Long ordNo;
+    private String ordNo;
 
     @Column(name = "ord_dttm", nullable = false)
     private LocalDateTime ordDttm;

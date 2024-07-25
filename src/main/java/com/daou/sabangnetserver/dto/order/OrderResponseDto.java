@@ -3,7 +3,6 @@ package com.daou.sabangnetserver.dto.order;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.List;
 
@@ -20,7 +19,7 @@ public class OrderResponseDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class OrderResult {
-        private Long orderNo;
+        private String orderNo;
         private boolean isSuccess;
     }
 }

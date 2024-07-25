@@ -7,7 +7,7 @@ import lombok.Data;
 @JsonIgnoreProperties(ignoreUnknown = true) // 알 수 없는 필드는 무시
 public class OrderApiResponseDetail {
     private int ordPrdNo;
-    private Long ordNo;
+    private String ordNo;
     private String prdNm;
     private String optVal;
 }

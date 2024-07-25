@@ -107,7 +107,7 @@ public class OrderCollectService {
         }
 
         log.info("더미 데이터 삽입");
-        insertDummyData(startDate, endDate, orderResults);
+        //insertDummyData(startDate, endDate, orderResults);
 
         // 성공 및 실패 카운트 계산
         int successCount = (int) orderResults.stream().filter(OrderResponseDto.OrderResult::isSuccess).count();
@@ -163,12 +163,12 @@ public class OrderCollectService {
     private void saveOrders(List<OrderApiResponseBase> orders, int sellerNo, List<OrderResponseDto.OrderResult> orderResults) {
 
         // 주문 번호 목록을 추출하여 리스트로 저장
-        List<Long> orderNos = orders.stream()
+        List<String> orderNos = orders.stream()
                 .map(OrderApiResponseBase::getOrdNo)
                 .collect(Collectors.toList());
 
         // 기존에 데이터베이스에 있는 주문 번호를 조회하여 Set으로 저장
-        Set<Long> existingOrderNos = new HashSet<>(ordersBaseRepository.findAllById(orderNos)
+        Set<String> existingOrderNos = new HashSet<>(ordersBaseRepository.findAllById(orderNos)
                 .stream()
                 .map(OrdersBase::getOrdNo)
                 .collect(Collectors.toList()));

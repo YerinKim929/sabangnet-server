@@ -71,7 +71,7 @@ public class TableService {
         return ordersDetailPage.getContent().stream()
                 .collect(Collectors.groupingBy(OrdersDetail::getOrdersBase, Collectors.mapping(orderDetail -> orderDetail,
                         Collectors.collectingAndThen(Collectors.toList(), list -> {
-                            list.sort(Comparator.comparingLong(d -> d.getId().getOrdNo()));
+                            list.sort(Comparator.comparing(d -> d.getId().getOrdNo()));
                             return list;
                         }))));
                 //  Collectors.groupingBy를 사용하여 스트림의 각 요소를 OrdersBase 기준으로 그룹화하겠다는 의미
@@ -87,7 +87,7 @@ public class TableService {
         // ordersBaseMap.entrySet().stream()은 각 엔트리를 순차적으로 처리할 수 있는 스트림을 반환
         // 순차적으로 처리한 데이터를 매핑해서 List<TableOrdersBaseDto> 형태로 리턴하는 것이 목적
         return ordersBaseMap.entrySet().stream()
-                .sorted(Map.Entry.comparingByKey(Comparator.comparingLong(OrdersBase::getOrdNo)))
+                .sorted(Map.Entry.comparingByKey(Comparator.comparing(OrdersBase::getOrdNo)))
                 .map(entry -> {
 
             // 람다 표현식을 통해 entry 객체의 key와 Value를 할당
