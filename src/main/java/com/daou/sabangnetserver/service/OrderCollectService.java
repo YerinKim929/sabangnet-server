@@ -273,8 +273,7 @@ public class OrderCollectService {
     // 중복 검증
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void saveOrders(OrderApiResponseBase order, int sellerNo, List<OrderResponseDto.OrderResult> orderResults, Set<OrdersDetailId> existingOrderDetailIds) {
-
-        OrdersBase ordersBase = new OrdersBase();
+        OrdersBase ordersBase = ordersBaseRepository.findById(order.getOrdNo()).orElse(new OrdersBase());
 
         ordersBase.setOrdNo(order.getOrdNo());
         ordersBase.setOrdDttm(LocalDateTime.parse(order.getOrdDttm(), DATE_TIME_FORMATTER));
@@ -297,7 +296,7 @@ public class OrderCollectService {
             }
 
             try {
-                // dOrderDetail 데이터 검증
+                // OrderDetail 데이터 검증
                 if (!isValidOrderDetailData(item)) {
                     orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo(), item.getOrdPrdNo(), false));
                     log.error("Invalid order detail data: " + item.getOrdPrdNo() + " for order: " + order.getOrdNo());
@@ -310,13 +309,14 @@ public class OrderCollectService {
                 ordersDetail.setPrdNm(item.getPrdNm());
                 ordersDetail.setOptVal(item.getOptVal());
 
+                ordersBase.addOrderDetail(ordersDetail);
                 saveOrderDetail(ordersDetail);
                 existingOrderDetailIds.add(detailId);
 
-                orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo().toString(), item.getOrdPrdNo(), true));
+                orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo(), item.getOrdPrdNo(), true));
 
             } catch (Exception e) {
-                orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo().toString(), item.getOrdPrdNo(), false));
+                orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo(), item.getOrdPrdNo(), false));
                 log.error("Failed to save order detail: " + item.getOrdPrdNo() + " for order: " + order.getOrdNo(), e);
             }
         }
@@ -382,6 +382,11 @@ public class OrderCollectService {
     public void saveOrdersDummy(OrdersBase order, List<OrderResponseDto.OrderResult> orderResults, Set<OrdersDetailId> existingOrderDetailIds) {
         saveOrderBase(order);
 
+        // 초기화 확인
+        if (order.getOrdersDetail() == null) {
+            order.setOrdersDetail(new ArrayList<>());
+        }
+
         for (OrdersDetail detail : order.getOrdersDetail()) {
             OrdersDetailId detailId = new OrdersDetailId(detail.getId().getOrdPrdNo(), detail.getId().getOrdNo());
             if (existingOrderDetailIds.contains(detailId)) {
@@ -391,11 +396,23 @@ public class OrderCollectService {
             }
 
             try {
-
                 if (!isValidOrderDetailData(detail)) {
                     orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo().toString(), detail.getId().getOrdPrdNo(), false));
                     log.error("Invalid order detail data: " + detail.getId().getOrdPrdNo() + " for order: " + order.getOrdNo());
                     continue;
+                }
+
+                // 기존 OrdersDetail 업데이트 또는 새로 추가
+                OrdersDetail existingDetail = order.getOrdersDetail().stream()
+                        .filter(d -> d.getId().equals(detailId))
+                        .findFirst()
+                        .orElse(null);
+
+                if (existingDetail == null) {
+                    order.addOrderDetail(detail);
+                } else {
+                    existingDetail.setPrdNm(detail.getPrdNm());
+                    existingDetail.setOptVal(detail.getOptVal());
                 }
 
                 saveOrderDetail(detail);

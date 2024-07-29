@@ -1,6 +1,7 @@
 package com.daou.sabangnetserver.model;
 
 import com.daou.sabangnetserver.model.OrdersDetail;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.BatchSize;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -18,7 +20,6 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "orders_base")
-@BatchSize(size = 200)
 public class OrdersBase {
 
     @Id
@@ -43,7 +44,13 @@ public class OrdersBase {
     @Column(name = "ord_collect_dttm", nullable = false)
     private LocalDateTime ordCollectDttm;
 
-    @OneToMany(mappedBy = "ordersBase", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+
+    @OneToMany(mappedBy = "ordersBase", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private List<OrdersDetail> ordersDetail;
+    private List<OrdersDetail> ordersDetail = new ArrayList<>();
+
+    public void addOrderDetail(OrdersDetail detail) {
+        ordersDetail.add(detail);
+        detail.setOrdersBase(this);
+    }
 }

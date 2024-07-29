@@ -15,7 +15,6 @@ import org.hibernate.annotations.BatchSize;
 @Builder
 @Entity
 @Table(name = "orders_detail")
-@BatchSize(size = 200)
 public class OrdersDetail {
 
     @EmbeddedId
