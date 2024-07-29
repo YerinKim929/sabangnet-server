@@ -1,6 +1,7 @@
 package com.daou.sabangnetserver.service.order;
 
 import com.daou.sabangnetserver.dto.order.OrderApiResponseBase;
+import com.daou.sabangnetserver.dto.order.OrderApiResponseDetail;
 import com.daou.sabangnetserver.dto.order.OrderResponseDto;
 import com.daou.sabangnetserver.model.OrdersDetailId;
 import com.daou.sabangnetserver.repository.OrdersBaseRepository;
@@ -52,20 +53,16 @@ public class OrderValidateService {
         // 불러온 주문 목록을 하나씩 검사
         for (OrderApiResponseBase order : orders) {
             // 주문 데이터가 유효한지 검사
-            if (!isValidOrderData(order)) {
-                // 유효하지 않으면 실패 결과 추가 로그에 오류 기록
+            if (isValidOrderData(order)) {
+                try {
+                    orderSaveService.saveOrders(order, sellerNo, orderResults, existingOrderDetailIds, this);
+                } catch (Exception e) {
+                    orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo(), 0, false));
+                    log.error("Failed to save order: " + order.getOrdNo(), e);
+                }
+            } else {
                 orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo(), 0, false));
                 log.error("Invalid order data: " + order.getOrdNo());
-                continue;
-            }
-
-            try {
-                // 유효한 주문 데이터 저장하는 함수 호출
-                orderSaveService.saveOrders(order, sellerNo, orderResults, existingOrderDetailIds);
-            } catch (Exception e) {
-                // 저장에 실패하면 실패 결과를 추가하고 로그에 오류를 기록
-                orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo(), 0, false));
-                log.error("Failed to save order: " + order.getOrdNo(), e);
             }
         }
     }
@@ -101,4 +98,21 @@ public class OrderValidateService {
 
         return true; // 모든 조건을 만족하면 유효
     }
+
+    // OrderDetail 데이터 유효성 검증 함수
+    public boolean isValidOrderDetailData(OrderApiResponseDetail detail) {
+        // 각 필드가 적절한 값을 가지고 있는지 검사
+        if (detail.getOrdPrdNo() == 0 || detail.getOrdNo() == null || detail.getPrdNm() == null || detail.getOptVal() == null) {
+            return false; // 하나라도 조건을 만족하지 않으면 유효하지 않음
+        }
+
+        // 각 필드의 값이 비어있지 않고 길이가 적절한지 검사
+        if (detail.getPrdNm().isEmpty() || detail.getPrdNm().length() > 255 ||
+                detail.getOptVal().isEmpty() || detail.getOptVal().length() > 255) {
+            return false; // 조건을 만족하지 않으면 유효하지 않음
+        }
+        return true; // 모든 조건을 만족하면 유효
+    }
+
+
 }

@@ -33,25 +33,15 @@ public class OrderSaveService {
     // Datetime 형식 Format
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 
-    // OrderDetail 데이터 유효성 검증 함수
-    private boolean isValidOrderDetailData(OrderApiResponseDetail detail) {
-        // 각 필드가 적절한 값을 가지고 있는지 검사
-        if (detail.getOrdPrdNo() == 0 || detail.getOrdNo() == null || detail.getPrdNm() == null || detail.getOptVal() == null) {
-            return false; // 하나라도 조건을 만족하지 않으면 유효하지 않음
-        }
-
-        // 각 필드의 값이 비어있지 않고 길이가 적절한지 검사
-        if (detail.getPrdNm().isEmpty() || detail.getPrdNm().length() > 255 ||
-                detail.getOptVal().isEmpty() || detail.getOptVal().length() > 255) {
-            return false; // 조건을 만족하지 않으면 유효하지 않음
-        }
-
-        return true; // 모든 조건을 만족하면 유효
-    }
 
     // 주문 데이터 저장 함수
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public void saveOrders(OrderApiResponseBase order, int sellerNo, List<OrderResponseDto.OrderResult> orderResults, Set<OrdersDetailId> existingOrderDetailIds) {
+    public void saveOrders(OrderApiResponseBase order,
+                           int sellerNo,
+                           List<OrderResponseDto.OrderResult> orderResults,
+                           Set<OrdersDetailId> existingOrderDetailIds,
+                           OrderValidateService orderValidateService) {
+
         // 데이터베이스에서 주어진 ordNo에 해당하는 OrdersBase 객체 반환 (결과 API에서 바로 OrdNo 가져와서 찾음)
         OrdersBase ordersBase = ordersBaseRepository.findById(order.getOrdNo()).orElse(new OrdersBase());
 
@@ -88,7 +78,7 @@ public class OrderSaveService {
 
             try {
                 // 주문 상세 데이터가 유효한지 검사
-                if (!isValidOrderDetailData(item)) {
+                if (!orderValidateService.isValidOrderDetailData(item)) {
                     orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo(), item.getOrdPrdNo(), false));
                     log.error("Invalid order detail data: " + item.getOrdPrdNo() + " for order: " + order.getOrdNo());
                     continue;
