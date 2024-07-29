@@ -8,12 +8,11 @@ import com.daou.sabangnetserver.model.OrdersDetailId;
 import com.daou.sabangnetserver.repository.OrdersBaseRepository;
 import com.daou.sabangnetserver.repository.OrdersDetailRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.core.type.TypeReference;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +22,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -101,13 +102,13 @@ public class OrderCollectService {
         // 주문 결과를 저장할 리스트 생성
         List<OrderResponseDto.OrderResult> orderResults = new ArrayList<>();
 
-        // 불러온 주문 목록을 테이블 저장하는 함수 (빈데이터 예외 처리)
+        // 불러온 주문 목록을 테이블 검증하는 함수 (빈데이터 예외 처리)
         if (response.getBody() != null && response.getBody().getResponse() != null) {
-            saveOrders(response.getBody().getResponse().getListElements(), sellerNo, orderResults);
+            validateOrders(response.getBody().getResponse().getListElements(), sellerNo, orderResults);
         }
 
         log.info("더미 데이터 삽입");
-        insertDummyData(startDate, endDate, orderResults);
+        //insertDummyData(startDate, endDate, orderResults);
 
         // 성공 및 실패 카운트 계산
         int successCount = (int) orderResults.stream().filter(OrderResponseDto.OrderResult::isSuccess).count();
@@ -159,83 +160,138 @@ public class OrderCollectService {
         return new ResponseEntity<>(orderApiResponse, response.getStatusCode());
     }
 
+    // 데이터 유효성 검증 확인
     @Transactional
-    private void saveOrders(List<OrderApiResponseBase> orders, int sellerNo, List<OrderResponseDto.OrderResult> orderResults) {
-
-        // 주문 번호 목록을 추출하여 리스트로 저장
-        List<String> orderNos = orders.stream()
-                .map(OrderApiResponseBase::getOrdNo)
-                .collect(Collectors.toList());
+    private void validateOrders(List<OrderApiResponseBase> orders, int sellerNo, List<OrderResponseDto.OrderResult> orderResults) {
 
         // 기존에 데이터베이스에 있는 주문 번호를 조회하여 Set으로 저장
-        Set<String> existingOrderNos = new HashSet<>(ordersBaseRepository.findAllById(orderNos)
+        Set<OrdersDetailId> existingOrderDetailIds = new HashSet<>(ordersDetailRepository.findAll()
                 .stream()
-                .map(OrdersBase::getOrdNo)
+                .map(detail -> new OrdersDetailId(detail.getId().getOrdPrdNo(), detail.getId().getOrdNo()))
                 .collect(Collectors.toList()));
 
-
-        int batchSize = 200; // 한 번에 처리할 배치 크기
-        int count = 0; // 현재 처리된 주문의 개수
-
-        // OrderApiResponseBase에 속하는 주문 하나하나 마다 반복
+        // 데이터 유효성 검증
         for (OrderApiResponseBase order : orders) {
-            // 이미 데이터베이스에 존재하는 주문 번호는 넘기기
-            if (existingOrderNos.contains(order.getOrdNo())) {
-                orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo(), false));
+            if (!isValidOrderData(order)) {
+                orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo().toString(), 0, false));
+                log.error("Invalid order data: " + order.getOrdNo());
                 continue;
             }
 
-            // ordersBase 테이블에 넣을 객체 생성
             try {
-                // ordersBase 테이블에 넣을 객체 생성
-                OrdersBase ordersBase = new OrdersBase();
-                ordersBase.setOrdNo(order.getOrdNo());
-                ordersBase.setOrdDttm(LocalDateTime.parse(order.getOrdDttm(), DATE_TIME_FORMATTER));
-                ordersBase.setRcvrNm(order.getRcvrNm());
-                ordersBase.setRcvrAddr(order.getRcvrBaseAddr() + " " + order.getRcvrDtlsAddr());
-                ordersBase.setRcvrMphnNo(order.getRcvrMphnNo());
-                ordersBase.setSellerNo(sellerNo);
-                ordersBase.setOrdCollectDttm(LocalDateTime.parse(LocalDateTime.now().format(DATE_TIME_FORMATTER), DATE_TIME_FORMATTER));
-
-                // 생성한 OrdersBase 객체를 데이터베이스에 저장
-                entityManager.persist(ordersBase);
-                count++; // 처리된 주문 개수를 증가
-
-                // 주문 하나에 속하는 세부주문(OrderApiResponseDetail) 마다 반복
-                for (OrderApiResponseDetail item : order.getOrderItems()) {
-                    OrdersDetailId detailId = new OrdersDetailId(item.getOrdPrdNo(), item.getOrdNo()); // 복합키 선언
-
-                    // ordersDetail 테이블에 넣을 객체 생성
-                    OrdersDetail ordersDetail = new OrdersDetail();
-                    ordersDetail.setId(detailId);
-                    ordersDetail.setOrdersBase(ordersBase);
-                    ordersDetail.setPrdNm(item.getPrdNm());
-                    ordersDetail.setOptVal(item.getOptVal());
-
-                    entityManager.persist(ordersDetail);
-                    count++;
-                }
-
-                // 배치 처리 및 클리어
-                if (count % batchSize == 0) {
-                    entityManager.flush();
-                    entityManager.clear();
-                }
-
-                orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo(), true));
+                saveOrders(order, sellerNo, orderResults, existingOrderDetailIds);
             } catch (Exception e) {
-                orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo(), false));
+                orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo().toString(), 0, false));
                 log.error("Failed to save order: " + order.getOrdNo(), e);
             }
         }
 
-        // 남아 있는 데이터 플러시 및 클리어
-        if (count % batchSize != 0) {
-            entityManager.flush();
-            entityManager.clear();
+    }
+
+    // Orderbase 데이터 유효성 검증 함수
+    private boolean isValidOrderData(OrderApiResponseBase order) {
+        if (order.getOrdNo() == null || order.getOrdDttm() == null || order.getRcvrNm() == null ||
+                order.getRcvrBaseAddr() == null || order.getRcvrDtlsAddr() == null || order.getRcvrMphnNo() == null) {
+            return false;
+        }
+
+        if (order.getRcvrNm().isEmpty() || order.getRcvrNm().length() > 255 ||
+                order.getRcvrBaseAddr().isEmpty() || order.getRcvrBaseAddr().length() > 255 ||
+                order.getRcvrDtlsAddr().isEmpty() || order.getRcvrDtlsAddr().length() > 255 ||
+                order.getRcvrMphnNo().isEmpty() || order.getRcvrMphnNo().length() > 20) {
+            return false;
+        }
+
+        try {
+            LocalDateTime.parse(order.getOrdDttm(), DATE_TIME_FORMATTER);
+        } catch (Exception e) {
+            return false;
+        }
+
+        if (!order.getRcvrMphnNo().matches("\\d{10,11}")) {
+            return false;
+        }
+
+        return true;
+    }
+
+    // OrderDetail 데이터 유효성 검증 함수
+    private boolean isValidOrderDetailData(OrderApiResponseDetail detail) {
+        if (detail.getOrdPrdNo() == 0 || detail.getOrdNo() == null || detail.getPrdNm() == null || detail.getOptVal() == null) {
+            return false;
+        }
+
+        if (detail.getPrdNm().isEmpty() || detail.getPrdNm().length() > 255 ||
+                detail.getOptVal().isEmpty() || detail.getOptVal().length() > 255) {
+            return false;
+        }
+
+        return true;
+    }
+
+
+    // 데이터 저장 함수
+    // 중복 검 증
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void saveOrders(OrderApiResponseBase order, int sellerNo, List<OrderResponseDto.OrderResult> orderResults, Set<OrdersDetailId> existingOrderDetailIds) {
+
+        OrdersBase ordersBase = new OrdersBase();
+
+        ordersBase.setOrdNo(order.getOrdNo());
+        ordersBase.setOrdDttm(LocalDateTime.parse(order.getOrdDttm(), DATE_TIME_FORMATTER));
+        ordersBase.setRcvrNm(order.getRcvrNm());
+        ordersBase.setRcvrAddr(order.getRcvrBaseAddr() + " " + order.getRcvrDtlsAddr());
+        ordersBase.setRcvrMphnNo(order.getRcvrMphnNo());
+        ordersBase.setSellerNo(sellerNo);
+        ordersBase.setOrdCollectDttm(LocalDateTime.parse(LocalDateTime.now().format(DATE_TIME_FORMATTER), DATE_TIME_FORMATTER));
+
+        saveOrderBase(ordersBase);
+
+        for (OrderApiResponseDetail item : order.getOrderItems()) {
+            OrdersDetailId detailId = new OrdersDetailId(item.getOrdPrdNo(), item.getOrdNo());
+
+            // 중복 여부
+            if (existingOrderDetailIds.contains(detailId)) {
+                orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo(), item.getOrdPrdNo(), false));
+                log.error("Duplicate order detail data: " + item.getOrdPrdNo() + " for order: " + order.getOrdNo());
+                continue;
+            }
+
+            try {
+                // dOrderDetail 데이터 검증
+                if (!isValidOrderDetailData(item)) {
+                    orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo(), item.getOrdPrdNo(), false));
+                    log.error("Invalid order detail data: " + item.getOrdPrdNo() + " for order: " + order.getOrdNo());
+                    continue;
+                }
+
+                OrdersDetail ordersDetail = new OrdersDetail();
+                ordersDetail.setId(detailId);
+                ordersDetail.setOrdersBase(ordersBase);
+                ordersDetail.setPrdNm(item.getPrdNm());
+                ordersDetail.setOptVal(item.getOptVal());
+
+                saveOrderDetail(ordersDetail);
+                existingOrderDetailIds.add(detailId);
+
+                orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo().toString(), item.getOrdPrdNo(), true));
+
+            } catch (Exception e) {
+                orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo().toString(), item.getOrdPrdNo(), false));
+                log.error("Failed to save order detail: " + item.getOrdPrdNo() + " for order: " + order.getOrdNo(), e);
+            }
         }
     }
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void saveOrderBase(OrdersBase ordersBase) {
+        ordersBaseRepository.save(ordersBase);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void saveOrderDetail(OrdersDetail ordersDetail) {
+        ordersDetailRepository.save(ordersDetail);
+    }
 
     @Transactional
     public void insertDummyData(String startDate, String endDate, List<OrderResponseDto.OrderResult> orderResults) {
@@ -265,13 +321,13 @@ public class OrderCollectService {
                     try {
                         ordersBaseRepository.save(order);
                         allDetails.addAll(order.getOrdersDetail());
-                        orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo(), true));
+                        orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo(),0, true));
                     } catch (Exception e) {
-                        orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo(), false));
+                        orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo(),0, false));
                         log.error("Failed to save order: " + order.getOrdNo(), e);
                     }
                 } else {
-                    orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo(), false));
+                    orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo(),0, true));
                 }
             }
 

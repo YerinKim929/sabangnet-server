@@ -20,6 +20,7 @@ public class OrderResponseDto {
     @AllArgsConstructor
     public static class OrderResult {
         private String orderNo;
+        private int ordPrdNo;
         private boolean isSuccess;
     }
 }
