@@ -44,7 +44,7 @@ public class OrdersBase {
     @Column(name = "ord_collect_dttm", nullable = false)
     private LocalDateTime ordCollectDttm;
 
-
+    @Builder.Default
     @OneToMany(mappedBy = "ordersBase", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<OrdersDetail> ordersDetail = new ArrayList<>();
