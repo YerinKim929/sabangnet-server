@@ -1,10 +1,9 @@
 package com.daou.sabangnetserver.controller;
 
-import com.daou.sabangnetserver.dto.table.TableOrdersBaseDto;
 import com.daou.sabangnetserver.dto.table.TableOrdersBaseResponseDto;
 import com.daou.sabangnetserver.model.OrdersBase;
 import com.daou.sabangnetserver.service.TableService;
-import com.daou.sabangnetserver.service.OrderCollectService;
+import com.daou.sabangnetserver.service.order.OrderCollectService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
