@@ -56,11 +56,11 @@ public class OrderValidateService {
                 try {
                     orderSaveService.saveOrders(order, sellerNo, orderResults, existingOrderDetailIds, this);
                 } catch (Exception e) {
-                    orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo(), 0, false));
+                    orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo(), 0, false,"저장하는 도중 오류가 발생했습니다."));
                     log.error("Failed to save order: " + order.getOrdNo(), e);
                 }
             } else {
-                orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo(), 0, false));
+                orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo(), 0, false, "[기본주문] 유효하지 않은 데이터입니다."));
                 log.error("Invalid order data: " + order.getOrdNo());
             }
         }

@@ -61,10 +61,9 @@ public class OrderSaveService {
             // 주문 상세 항목의 고유 ID를 생성
             OrdersDetailId detailId = new OrdersDetailId(item.getOrdPrdNo(), item.getOrdNo());
 
-
             // 중복 여부 검사
             if (existingOrderDetailIds.contains(detailId)) {
-                orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo(), item.getOrdPrdNo(), false));
+                orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo(), item.getOrdPrdNo(), false,"이미 수집된 주문 데이터입니다."));
                 log.error("Duplicate order detail data: " + item.getOrdPrdNo() + " for order: " + order.getOrdNo());
                 continue;
             }
@@ -72,7 +71,7 @@ public class OrderSaveService {
             try {
                 // 주문 상세 데이터가 유효한지 검사
                 if (!orderValidateService.isValidOrderDetailData(item)) {
-                    orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo(), item.getOrdPrdNo(), false));
+                    orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo(), item.getOrdPrdNo(), false, "[상세주문] 유효하지 않은 데이터입니다."));
                     log.error("Invalid order detail data: " + item.getOrdPrdNo() + " for order: " + order.getOrdNo());
                     continue;
                 }
@@ -88,11 +87,11 @@ public class OrderSaveService {
                 existingOrderDetailIds.add(detailId);
 
                 // 성공 결과 추가
-                orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo(), item.getOrdPrdNo(), true));
+                orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo(), item.getOrdPrdNo(), true,""));
 
             } catch (Exception e) {
                 // 저장에 실패하면 실패 결과를 추가하고 로그에 오류를 기록
-                orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo(), item.getOrdPrdNo(), false));
+                orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo(), item.getOrdPrdNo(), false,"저장 예외 상황 발생"));
                 log.error("Failed to save order detail: " + item.getOrdPrdNo() + " for order: " + order.getOrdNo(), e);
             }
         }

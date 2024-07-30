@@ -22,6 +22,7 @@ public class OrderResponseDto {
         private String orderNo;
         private int ordPrdNo;
         private boolean isSuccess;
+        private String errMsg;
     }
 }
 
