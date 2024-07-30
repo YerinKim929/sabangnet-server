@@ -56,11 +56,6 @@ public class OrderSaveService {
         // 주문 기본 정보 저장
         saveOrderBase(ordersBase);
 
-        // 저장할 세부목록 있는지
-        boolean hasSavedDetails = false;
-        // 저장된 세부목록 있는지
-        boolean hasExistingDetails = false;
-
         // 주문 상세 항목들 처리
         for (OrderApiResponseDetail item : order.getOrderItems()) {
             // 주문 상세 항목의 고유 ID를 생성
@@ -71,7 +66,6 @@ public class OrderSaveService {
             if (existingOrderDetailIds.contains(detailId)) {
                 orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo(), item.getOrdPrdNo(), false));
                 log.error("Duplicate order detail data: " + item.getOrdPrdNo() + " for order: " + order.getOrdNo());
-                hasExistingDetails = true;
                 continue;
             }
 
@@ -82,7 +76,6 @@ public class OrderSaveService {
                     log.error("Invalid order detail data: " + item.getOrdPrdNo() + " for order: " + order.getOrdNo());
                     continue;
                 }
-
                 // 주문 상세 정보를 설정하고 추가
                 OrdersDetail ordersDetail = new OrdersDetail();
                 ordersDetail.setId(detailId);
@@ -93,7 +86,6 @@ public class OrderSaveService {
                 ordersBase.addOrderDetail(ordersDetail);
                 saveOrderDetail(ordersDetail);
                 existingOrderDetailIds.add(detailId);
-                hasSavedDetails = true;
 
                 // 성공 결과 추가
                 orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo(), item.getOrdPrdNo(), true));
@@ -102,10 +94,6 @@ public class OrderSaveService {
                 // 저장에 실패하면 실패 결과를 추가하고 로그에 오류를 기록
                 orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo(), item.getOrdPrdNo(), false));
                 log.error("Failed to save order detail: " + item.getOrdPrdNo() + " for order: " + order.getOrdNo(), e);
-            }
-            // 세부 목록이 하나도 저장되지 않았고 기존 세부 목록도 없다면 OrdersBase 삭제
-            if (!hasSavedDetails && !hasExistingDetails) {
-                ordersBaseRepository.delete(ordersBase);
             }
         }
     }
