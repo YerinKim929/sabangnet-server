@@ -42,7 +42,6 @@ public class OrderValidateService {
 
 
     // API에서 불러온 데이터 유효성 검증 확인
-    @Transactional
     public void validateOrders(List<OrderApiResponseBase> orders, int sellerNo, List<OrderResponseDto.OrderResult> orderResults) {
         // 데이터베이스에서 기존 주문 번호 및 상세 항목을 모두 가져와서 Set(집합)으로 저장
         Set<OrdersDetailId> existingOrderDetailIds = new HashSet<>(ordersDetailRepository.findAll()
