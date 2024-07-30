@@ -91,7 +91,7 @@ public class OrderSaveService {
 
             } catch (Exception e) {
                 // 저장에 실패하면 실패 결과를 추가하고 로그에 오류를 기록
-                orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo(), item.getOrdPrdNo(), false,"저장 예외 상황 발생"));
+                orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo(), item.getOrdPrdNo(), false,"저장하는 도중 오류가 발생했습니다."));
                 log.error("Failed to save order detail: " + item.getOrdPrdNo() + " for order: " + order.getOrdNo(), e);
             }
         }
