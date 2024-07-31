@@ -63,7 +63,7 @@ public class OrderSaveService {
 
             // 중복 여부 검사
             if (existingOrderDetailIds.contains(detailId)) {
-                orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo(), item.getOrdPrdNo(), false,"이미 수집된 주문 데이터입니다."));
+                orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo(), item.getOrdPrdNo(), false,"이미 수집된 주문 데이터"));
                 log.error("Duplicate order detail data: " + item.getOrdPrdNo() + " for order: " + order.getOrdNo());
                 continue;
             }
@@ -71,7 +71,7 @@ public class OrderSaveService {
             try {
                 // 주문 상세 데이터가 유효한지 검사
                 if (!orderValidateService.isValidOrderDetailData(item)) {
-                    orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo(), item.getOrdPrdNo(), false, "[상세주문] 유효하지 않은 데이터입니다."));
+                    orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo(), item.getOrdPrdNo(), false, "유효하지 않은 데이터"));
                     log.error("Invalid order detail data: " + item.getOrdPrdNo() + " for order: " + order.getOrdNo());
                     continue;
                 }
@@ -87,11 +87,11 @@ public class OrderSaveService {
                 existingOrderDetailIds.add(detailId);
 
                 // 성공 결과 추가
-                orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo(), item.getOrdPrdNo(), true,""));
+                orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo(), item.getOrdPrdNo(), true,"주문 수집 성공"));
 
             } catch (Exception e) {
                 // 저장에 실패하면 실패 결과를 추가하고 로그에 오류를 기록
-                orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo(), item.getOrdPrdNo(), false,"저장하는 도중 오류가 발생했습니다."));
+                orderResults.add(new OrderResponseDto.OrderResult(order.getOrdNo(), item.getOrdPrdNo(), false,"저장 오류 발생"));
                 log.error("Failed to save order detail: " + item.getOrdPrdNo() + " for order: " + order.getOrdNo(), e);
             }
         }

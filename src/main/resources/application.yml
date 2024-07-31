@@ -13,7 +13,6 @@ spring:
     open-in-view: true
     hibernate:
       jdbc:
-        batch_size: 200
       order_inserts: true
       order_updates: true
       generate_statistics: true

@@ -114,8 +114,8 @@ public class AuthService {
                 .accessToken(newTokensResponse.getAccessToken())
                 .refreshToken(newTokensResponse.getRefreshToken())
                 .issuedAt(LocalDateTime.now())
-                .expiresAt(LocalDateTime.now().plusHours(3))
-                .refreshExpiresAt(LocalDateTime.now().plusDays(1))
+                .expiresAt(LocalDateTime.now().plusMinutes(15))
+                .refreshExpiresAt(LocalDateTime.now().plusMinutes(30))
                 .build();
         tokensRepository.save(newTokens);
     }
