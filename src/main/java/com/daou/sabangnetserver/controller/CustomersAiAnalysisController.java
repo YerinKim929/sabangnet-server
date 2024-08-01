@@ -1,13 +1,20 @@
 package com.daou.sabangnetserver.controller;
 
-import com.daou.sabangnetserver.dto.CustomersAiAnalysisResponse;
+import com.daou.sabangnetserver.dto.CustomersAiAnalysisTableResponse;
+import com.daou.sabangnetserver.dto.ProjectInfo;
 import com.daou.sabangnetserver.model.CustomersAiAnalysis;
 import com.daou.sabangnetserver.service.CustomersAiAnalysisService;
+import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -16,16 +23,25 @@ public class CustomersAiAnalysisController {
     @Autowired
     private CustomersAiAnalysisService customerAnalysisService;
 
-    @GetMapping("/CustomersAiAnalysis")
-    public List<CustomersAiAnalysisResponse> updateCustomerAnalysis() {
-        List<CustomersAiAnalysis> analyses = customerAnalysisService.updateAndFetchAllCustomerAnalysis();
-        return analyses.stream()
-                .map(analysis -> new CustomersAiAnalysisResponse(
-                        analysis.getId(),
-                        analysis.getName(),
-                        analysis.getPhoneNumber(),
-                        analysis.isAiCollected()
-                ))
-                .collect(Collectors.toList());
+    private final OpenAiChatModel openAiChatModel;
+
+    public CustomersAiAnalysisController(OpenAiChatModel openAiChatModel) {
+        this.openAiChatModel = openAiChatModel;
     }
+
+    @GetMapping("/CustomersAiAnalysis")
+    public Map<String, List<CustomersAiAnalysisTableResponse>> updateCustomerAnalysisTable() {
+        return customerAnalysisService.updateAllCustomerAnalysisTable();
+    }
+/*
+    @GetMapping("/CustomersAiAnalysis/{sellerNo}")
+    public ResponseEntity<ProjectInfo> updateCustomerAnalysis(@PathVariable int sellerNo, @RequestBody String message) {
+        Map<String, String> responses = new HashMap<>();
+        String openAiResponse = openAiChatModel.call(message);
+        responses.put("openai(chatGPT) 응답", openAiResponse);
+        return responses;
+    }
+    */
+
 }
+

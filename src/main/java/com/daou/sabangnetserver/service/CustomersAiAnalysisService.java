@@ -1,5 +1,6 @@
 package com.daou.sabangnetserver.service;
 
+import com.daou.sabangnetserver.dto.CustomersAiAnalysisTableResponse;
 import com.daou.sabangnetserver.model.CustomersAiAnalysis;
 import com.daou.sabangnetserver.model.OrdersBase;
 import com.daou.sabangnetserver.model.OrdersDetail;
@@ -8,7 +9,9 @@ import com.daou.sabangnetserver.repository.OrdersBaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -21,7 +24,7 @@ public class CustomersAiAnalysisService {
     @Autowired
     private OrdersBaseRepository ordersBaseRepository;
 
-    public List<CustomersAiAnalysis> updateAndFetchAllCustomerAnalysis() {
+    public Map<String, List<CustomersAiAnalysisTableResponse>> updateAllCustomerAnalysisTable() {
         List<OrdersBase> ordersBases = ordersBaseRepository.findAll();
 
         for (OrdersBase ordersBase : ordersBases) {
@@ -48,6 +51,21 @@ public class CustomersAiAnalysisService {
                 customersAiAnalysisRepository.save(analysis);
             }
         }
-        return customersAiAnalysisRepository.findAll();
+
+        List<CustomersAiAnalysis> analyses = customersAiAnalysisRepository.findAll();
+        List<CustomersAiAnalysisTableResponse> responseList = analyses.stream()
+                .map(analysis -> new CustomersAiAnalysisTableResponse(
+                        analysis.getId(),
+                        analysis.getName(),
+                        analysis.getPhoneNumber(),
+                        analysis.isAiCollected()
+                ))
+                .collect(Collectors.toList());
+
+
+        Map<String, List<CustomersAiAnalysisTableResponse>> responseMap = new HashMap<>();
+        responseMap.put("orders", responseList);
+        return responseMap;
     }
+
 }

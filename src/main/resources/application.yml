@@ -1,4 +1,13 @@
 spring:
+  ai:
+    openai:
+      api-key: sk-proj-Nj46b6tsLT7t0m60z2XzT3BlbkFJEE9fDv1rrro2QtjbuGGJ
+
+    vertex:
+      ai:
+        gemini:
+          project-id: sabangnet-431103
+          location: asia-northeast3
 
   application:
     name: sabangnet-server

@@ -1,4 +1,4 @@
-package com.daou.sabangnetserver.dto;
+package com.daou.sabangnetserver.dto.token;
 
 
 import lombok.AllArgsConstructor;

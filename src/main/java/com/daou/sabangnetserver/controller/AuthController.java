@@ -1,8 +1,9 @@
 package com.daou.sabangnetserver.controller;
 
 
-import com.daou.sabangnetserver.dto.TokenRequestDto;
-import com.daou.sabangnetserver.dto.TokenResponseDto;
+import com.daou.sabangnetserver.dto.token.TokenRequestDto;
+import com.daou.sabangnetserver.dto.token.TokenResponseDto;
+import com.daou.sabangnetserver.dto.token.TokenResponseTimeDto;
 import com.daou.sabangnetserver.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,5 +31,9 @@ public class AuthController {
         TokenRequestDto request = new TokenRequestDto(apiKey, sltnCd);
         TokenResponseDto tokenResponse = authService.validateAndRefreshTokens(request, sellerNo);
         return ResponseEntity.ok("Token Responded successfully.");
+    }
+    @GetMapping("/tokens/{sellerNo}")
+    public TokenResponseTimeDto checkTokenstime(@PathVariable int sellerNo) {
+        return authService.checkTime(sellerNo);
     }
 }

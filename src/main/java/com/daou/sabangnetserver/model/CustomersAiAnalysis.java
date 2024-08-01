@@ -40,6 +40,9 @@ public class CustomersAiAnalysis {
     @Column(name = "customer_segments")
     private String customerSegments;
 
+    @Column(name = "personalized_recommendations_reason")
+    private String personalizedRecommendationsReason;
+
     @Data
     @NoArgsConstructor
     @AllArgsConstructor

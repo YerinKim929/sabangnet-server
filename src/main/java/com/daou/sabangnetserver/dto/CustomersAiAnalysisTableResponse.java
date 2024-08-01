@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CustomersAiAnalysisResponse {
+public class CustomersAiAnalysisTableResponse {
     private Long id;
     private String name;
     private String phoneNumber;
