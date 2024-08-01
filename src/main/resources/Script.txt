@@ -14,5 +14,5 @@ Related products should be specific and realistic, combining actual products and
 Customers only purchase from the following categories: [Beauty, Electronics & Digital, Household Goods, Food, Fashion & Apparel]
 Based on the provided orders, classify them into one of the following segments: 뷰티 중시형 / 가전 디지털 중시형 / 생활용품 중시형 / 식품 중시형 / 패션 의류 중시형 / 다중 카테고리형
 
-
+Ensure all outputs are in KOREAN and the JSON object is properly formatted. Do not format the result in markdown. Process the diary text specified below ##CONTENT##.
 ##CONTENT##
