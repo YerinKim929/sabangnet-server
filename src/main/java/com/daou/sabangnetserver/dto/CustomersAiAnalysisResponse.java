@@ -1,6 +1,5 @@
 package com.daou.sabangnetserver.dto;
 
-import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,12 +10,11 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CustomersAiAnalysisTableResponse {
-    private Long id;
+public class CustomersAiAnalysisResponse {
     private String name;
-    private String phoneNumber;
+    private List<String> frequentOrders;
     private List<String> personalizedRecommendations;
-    private int orderCount;
+    private String personalizedRecommendationsReason;
+    private String customerSegments;
     private LocalDateTime analyzedTime;
-
 }

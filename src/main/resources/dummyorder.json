@@ -1279,6 +1279,29 @@
             "optVal": "저지방 우유"
           }
         ]
+      },
+      {
+        "ordNo": "2024080610015583",
+        "ordDttm": "2024/08/06 11:33:34",
+        "rcvrNm": "윤도영",
+        "rcvrMphnNo": "01067890123",
+        "rcvrBaseAddr": "서울 은평구 은평대로 88 (은평빌딩)",
+        "rcvrDtlsAddr": "801호",
+        "sellerNo": 2644,
+        "orderItems": [
+          {
+            "ordPrdNo": 1,
+            "ordNo": "2024080610015583",
+            "prdNm": "카라멜마키아토",
+            "optVal": "카라멜 드리즐 추가"
+          },
+          {
+            "ordPrdNo": 2,
+            "ordNo": "2024080610015583",
+            "prdNm": "카라멜마키아토",
+            "optVal": "저지방 우유"
+          }
+        ]
       }
     ]
   }

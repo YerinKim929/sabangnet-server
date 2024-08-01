@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -27,15 +28,12 @@ public class CustomersAiAnalysis {
     @Column(name = "phone_number", nullable = false, length = 20)
     private String phoneNumber;
 
-    @Column(name = "ai_collected", nullable = false)
-    private boolean aiCollected;
-
     @ElementCollection
-    @CollectionTable(name = "purchase_info", joinColumns = @JoinColumn(name = "customers_ai_analysis_id"))
+    @CollectionTable(name = "purchase_info", joinColumns = @JoinColumn(name = "customers_id"))
     private List<PurchaseInfo> purchaseInfo;
 
     @Column(name = "personalized_recommendations")
-    private String personalizedRecommendations;
+    private List<String> personalizedRecommendations;
 
     @Column(name = "customer_segments")
     private String customerSegments;
@@ -43,13 +41,22 @@ public class CustomersAiAnalysis {
     @Column(name = "personalized_recommendations_reason")
     private String personalizedRecommendationsReason;
 
+    @Column(name = "analyzed_time")
+    private LocalDateTime analyzedTime;
+
+
+
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
     @Embeddable
     public static class PurchaseInfo {
+        private String ordNo;
         private String productName;
         private String optionValue;
+
     }
+
+
 }

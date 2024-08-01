@@ -1,5 +1,6 @@
 package com.daou.sabangnetserver.controller;
 
+import com.daou.sabangnetserver.dto.CustomersAiAnalysisResponse;
 import com.daou.sabangnetserver.dto.CustomersAiAnalysisTableResponse;
 import com.daou.sabangnetserver.dto.ProjectInfo;
 import com.daou.sabangnetserver.model.CustomersAiAnalysis;
@@ -23,25 +24,18 @@ public class CustomersAiAnalysisController {
     @Autowired
     private CustomersAiAnalysisService customerAnalysisService;
 
-    private final OpenAiChatModel openAiChatModel;
 
-    public CustomersAiAnalysisController(OpenAiChatModel openAiChatModel) {
-        this.openAiChatModel = openAiChatModel;
-    }
 
     @GetMapping("/CustomersAiAnalysis")
     public Map<String, List<CustomersAiAnalysisTableResponse>> updateCustomerAnalysisTable() {
         return customerAnalysisService.updateAllCustomerAnalysisTable();
     }
-/*
-    @GetMapping("/CustomersAiAnalysis/{sellerNo}")
-    public ResponseEntity<ProjectInfo> updateCustomerAnalysis(@PathVariable int sellerNo, @RequestBody String message) {
-        Map<String, String> responses = new HashMap<>();
-        String openAiResponse = openAiChatModel.call(message);
-        responses.put("openai(chatGPT) 응답", openAiResponse);
-        return responses;
+
+    @GetMapping("/CustomersAiAnalysis/{customerId}")
+    public ResponseEntity<CustomersAiAnalysisResponse> updateCustomerAnalysis(@PathVariable int customerId) {
+        CustomersAiAnalysisResponse responses = customerAnalysisService.updateCustomerAnalysis(customerId);
+        return ResponseEntity.ok(responses);
     }
-    */
 
 }
 

@@ -2,6 +2,7 @@ package com.daou.sabangnetserver.controller;
 
 
 import org.springframework.ai.openai.OpenAiChatModel;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,11 +14,9 @@ import java.util.Map;
 @RequestMapping("/api")
 @RestController
 public class ChatController {
-    private final OpenAiChatModel openAiChatModel;
+    @Autowired
+    private OpenAiChatModel openAiChatModel;
 
-    public ChatController(OpenAiChatModel openAiChatModel) {
-        this.openAiChatModel = openAiChatModel;
-    }
 
     @GetMapping("/chat")
     public Map<String, String> chat(@RequestBody String message) {
