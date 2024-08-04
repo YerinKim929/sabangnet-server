@@ -2,1304 +2,1190 @@
   "response": {
     "listElements": [
       {
-        "ordNo": "2024060110015532",
-        "ordDttm": "2024/06/01 08:23:11",
-        "rcvrNm": "김민수",
-        "rcvrMphnNo": "01012345678",
-        "rcvrBaseAddr": "서울 금천구 가산디지털2로 108 (뉴티캐슬)",
-        "rcvrDtlsAddr": "405호",
-        "sellerNo": 2644,
+        "ordNo": "202406033918347103",
+        "ordDttm": "2024/06/03 14:12:48",
+        "rcvrNm": "정다은",
+        "rcvrMphnNo": "01080995702",
+        "rcvrBaseAddr": "부산 해운대구 해운대해변로 45",
+        "rcvrDtlsAddr": "해운대 아라빌 12층",
+        "sellerNo": 2664,
+        "ordCollectDttm": "2024/01/01 00:00:00",
         "orderItems": [
           {
             "ordPrdNo": 1,
-            "ordNo": "2024060110015532",
-            "prdNm": "센시안 힐링테라피 쿨링패치",
-            "optVal": "옵션2"
+            "ordNo": "202406033918347103",
+            "prdNm": "필립스 전기면도기",
+            "optVal": "5000시리즈"
           },
           {
             "ordPrdNo": 2,
-            "ordNo": "2024060110015532",
-            "prdNm": "다크비어 폼 트리트먼트",
-            "optVal": "옵션1"
-          }
-        ]
-      },
-      {
-        "ordNo": "2024060410015533",
-        "ordDttm": "2024/06/04 09:13:45",
-        "rcvrNm": "박철수",
-        "rcvrMphnNo": "01012344312",
-        "rcvrBaseAddr": "경기 성남시 수정구 금토로 69",
-        "rcvrDtlsAddr": "8층 사방넷연동개발팀",
-        "sellerNo": 2644,
-        "orderItems": [
-          {
-            "ordPrdNo": 1,
-            "ordNo": "2024060410015533",
-            "prdNm": "뉴트리플랜 고양이캔 흰살참치와 닭가슴살 160g",
-            "optVal": "옵션2"
-          }
-        ]
-      },
-      {
-        "ordNo": "2024060910015534",
-        "ordDttm": "2024/06/09 10:52:30",
-        "rcvrNm": "이영희",
-        "rcvrMphnNo": "01012344893",
-        "rcvrBaseAddr": "경기 안산시 상록구 한양대학로 55",
-        "rcvrDtlsAddr": "제1공학관 305호",
-        "sellerNo": 2644,
-        "orderItems": [
-          {
-            "ordPrdNo": 1,
-            "ordNo": "2024060910015534",
-            "prdNm": "로지나잇 리페어 앰플 트리트먼트",
-            "optVal": "옵션1"
-          },
-          {
-            "ordPrdNo": 2,
-            "ordNo": "2024060910015534",
-            "prdNm": "센시안 힐링테라피 쿨링패치",
-            "optVal": "옵션2"
+            "ordNo": "202406033918347103",
+            "prdNm": "쿠쿠 압력밥솥",
+            "optVal": "6인용"
           },
           {
             "ordPrdNo": 3,
-            "ordNo": "2024060910015534",
-            "prdNm": "다크비어 폼 트리트먼트",
-            "optVal": "옵션1"
-          },
-          {
-            "ordPrdNo": 4,
-            "ordNo": "2024060910015534",
-            "prdNm": "뉴트리플랜 고양이캔 흰살참치와 닭가슴살 160g",
-            "optVal": "옵션2"
-          },
-          {
-            "ordPrdNo": 5,
-            "ordNo": "2024060910015534",
-            "prdNm": "로지나잇 리페어 앰플 트리트먼트",
-            "optVal": "옵션1"
+            "ordNo": "202406033918347103",
+            "prdNm": "다이슨 V11 청소기",
+            "optVal": "토탈클린"
           }
         ]
       },
       {
-        "ordNo": "2024061210015535",
-        "ordDttm": "2024/06/12 11:45:20",
-        "rcvrNm": "최민호",
-        "rcvrMphnNo": "01012345678",
-        "rcvrBaseAddr": "서울 금천구 가산디지털2로 108 (뉴티캐슬)",
-        "rcvrDtlsAddr": "405호",
-        "sellerNo": 2644,
+        "ordNo": "202406038539022907",
+        "ordDttm": "2024/06/03 17:55:11",
+        "rcvrNm": "정다은",
+        "rcvrMphnNo": "01080573630",
+        "rcvrBaseAddr": "광주 서구 상무대로 789",
+        "rcvrDtlsAddr": "상무지구 베스트타워 8층",
+        "sellerNo": 2664,
+        "ordCollectDttm": "2024/01/01 00:00:00",
         "orderItems": [
           {
             "ordPrdNo": 1,
-            "ordNo": "2024061210015535",
-            "prdNm": "센시안 힐링테라피 쿨링패치",
-            "optVal": "옵션2"
+            "ordNo": "202406038539022907",
+            "prdNm": "설화수 윤조에센스",
+            "optVal": "50ml"
           },
           {
             "ordPrdNo": 2,
-            "ordNo": "2024061210015535",
-            "prdNm": "다크비어 폼 트리트먼트",
-            "optVal": "옵션1"
-          },
-          {
-            "ordPrdNo": 3,
-            "ordNo": "2024061210015535",
-            "prdNm": "뉴트리플랜 고양이캔 흰살참치와 닭가슴살 160g",
-            "optVal": "옵션2"
-          },
-          {
-            "ordPrdNo": 5,
-            "ordNo": "2024061210015535",
-            "prdNm": "로지나잇 리페어 앰플 트리트먼트",
-            "optVal": "옵션1"
+            "ordNo": "202406038539022907",
+            "prdNm": "헤라 블랙쿠션",
+            "optVal": "23호"
           }
         ]
       },
       {
-        "ordNo": "2024061510015536",
-        "ordDttm": "2024/06/15 12:23:10",
-        "rcvrNm": "박지훈",
-        "rcvrMphnNo": "01012345678",
-        "rcvrBaseAddr": "서울 금천구 가산디지털2로 108 (뉴티캐슬)",
-        "rcvrDtlsAddr": "405호",
-        "sellerNo": 2644,
-        "orderItems": [
-          {
-            "ordPrdNo": 1,
-            "ordNo": "2024061510015536",
-            "prdNm": "센시안 힐링테라피 쿨링패치",
-            "optVal": "옵션2"
-          },
-          {
-            "ordPrdNo": 2,
-            "ordNo": "2024061510015536",
-            "prdNm": "다크비어 폼 트리트먼트",
-            "optVal": "옵션1"
-          },
-          {
-            "ordPrdNo": 3,
-            "ordNo": "2024061510015536",
-            "prdNm": "뉴트리플랜 고양이캔 흰살참치와 닭가슴살 160g",
-            "optVal": "옵션2"
-          },
-          {
-            "ordPrdNo": 4,
-            "ordNo": "2024061510015536",
-            "prdNm": "로지나잇 리페어 앰플 트리트먼트",
-            "optVal": "옵션1"
-          }
-        ]
-      },
-      {
-        "ordNo": "2024062010015537",
-        "ordDttm": "2024/06/20 09:24:20",
-        "rcvrNm": "최영수",
-        "rcvrMphnNo": "01055552057",
-        "rcvrBaseAddr": "서울 금천구 가산디지털2로 108 (뉴티캐슬)",
-        "rcvrDtlsAddr": "1008호",
-        "sellerNo": 2644,
-        "orderItems": [
-          {
-            "ordPrdNo": 1,
-            "ordNo": "2024062010015537",
-            "prdNm": "센시안 힐링테라피 쿨링패치",
-            "optVal": "옵션2"
-          },
-          {
-            "ordPrdNo": 2,
-            "ordNo": "2024062010015537",
-            "prdNm": "다크비어 폼 트리트먼트",
-            "optVal": "옵션1"
-          },
-          {
-            "ordPrdNo": 3,
-            "ordNo": "2024062010015537",
-            "prdNm": "뉴트리플랜 고양이캔 흰살참치와 닭가슴살 160g",
-            "optVal": "옵션2"
-          },
-          {
-            "ordPrdNo": 4,
-            "ordNo": "2024062010015537",
-            "prdNm": "뉴트리플랜 고양이캔 흰살참치와 닭가슴살 160g",
-            "optVal": "옵션1"
-          }
-        ]
-      },
-      {
-        "ordNo": "2024062310015538",
-        "ordDttm": "2024/06/23 11:57:40",
-        "rcvrNm": "장민준",
-        "rcvrMphnNo": "01055552057",
-        "rcvrBaseAddr": "서울 금천구 가산디지털2로 108 (뉴티캐슬)",
-        "rcvrDtlsAddr": "1008호",
-        "sellerNo": 2644,
-        "orderItems": [
-          {
-            "ordPrdNo": 1,
-            "ordNo": "2024062310015538",
-            "prdNm": "센시안 힐링테라피 쿨링패치",
-            "optVal": "옵션2"
-          },
-          {
-            "ordPrdNo": 2,
-            "ordNo": "2024062310015538",
-            "prdNm": "다크비어 폼 트리트먼트",
-            "optVal": "옵션1"
-          },
-          {
-            "ordPrdNo": 3,
-            "ordNo": "2024062310015538",
-            "prdNm": "뉴트리플랜 고양이캔 흰살참치와 닭가슴살 160g",
-            "optVal": "옵션2"
-          },
-          {
-            "ordPrdNo": 4,
-            "ordNo": "2024062310015538",
-            "prdNm": "로지나잇 리페어 앰플 트리트먼트",
-            "optVal": "옵션1"
-          }
-        ]
-      },
-      {
-        "ordNo": "2024062510015539",
-        "ordDttm": "2024/06/25 14:35:25",
-        "rcvrNm": "이준혁",
-        "rcvrMphnNo": "01033335678",
-        "rcvrBaseAddr": "서울 금천구 가산디지털2로 108 (뉴티캐슬)",
-        "rcvrDtlsAddr": "405호",
-        "sellerNo": 2644,
-        "orderItems": [
-          {
-            "ordPrdNo": 1,
-            "ordNo": "2024062510015539",
-            "prdNm": "뉴트리플랜 고양이캔 흰살참치와 닭가슴살 160g",
-            "optVal": "옵션2"
-          },
-          {
-            "ordPrdNo": 2,
-            "ordNo": "2024062510015539",
-            "prdNm": "센시안 힐링테라피 쿨링패치",
-            "optVal": "옵션1"
-          }
-        ]
-      },
-      {
-        "ordNo": "2024062510015542",
-        "ordDttm": "2024/06/25 10:11:21",
-        "rcvrNm": "이수민",
-        "rcvrMphnNo": "01012345678",
-        "rcvrBaseAddr": "서울 서대문구 신촌로 51 (연세대학교)",
-        "rcvrDtlsAddr": "203호",
-        "sellerNo": 2644,
-        "orderItems": [
-          {
-            "ordPrdNo": 1,
-            "ordNo": "2024062510015542",
-            "prdNm": "사과즙",
-            "optVal": "옵션1"
-          }
-        ]
-      },
-      {
-        "ordNo": "2024062610015543",
-        "ordDttm": "2024/06/26 11:22:32",
-        "rcvrNm": "김지현",
-        "rcvrMphnNo": "01023456789",
-        "rcvrBaseAddr": "부산 해운대구 센텀남대로 35 (센텀파크)",
-        "rcvrDtlsAddr": "301호",
-        "sellerNo": 2644,
-        "orderItems": [
-          {
-            "ordPrdNo": 1,
-            "ordNo": "2024062610015543",
-            "prdNm": "오렌지주스",
-            "optVal": "옵션2"
-          }
-        ]
-      },
-      {
-        "ordNo": "2024062710015544",
-        "ordDttm": "2024/06/27 12:33:43",
-        "rcvrNm": "박준영",
-        "rcvrMphnNo": "01034567890",
-        "rcvrBaseAddr": "대구 수성구 범어천로 88 (수성메트로)",
-        "rcvrDtlsAddr": "504호",
-        "sellerNo": 2644,
-        "orderItems": [
-          {
-            "ordPrdNo": 1,
-            "ordNo": "2024062710015544",
-            "prdNm": "망고주스",
-            "optVal": "옵션3"
-          }
-        ]
-      },
-      {
-        "ordNo": "2024062810015540",
-        "ordDttm": "2024/06/28 15:45:30",
-        "rcvrNm": "윤하영",
-        "rcvrMphnNo": "01012344312",
-        "rcvrBaseAddr": "경기 성남시 수정구 금토로 69",
-        "rcvrDtlsAddr": "8층 사방넷연동개발팀",
-        "sellerNo": 2644,
-        "orderItems": [
-          {
-            "ordPrdNo": 1,
-            "ordNo": "2024062810015540",
-            "prdNm": "센시안 힐링테라피 쿨링패치",
-            "optVal": "옵션2"
-          },
-          {
-            "ordPrdNo": 2,
-            "ordNo": "2024062810015540",
-            "prdNm": "다크비어 폼 트리트먼트",
-            "optVal": "옵션1"
-          },
-          {
-            "ordPrdNo": 3,
-            "ordNo": "2024062810015540",
-            "prdNm": "뉴트리플랜 고양이캔 흰살참치와 닭가슴살 160g",
-            "optVal": "옵션2"
-          }
-        ]
-      },
-      {
-        "ordNo": "2024062810015545",
-        "ordDttm": "2024/06/28 13:44:54",
-        "rcvrNm": "최은지",
-        "rcvrMphnNo": "01045678901",
-        "rcvrBaseAddr": "인천 남동구 논현동 33 (남동프라자)",
-        "rcvrDtlsAddr": "402호",
-        "sellerNo": 2644,
-        "orderItems": [
-          {
-            "ordPrdNo": 1,
-            "ordNo": "2024062810015545",
-            "prdNm": "포도주스",
-            "optVal": "옵션1"
-          }
-        ]
-      },
-      {
-        "ordNo": "2024062910015546",
-        "ordDttm": "2024/06/29 14:55:05",
-        "rcvrNm": "정현우",
-        "rcvrMphnNo": "01056789012",
-        "rcvrBaseAddr": "광주 서구 내방로 22 (서구타워)",
-        "rcvrDtlsAddr": "1001호",
-        "sellerNo": 2644,
-        "orderItems": [
-          {
-            "ordPrdNo": 1,
-            "ordNo": "2024062910015546",
-            "prdNm": "딸기주스",
-            "optVal": "옵션2"
-          }
-        ]
-      },
-      {
-        "ordNo": "2024063010015547",
-        "ordDttm": "2024/06/30 15:06:16",
-        "rcvrNm": "한지민",
-        "rcvrMphnNo": "01067890123",
-        "rcvrBaseAddr": "서울 강남구 역삼로 14 (강남타워)",
-        "rcvrDtlsAddr": "1502호",
-        "sellerNo": 2644,
-        "orderItems": [
-          {
-            "ordPrdNo": 1,
-            "ordNo": "2024063010015547",
-            "prdNm": "바나나주스",
-            "optVal": "옵션3"
-          }
-        ]
-      },
-      {
-        "ordNo": "2024070110015548",
-        "ordDttm": "2024/07/01 16:17:27",
-        "rcvrNm": "신유진",
-        "rcvrMphnNo": "01078901234",
-        "rcvrBaseAddr": "경기 성남시 분당구 성남대로 10 (분당빌딩)",
-        "rcvrDtlsAddr": "202호",
-        "sellerNo": 2644,
-        "orderItems": [
-          {
-            "ordPrdNo": 1,
-            "ordNo": "2024070110015548",
-            "prdNm": "키위주스",
-            "optVal": "옵션1"
-          }
-        ]
-      },
-      {
-        "ordNo": "2024070210015541",
-        "ordDttm": "2024/07/02 16:24:15",
-        "rcvrNm": "박민아",
-        "rcvrMphnNo": "01012344893",
-        "rcvrBaseAddr": "경기 안산시 상록구 한양대학로 55",
-        "rcvrDtlsAddr": "제1공학관 305호",
-        "sellerNo": 2644,
-        "orderItems": [
-          {
-            "ordPrdNo": 1,
-            "ordNo": "2024070210015541",
-            "prdNm": "로지나잇 리페어 앰플 트리트먼트",
-            "optVal": "옵션1"
-          },
-          {
-            "ordPrdNo": 2,
-            "ordNo": "2024070210015541",
-            "prdNm": "센시안 힐링테라피 쿨링패치",
-            "optVal": "옵션2"
-          }
-        ]
-      },
-      {
-        "ordNo": "2024070210015549",
-        "ordDttm": "2024/07/02 17:28:38",
-        "rcvrNm": "조민준",
-        "rcvrMphnNo": "01089012345",
-        "rcvrBaseAddr": "부산 해운대구 해운대로 15 (해운대타워)",
-        "rcvrDtlsAddr": "801호",
-        "sellerNo": 2644,
-        "orderItems": [
-          {
-            "ordPrdNo": 1,
-            "ordNo": "2024070210015549",
-            "prdNm": "복숭아주스",
-            "optVal": "옵션2"
-          }
-        ]
-      },
-      {
-        "ordNo": "2024070310015550",
-        "ordDttm": "2024/07/03 18:39:49",
-        "rcvrNm": "박소연",
-        "rcvrMphnNo": "01090123456",
-        "rcvrBaseAddr": "대전 유성구 대학로 35 (대전프라자)",
-        "rcvrDtlsAddr": "502호",
-        "sellerNo": 2644,
-        "orderItems": [
-          {
-            "ordPrdNo": 1,
-            "ordNo": "2024070310015550",
-            "prdNm": "레몬주스",
-            "optVal": "옵션3"
-          }
-        ]
-      },
-      {
-        "ordNo": "2024070410015551",
-        "ordDttm": "2024/07/04 19:50:00",
-        "rcvrNm": "최민아",
-        "rcvrMphnNo": "01001234567",
-        "rcvrBaseAddr": "울산 남구 대학로 17 (울산타워)",
-        "rcvrDtlsAddr": "902호",
-        "sellerNo": 2644,
-        "orderItems": [
-          {
-            "ordPrdNo": 1,
-            "ordNo": "2024070410015551",
-            "prdNm": "파인애플주스",
-            "optVal": "옵션1"
-          }
-        ]
-      },
-      {
-        "ordNo": "2024070510015552",
-        "ordDttm": "2024/07/05 20:10:11",
-        "rcvrNm": "한예슬",
-        "rcvrMphnNo": "01012345678",
-        "rcvrBaseAddr": "서울 서초구 서초대로 77 (서초프라자)",
-        "rcvrDtlsAddr": "1202호",
-        "sellerNo": 2644,
-        "orderItems": [
-          {
-            "ordPrdNo": 1,
-            "ordNo": "2024070510015552",
-            "prdNm": "자몽주스",
-            "optVal": "옵션2"
-          }
-        ]
-      },
-      {
-        "ordNo": "2024070610015553",
-        "ordDttm": "2024/07/06 21:21:22",
-        "rcvrNm": "이지훈",
-        "rcvrMphnNo": "01023456789",
-        "rcvrBaseAddr": "경기 용인시 기흥구 동백죽전대로 32 (기흥빌딩)",
-        "rcvrDtlsAddr": "1003호",
-        "sellerNo": 2644,
-        "orderItems": [
-          {
-            "ordPrdNo": 1,
-            "ordNo": "2024070610015553",
-            "prdNm": "청포도주스",
-            "optVal": "옵션3"
-          }
-        ]
-      },
-      {
-        "ordNo": "2024070710015554",
-        "ordDttm": "2024/07/07 22:32:33",
-        "rcvrNm": "유지은",
-        "rcvrMphnNo": "01034567890",
-        "rcvrBaseAddr": "부산 북구 금곡대로 22 (부산빌딩)",
-        "rcvrDtlsAddr": "303호",
-        "sellerNo": 2644,
-        "orderItems": [
-          {
-            "ordPrdNo": 1,
-            "ordNo": "2024070710015554",
-            "prdNm": "딸기라떼",
-            "optVal": "옵션1"
-          }
-        ]
-      },
-      {
-        "ordNo": "2024070810015555",
-        "ordDttm": "2024/07/08 23:43:44",
-        "rcvrNm": "박지수",
-        "rcvrMphnNo": "01045678901",
-        "rcvrBaseAddr": "서울 중구 충무로 55 (중구프라자)",
-        "rcvrDtlsAddr": "1005호",
-        "sellerNo": 2644,
-        "orderItems": [
-          {
-            "ordPrdNo": 1,
-            "ordNo": "2024070810015555",
-            "prdNm": "바나나라떼",
-            "optVal": "옵션2"
-          }
-        ]
-      },
-      {
-        "ordNo": "2024070910015556",
-        "ordDttm": "2024/07/09 08:00:55",
-        "rcvrNm": "이서준",
-        "rcvrMphnNo": "01056789012",
-        "rcvrBaseAddr": "경기 수원시 영통구 봉영로 22 (수원빌딩)",
-        "rcvrDtlsAddr": "204호",
-        "sellerNo": 2644,
-        "orderItems": [
-          {
-            "ordPrdNo": 1,
-            "ordNo": "2024070910015556",
-            "prdNm": "초코라떼",
-            "optVal": "옵션3"
-          }
-        ]
-      },
-      {
-        "ordNo": "2024071010015557",
-        "ordDttm": "2024/07/10 09:11:12",
-        "rcvrNm": "한서진",
-        "rcvrMphnNo": "01067890123",
-        "rcvrBaseAddr": "대전 동구 가오로 10 (동구프라자)",
-        "rcvrDtlsAddr": "305호",
-        "sellerNo": 2644,
-        "orderItems": [
-          {
-            "ordPrdNo": 1,
-            "ordNo": "2024071010015557",
-            "prdNm": "커피라떼",
-            "optVal": "옵션1"
-          }
-        ]
-      },
-      {
-        "ordNo": "2024071110015558",
-        "ordDttm": "2024/07/11 10:22:23",
-        "rcvrNm": "김태훈",
-        "rcvrMphnNo": "01078901234",
-        "rcvrBaseAddr": "울산 북구 매곡로 77 (울산프라자)",
-        "rcvrDtlsAddr": "604호",
-        "sellerNo": 2644,
-        "orderItems": [
-          {
-            "ordPrdNo": 1,
-            "ordNo": "2024071110015558",
-            "prdNm": "카페모카",
-            "optVal": "옵션2"
-          }
-        ]
-      },
-      {
-        "ordNo": "2024071210015559",
-        "ordDttm": "2024/07/12 11:33:34",
-        "rcvrNm": "김하늘",
-        "rcvrMphnNo": "01089012345",
-        "rcvrBaseAddr": "경기 고양시 일산동구 중앙로 35 (고양타워)",
-        "rcvrDtlsAddr": "505호",
-        "sellerNo": 2644,
-        "orderItems": [
-          {
-            "ordPrdNo": 1,
-            "ordNo": "2024071210015559",
-            "prdNm": "카라멜마키아토",
-            "optVal": "옵션1"
-          },
-          {
-            "ordPrdNo": 2,
-            "ordNo": "2024071210015559",
-            "prdNm": "카라멜마키아토",
-            "optVal": "옵션2"
-          }
-        ]
-      },
-      {
-        "ordNo": "2024071310015560",
-        "ordDttm": "2024/07/13 12:44:45",
-        "rcvrNm": "이승현",
-        "rcvrMphnNo": "01090123456",
-        "rcvrBaseAddr": "경기 부천시 부천로 88 (부천프라자)",
-        "rcvrDtlsAddr": "701호",
-        "sellerNo": 2644,
-        "orderItems": [
-          {
-            "ordPrdNo": 1,
-            "ordNo": "2024071310015560",
-            "prdNm": "헤이즐넛라떼",
-            "optVal": "옵션1"
-          },
-          {
-            "ordPrdNo": 2,
-            "ordNo": "2024071310015560",
-            "prdNm": "헤이즐넛라떼",
-            "optVal": "옵션2"
-          },
-          {
-            "ordPrdNo": 3,
-            "ordNo": "2024071310015560",
-            "prdNm": "헤이즐넛라떼",
-            "optVal": "옵션3"
-          }
-        ]
-      },
-      {
-        "ordNo": "2024071410015561",
-        "ordDttm": "2024/07/14 13:55:56",
-        "rcvrNm": "이정민",
-        "rcvrMphnNo": "01001234567",
-        "rcvrBaseAddr": "서울 송파구 잠실로 22 (잠실타워)",
-        "rcvrDtlsAddr": "803호",
-        "sellerNo": 2644,
-        "orderItems": [
-          {
-            "ordPrdNo": 1,
-            "ordNo": "2024071410015561",
-            "prdNm": "바닐라라떼",
-            "optVal": "옵션1"
-          },
-          {
-            "ordPrdNo": 2,
-            "ordNo": "2024071410015561",
-            "prdNm": "바닐라라떼",
-            "optVal": "옵션2"
-          },
-          {
-            "ordPrdNo": 3,
-            "ordNo": "2024071410015561",
-            "prdNm": "바닐라라떼",
-            "optVal": "옵션3"
-          },
-          {
-            "ordPrdNo": 4,
-            "ordNo": "2024071410015561",
-            "prdNm": "바닐라라떼",
-            "optVal": "옵션4"
-          }
-        ]
-      },
-      {
-        "ordNo": "2024071510015562",
-        "ordDttm": "2024/07/15 14:06:57",
-        "rcvrNm": "박혜민",
-        "rcvrMphnNo": "01012345678",
-        "rcvrBaseAddr": "서울 관악구 신림로 10 (신림빌딩)",
-        "rcvrDtlsAddr": "204호",
-        "sellerNo": 2644,
-        "orderItems": [
-          {
-            "ordPrdNo": 1,
-            "ordNo": "2024071510015562",
-            "prdNm": "아메리카노",
-            "optVal": "옵션1"
-          },
-          {
-            "ordPrdNo": 2,
-            "ordNo": "2024071510015562",
-            "prdNm": "아메리카노",
-            "optVal": "옵션2"
-          }
-        ]
-      },
-      {
-        "ordNo": "2024071610015563",
-        "ordDttm": "2024/07/16 15:17:08",
-        "rcvrNm": "정은지",
-        "rcvrMphnNo": "01023456789",
-        "rcvrBaseAddr": "서울 강동구 천호로 22 (천호타워)",
-        "rcvrDtlsAddr": "1005호",
-        "sellerNo": 2644,
-        "orderItems": [
-          {
-            "ordPrdNo": 1,
-            "ordNo": "2024071610015563",
-            "prdNm": "카푸치노",
-            "optVal": "옵션1"
-          },
-          {
-            "ordPrdNo": 2,
-            "ordNo": "2024071610015563",
-            "prdNm": "카푸치노",
-            "optVal": "옵션2"
-          },
-          {
-            "ordPrdNo": 3,
-            "ordNo": "2024071610015563",
-            "prdNm": "카푸치노",
-            "optVal": "옵션3"
-          }
-        ]
-      },
-      {
-        "ordNo": "2024071710015564",
-        "ordDttm": "2024/07/17 16:28:19",
-        "rcvrNm": "한지수",
-        "rcvrMphnNo": "01034567890",
-        "rcvrBaseAddr": "서울 동대문구 장안로 35 (동대문프라자)",
-        "rcvrDtlsAddr": "1203호",
-        "sellerNo": 2644,
-        "orderItems": [
-          {
-            "ordPrdNo": 1,
-            "ordNo": "2024071710015564",
-            "prdNm": "에스프레소",
-            "optVal": "옵션1"
-          },
-          {
-            "ordPrdNo": 2,
-            "ordNo": "2024071710015564",
-            "prdNm": "에스프레소",
-            "optVal": "옵션2"
-          },
-          {
-            "ordPrdNo": 3,
-            "ordNo": "2024071710015564",
-            "prdNm": "에스프레소",
-            "optVal": "옵션3"
-          }
-        ]
-      },
-      {
-        "ordNo": "2024071710019999",
-        "ordDttm": "2024/07/17 16:28:19",
-        "rcvrNm": "한지수",
-        "rcvrMphnNo": "01034567890",
-        "rcvrBaseAddr": "서울 동대문구 장안로 35 (동대문프라자)",
-        "rcvrDtlsAddr": "1203호",
-        "sellerNo": 2644,
-        "orderItems": [
-          {
-            "ordPrdNo": 1,
-            "ordNo": "2024071710019999",
-            "prdNm": "에스프레소",
-            "optVal": "더블 샷"
-          },
-          {
-            "ordPrdNo": 2,
-            "ordNo": "2024071710019999",
-            "prdNm": "에스프레소",
-            "optVal": "싱글 샷"
-          },
-          {
-            "ordPrdNo": 3,
-            "ordNo": "2024071710019999",
-            "prdNm": "에스프레소",
-            "optVal": "트리플 샷"
-          }
-        ]
-      },
-      {
-        "ordNo": "2024071810015565",
-        "ordDttm": "2024/07/18 09:11:12",
-        "rcvrNm": "김민준",
-        "rcvrMphnNo": "01067890123",
-        "rcvrBaseAddr": "서울 마포구 마포대로 56 (마포타워)",
-        "rcvrDtlsAddr": "501호",
-        "sellerNo": 2644,
-        "orderItems": [
-          {
-            "ordPrdNo": 1,
-            "ordNo": "2024071810015565",
-            "prdNm": "아메리카노",
-            "optVal": "핫"
-          },
-          {
-            "ordPrdNo": 2,
-            "ordNo": "2024071810015565",
-            "prdNm": "아메리카노",
-            "optVal": "아이스"
-          }
-        ]
-      },
-      {
-        "ordNo": "2024071910015566",
-        "ordDttm": "2024/07/19 10:22:23",
-        "rcvrNm": "박서연",
-        "rcvrMphnNo": "01078901234",
-        "rcvrBaseAddr": "부산 해운대구 해운대로 88 (해운대타워)",
-        "rcvrDtlsAddr": "704호",
-        "sellerNo": 2644,
-        "orderItems": [
-          {
-            "ordPrdNo": 1,
-            "ordNo": "2024071910015566",
-            "prdNm": "카페모카",
-            "optVal": "휘핑크림 추가"
-          },
-          {
-            "ordPrdNo": 2,
-            "ordNo": "2024071910015566",
-            "prdNm": "카페모카",
-            "optVal": "초콜릿 소스 추가"
-          }
-        ]
-      },
-      {
-        "ordNo": "2024072010015567",
-        "ordDttm": "2024/07/20 11:33:34",
-        "rcvrNm": "이하은",
-        "rcvrMphnNo": "01089012345",
-        "rcvrBaseAddr": "대전 유성구 유성대로 77 (유성프라자)",
-        "rcvrDtlsAddr": "1203호",
-        "sellerNo": 2644,
-        "orderItems": [
-          {
-            "ordPrdNo": 1,
-            "ordNo": "2024072010015567",
-            "prdNm": "카라멜마키아토",
-            "optVal": "카라멜 드리즐 추가"
-          },
-          {
-            "ordPrdNo": 2,
-            "ordNo": "2024072010015567",
-            "prdNm": "카라멜마키아토",
-            "optVal": "저지방 우유"
-          }
-        ]
-      },
-      {
-        "ordNo": "2024072110015568",
-        "ordDttm": "2024/07/21 12:44:45",
-        "rcvrNm": "최예린",
-        "rcvrMphnNo": "01090123456",
-        "rcvrBaseAddr": "서울 송파구 송파대로 99 (송파빌딩)",
-        "rcvrDtlsAddr": "201호",
-        "sellerNo": 2644,
-        "orderItems": [
-          {
-            "ordPrdNo": 1,
-            "ordNo": "2024072110015568",
-            "prdNm": "헤이즐넛라떼",
-            "optVal": "시럽 추가"
-          },
-          {
-            "ordPrdNo": 2,
-            "ordNo": "2024072110015568",
-            "prdNm": "헤이즐넛라떼",
-            "optVal": "무지방 우유"
-          },
-          {
-            "ordPrdNo": 3,
-            "ordNo": "2024072110015568",
-            "prdNm": "헤이즐넛라떼",
-            "optVal": "얼음 추가"
-          }
-        ]
-      },
-      {
-        "ordNo": "2024072210015569",
-        "ordDttm": "2024/07/22 13:55:56",
-        "rcvrNm": "김도연",
-        "rcvrMphnNo": "01001234567",
-        "rcvrBaseAddr": "인천 남동구 남동대로 77 (남동프라자)",
-        "rcvrDtlsAddr": "303호",
-        "sellerNo": 2644,
-        "orderItems": [
-          {
-            "ordPrdNo": 1,
-            "ordNo": "2024072210015569",
-            "prdNm": "바닐라라떼",
-            "optVal": "바닐라 시럽 추가"
-          },
-          {
-            "ordPrdNo": 2,
-            "ordNo": "2024072210015569",
-            "prdNm": "바닐라라떼",
-            "optVal": "휘핑크림 추가"
-          },
-          {
-            "ordPrdNo": 3,
-            "ordNo": "2024072210015569",
-            "prdNm": "바닐라라떼",
-            "optVal": "저지방 우유"
-          },
-          {
-            "ordPrdNo": 4,
-            "ordNo": "2024072210015569",
-            "prdNm": "바닐라라떼",
-            "optVal": "얼음 추가"
-          }
-        ]
-      },
-      {
-        "ordNo": "2024072310015570",
-        "ordDttm": "2024/07/23 14:06:57",
-        "rcvrNm": "박현서",
-        "rcvrMphnNo": "01012345678",
-        "rcvrBaseAddr": "경기 성남시 분당구 분당대로 88 (분당프라자)",
-        "rcvrDtlsAddr": "801호",
-        "sellerNo": 2644,
-        "orderItems": [
-          {
-            "ordPrdNo": 1,
-            "ordNo": "2024072310015570",
-            "prdNm": "아메리카노",
-            "optVal": "에스프레소 샷 추가"
-          },
-          {
-            "ordPrdNo": 2,
-            "ordNo": "2024072310015570",
-            "prdNm": "아메리카노",
-            "optVal": "무지방 우유"
-          }
-        ]
-      },
-      {
-        "ordNo": "2024072410015571",
-        "ordDttm": "2024/07/24 15:17:08",
-        "rcvrNm": "정민우",
-        "rcvrMphnNo": "01023456789",
-        "rcvrBaseAddr": "서울 강서구 강서대로 88 (강서빌딩)",
-        "rcvrDtlsAddr": "903호",
-        "sellerNo": 2644,
-        "orderItems": [
-          {
-            "ordPrdNo": 1,
-            "ordNo": "2024072410015571",
-            "prdNm": "카푸치노",
-            "optVal": "시나몬 추가"
-          },
-          {
-            "ordPrdNo": 2,
-            "ordNo": "2024072410015571",
-            "prdNm": "카푸치노",
-            "optVal": "휘핑크림 추가"
-          },
-          {
-            "ordPrdNo": 3,
-            "ordNo": "2024072410015571",
-            "prdNm": "카푸치노",
-            "optVal": "저지방 우유"
-          }
-        ]
-      },
-      {
-        "ordNo": "2024072510015572",
-        "ordDttm": "2024/07/25 16:28:19",
-        "rcvrNm": "한서우",
-        "rcvrMphnNo": "01034567890",
-        "rcvrBaseAddr": "서울 중구 중구로 55 (중구타워)",
-        "rcvrDtlsAddr": "1301호",
-        "sellerNo": 2644,
-        "orderItems": [
-          {
-            "ordPrdNo": 1,
-            "ordNo": "2024072510015572",
-            "prdNm": "에스프레소",
-            "optVal": "더블 샷"
-          },
-          {
-            "ordPrdNo": 2,
-            "ordNo": "2024072510015572",
-            "prdNm": "에스프레소",
-            "optVal": "싱글 샷"
-          },
-          {
-            "ordPrdNo": 3,
-            "ordNo": "2024072510015572",
-            "prdNm": "에스프레소",
-            "optVal": "트리플 샷"
-          }
-        ]
-      },
-      {
-        "ordNo": "2024072610015573",
-        "ordDttm": "2024/07/26 09:11:12",
-        "rcvrNm": "강민성",
-        "rcvrMphnNo": "01045678901",
-        "rcvrBaseAddr": "서울 서초구 서초대로 78 (서초프라자)",
-        "rcvrDtlsAddr": "1103호",
-        "sellerNo": 2644,
-        "orderItems": [
-          {
-            "ordPrdNo": 1,
-            "ordNo": "2024072610015573",
-            "prdNm": "아메리카노",
-            "optVal": "핫"
-          },
-          {
-            "ordPrdNo": 2,
-            "ordNo": "2024072610015573",
-            "prdNm": "아메리카노",
-            "optVal": "아이스"
-          }
-        ]
-      },
-      {
-        "ordNo": "2024072710015574",
-        "ordDttm": "2024/07/27 10:22:23",
-        "rcvrNm": "최서현",
-        "rcvrMphnNo": "01056789012",
-        "rcvrBaseAddr": "서울 강남구 강남대로 99 (강남타워)",
-        "rcvrDtlsAddr": "1003호",
-        "sellerNo": 2644,
-        "orderItems": [
-          {
-            "ordPrdNo": 1,
-            "ordNo": "2024072710015574",
-            "prdNm": "카페모카",
-            "optVal": "휘핑크림 추가"
-          },
-          {
-            "ordPrdNo": 2,
-            "ordNo": "2024072710015574",
-            "prdNm": "카페모카",
-            "optVal": "초콜릿 소스 추가"
-          }
-        ]
-      },
-      {
-        "ordNo": "2024072810015575",
-        "ordDttm": "2024/07/28 11:33:34",
-        "rcvrNm": "유민호",
-        "rcvrMphnNo": "01067890123",
-        "rcvrBaseAddr": "서울 노원구 노원대로 88 (노원프라자)",
-        "rcvrDtlsAddr": "801호",
-        "sellerNo": 2644,
-        "orderItems": [
-          {
-            "ordPrdNo": 1,
-            "ordNo": "2024072810015575",
-            "prdNm": "카라멜마키아토",
-            "optVal": "카라멜 드리즐 추가"
-          },
-          {
-            "ordPrdNo": 2,
-            "ordNo": "2024072810015575",
-            "prdNm": "카라멜마키아토",
-            "optVal": "저지방 우유"
-          }
-        ]
-      },
-      {
-        "ordNo": "2024072910015576",
-        "ordDttm": "2024/07/29 12:44:45",
+        "ordNo": "202406044987521929",
+        "ordDttm": "2024/06/04 02:25:34",
         "rcvrNm": "윤도윤",
-        "rcvrMphnNo": "01078901234",
-        "rcvrBaseAddr": "서울 용산구 용산대로 77 (용산빌딩)",
-        "rcvrDtlsAddr": "1203호",
-        "sellerNo": 2644,
+        "rcvrMphnNo": "01044556232",
+        "rcvrBaseAddr": "경기 수원시 영통구 광교로 77",
+        "rcvrDtlsAddr": "광교 아브뉴프랑 5층",
+        "sellerNo": 2664,
+        "ordCollectDttm": "2024/01/01 00:00:00",
         "orderItems": [
           {
             "ordPrdNo": 1,
-            "ordNo": "2024072910015576",
-            "prdNm": "헤이즐넛라떼",
-            "optVal": "시럽 추가"
+            "ordNo": "202406044987521929",
+            "prdNm": "설화수 윤조에센스",
+            "optVal": "90ml"
+          }
+        ]
+      },
+      {
+        "ordNo": "202406054677472745",
+        "ordDttm": "2024/06/05 03:30:45",
+        "rcvrNm": "김민준",
+        "rcvrMphnNo": "01071873176",
+        "rcvrBaseAddr": "울산 남구 삼산로 111",
+        "rcvrDtlsAddr": "삼산동 롯데백화점 2층",
+        "sellerNo": 2664,
+        "ordCollectDttm": "2024/01/01 00:00:00",
+        "orderItems": [
+          {
+            "ordPrdNo": 1,
+            "ordNo": "202406054677472745",
+            "prdNm": "이니스프리 그린티 씨드 세럼",
+            "optVal": "30ml"
           },
           {
             "ordPrdNo": 2,
-            "ordNo": "2024072910015576",
-            "prdNm": "헤이즐넛라떼",
-            "optVal": "무지방 우유"
+            "ordNo": "202406054677472745",
+            "prdNm": "설화수 윤조에센스",
+            "optVal": "50ml"
           },
           {
             "ordPrdNo": 3,
-            "ordNo": "2024072910015576",
-            "prdNm": "헤이즐넛라떼",
-            "optVal": "얼음 추가"
+            "ordNo": "202406054677472745",
+            "prdNm": "헤라 블랙쿠션",
+            "optVal": "21호"
           }
         ]
       },
       {
-        "ordNo": "2024073010015577",
-        "ordDttm": "2024/07/30 13:55:56",
-        "rcvrNm": "강지훈",
-        "rcvrMphnNo": "01090123456",
-        "rcvrBaseAddr": "서울 서대문구 서대문대로 66 (서대문타워)",
-        "rcvrDtlsAddr": "303호",
-        "sellerNo": 2644,
+        "ordNo": "202406078087755883",
+        "ordDttm": "2024/06/07 23:25:00",
+        "rcvrNm": "강하늘",
+        "rcvrMphnNo": "01017645843",
+        "rcvrBaseAddr": "서울 강남구 테헤란로 101",
+        "rcvrDtlsAddr": "삼성동 현대백화점 3층",
+        "sellerNo": 2664,
+        "ordCollectDttm": "2024/01/01 00:00:00",
         "orderItems": [
           {
             "ordPrdNo": 1,
-            "ordNo": "2024073010015577",
-            "prdNm": "바닐라라떼",
-            "optVal": "바닐라 시럽 추가"
+            "ordNo": "202406078087755883",
+            "prdNm": "삼성 갤럭시 S22",
+            "optVal": "128GB"
+          }
+        ]
+      },
+      {
+        "ordNo": "202406114697289837",
+        "ordDttm": "2024/06/11 02:53:42",
+        "rcvrNm": "오하늘",
+        "rcvrMphnNo": "01091435375",
+        "rcvrBaseAddr": "광주 서구 상무대로 789",
+        "rcvrDtlsAddr": "상무지구 베스트타워 8층",
+        "sellerNo": 2664,
+        "ordCollectDttm": "2024/01/01 00:00:00",
+        "orderItems": [
+          {
+            "ordPrdNo": 1,
+            "ordNo": "202406114697289837",
+            "prdNm": "나이키 에어포스 1",
+            "optVal": "270mm"
           },
           {
             "ordPrdNo": 2,
-            "ordNo": "2024073010015577",
-            "prdNm": "바닐라라떼",
-            "optVal": "휘핑크림 추가"
+            "ordNo": "202406114697289837",
+            "prdNm": "아디다스 트레이닝복",
+            "optVal": "L"
+          }
+        ]
+      },
+      {
+        "ordNo": "202406125907290585",
+        "ordDttm": "2024/06/12 02:26:11",
+        "rcvrNm": "이서윤",
+        "rcvrMphnNo": "01063251760",
+        "rcvrBaseAddr": "경기 수원시 영통구 광교로 77",
+        "rcvrDtlsAddr": "광교 아브뉴프랑 5층",
+        "sellerNo": 2664,
+        "ordCollectDttm": "2024/01/01 00:00:00",
+        "orderItems": [
+          {
+            "ordPrdNo": 1,
+            "ordNo": "202406125907290585",
+            "prdNm": "애플 맥북 프로",
+            "optVal": "13인치"
+          },
+          {
+            "ordPrdNo": 2,
+            "ordNo": "202406125907290585",
+            "prdNm": "LG OLED  V",
+            "optVal": "65인치"
+          }
+        ]
+      },
+      {
+        "ordNo": "202406126314380896",
+        "ordDttm": "2024/06/12 22:32:44",
+        "rcvrNm": "최지우",
+        "rcvrMphnNo": "01084008631",
+        "rcvrBaseAddr": "부산 해운대구 해운대해변로 45",
+        "rcvrDtlsAddr": "해운대 아라빌 12층",
+        "sellerNo": 2664,
+        "ordCollectDttm": "2024/01/01 00:00:00",
+        "orderItems": [
+          {
+            "ordPrdNo": 1,
+            "ordNo": "202406126314380896",
+            "prdNm": "아디다스 트레이닝복",
+            "optVal": "M"
+          },
+          {
+            "ordPrdNo": 2,
+            "ordNo": "202406126314380896",
+            "prdNm": "나이키 에어포스 1",
+            "optVal": "270mm"
           },
           {
             "ordPrdNo": 3,
-            "ordNo": "2024073010015577",
-            "prdNm": "바닐라라떼",
-            "optVal": "저지방 우유"
-          },
-          {
-            "ordPrdNo": 4,
-            "ordNo": "2024073010015577",
-            "prdNm": "바닐라라떼",
-            "optVal": "얼음 추가"
+            "ordNo": "202406126314380896",
+            "prdNm": "유니클로 히트텍",
+            "optVal": "S"
           }
         ]
       },
       {
-        "ordNo": "2024073110015578",
-        "ordDttm": "2024/07/31 14:06:57",
-        "rcvrNm": "박민지",
-        "rcvrMphnNo": "01001234567",
-        "rcvrBaseAddr": "경기 수원시 장안구 장안로 88 (장안프라자)",
-        "rcvrDtlsAddr": "901호",
-        "sellerNo": 2644,
+        "ordNo": "202406154791662529",
+        "ordDttm": "2024/06/15 10:08:09",
+        "rcvrNm": "오하늘",
+        "rcvrMphnNo": "01082457244",
+        "rcvrBaseAddr": "부산 해운대구 해운대해변로 45",
+        "rcvrDtlsAddr": "해운대 아라빌 12층",
+        "sellerNo": 2664,
+        "ordCollectDttm": "2024/01/01 00:00:00",
         "orderItems": [
           {
             "ordPrdNo": 1,
-            "ordNo": "2024073110015578",
-            "prdNm": "아메리카노",
-            "optVal": "에스프레소 샷 추가"
-          },
-          {
-            "ordPrdNo": 2,
-            "ordNo": "2024073110015578",
-            "prdNm": "아메리카노",
-            "optVal": "무지방 우유"
+            "ordNo": "202406154791662529",
+            "prdNm": "사조참치 150g",
+            "optVal": ""
           }
         ]
       },
       {
-        "ordNo": "2024080110015579",
-        "ordDttm": "2024/08/01 15:17:08",
-        "rcvrNm": "이준서",
-        "rcvrMphnNo": "01023456789",
-        "rcvrBaseAddr": "서울 은평구 은평로 88 (은평빌딩)",
-        "rcvrDtlsAddr": "1003호",
-        "sellerNo": 2644,
+        "ordNo": "202406235946477697",
+        "ordDttm": "2024/06/23 17:46:20",
+        "rcvrNm": "강하늘",
+        "rcvrMphnNo": "01079268566",
+        "rcvrBaseAddr": "광주 서구 상무대로 789",
+        "rcvrDtlsAddr": "상무지구 베스트타워 8층",
+        "sellerNo": 2664,
+        "ordCollectDttm": "2024/01/01 00:00:00",
         "orderItems": [
           {
             "ordPrdNo": 1,
-            "ordNo": "2024080110015579",
-            "prdNm": "카푸치노",
-            "optVal": "시나몬 추가"
+            "ordNo": "202406235946477697",
+            "prdNm": "필립스 전기면도기",
+            "optVal": "7000시리즈"
           },
           {
             "ordPrdNo": 2,
-            "ordNo": "2024080110015579",
-            "prdNm": "카푸치노",
-            "optVal": "휘핑크림 추가"
+            "ordNo": "202406235946477697",
+            "prdNm": "다이슨 V11 청소기",
+            "optVal": "플러피"
+          }
+        ]
+      },
+      {
+        "ordNo": "202406239875193821",
+        "ordDttm": "2024/06/23 06:53:37",
+        "rcvrNm": "정다은",
+        "rcvrMphnNo": "01010300533",
+        "rcvrBaseAddr": "충북 청주시 상당구 상당로 88",
+        "rcvrDtlsAddr": "충북대 정문앞 7층",
+        "sellerNo": 2664,
+        "ordCollectDttm": "2024/01/01 00:00:00",
+        "orderItems": [
+          {
+            "ordPrdNo": 1,
+            "ordNo": "202406239875193821",
+            "prdNm": "LG OLED  V",
+            "optVal": "55인치"
+          },
+          {
+            "ordPrdNo": 2,
+            "ordNo": "202406239875193821",
+            "prdNm": "애플 맥북 프로",
+            "optVal": "16인치"
+          }
+        ]
+      },
+      {
+        "ordNo": "202406263579982993",
+        "ordDttm": "2024/06/26 08:28:18",
+        "rcvrNm": "오하늘",
+        "rcvrMphnNo": "01094205008",
+        "rcvrBaseAddr": "광주 서구 상무대로 789",
+        "rcvrDtlsAddr": "상무지구 베스트타워 8층",
+        "sellerNo": 2664,
+        "ordCollectDttm": "2024/01/01 00:00:00",
+        "orderItems": [
+          {
+            "ordPrdNo": 1,
+            "ordNo": "202406263579982993",
+            "prdNm": "쿠쿠 압력밥솥",
+            "optVal": "10인용"
+          },
+          {
+            "ordPrdNo": 2,
+            "ordNo": "202406263579982993",
+            "prdNm": "다이슨 V11 청소기",
+            "optVal": "플러피"
           },
           {
             "ordPrdNo": 3,
-            "ordNo": "2024080110015579",
-            "prdNm": "카푸치노",
-            "optVal": "저지방 우유"
+            "ordNo": "202406263579982993",
+            "prdNm": "필립스 전기면도기",
+            "optVal": "7000시리즈"
           }
         ]
       },
       {
-        "ordNo": "2024080210015580",
-        "ordDttm": "2024/08/02 16:28:19",
-        "rcvrNm": "신유진",
-        "rcvrMphnNo": "01034567890",
-        "rcvrBaseAddr": "서울 동작구 동작대로 88 (동작프라자)",
-        "rcvrDtlsAddr": "1101호",
-        "sellerNo": 2644,
+        "ordNo": "202406272032580392",
+        "ordDttm": "2024/06/27 15:50:18",
+        "rcvrNm": "박지호",
+        "rcvrMphnNo": "01063389382",
+        "rcvrBaseAddr": "충북 청주시 상당구 상당로 88",
+        "rcvrDtlsAddr": "충북대 정문앞 7층",
+        "sellerNo": 2664,
+        "ordCollectDttm": "2024/01/01 00:00:00",
         "orderItems": [
           {
             "ordPrdNo": 1,
-            "ordNo": "2024080210015580",
-            "prdNm": "에스프레소",
-            "optVal": "더블 샷"
+            "ordNo": "202406272032580392",
+            "prdNm": "사조참치 150g",
+            "optVal": ""
+          }
+        ]
+      },
+      {
+        "ordNo": "202406274678603885",
+        "ordDttm": "2024/06/27 02:13:40",
+        "rcvrNm": "정다은",
+        "rcvrMphnNo": "01028678894",
+        "rcvrBaseAddr": "충북 청주시 상당구 상당로 88",
+        "rcvrDtlsAddr": "충북대 정문앞 7층",
+        "sellerNo": 2664,
+        "ordCollectDttm": "2024/01/01 00:00:00",
+        "orderItems": [
+          {
+            "ordPrdNo": 1,
+            "ordNo": "202406274678603885",
+            "prdNm": "삼성 갤럭시 S22",
+            "optVal": "128GB"
           },
           {
             "ordPrdNo": 2,
-            "ordNo": "2024080210015580",
-            "prdNm": "에스프레소",
-            "optVal": "싱글 샷"
+            "ordNo": "202406274678603885",
+            "prdNm": "애플 맥북 프로",
+            "optVal": "16인치"
           },
           {
             "ordPrdNo": 3,
-            "ordNo": "2024080210015580",
-            "prdNm": "에스프레소",
-            "optVal": "트리플 샷"
+            "ordNo": "202406274678603885",
+            "prdNm": "LG OLED  V",
+            "optVal": "55인치"
           }
         ]
       },
       {
-        "ordNo": "2024080310015581",
-        "ordDttm": "2024/08/03 09:11:12",
-        "rcvrNm": "정시우",
-        "rcvrMphnNo": "01045678901",
-        "rcvrBaseAddr": "서울 강동구 강동대로 88 (강동타워)",
-        "rcvrDtlsAddr": "1503호",
-        "sellerNo": 2644,
+        "ordNo": "202406277720066020",
+        "ordDttm": "2024/06/27 09:10:20",
+        "rcvrNm": "한서준",
+        "rcvrMphnNo": "01050138870",
+        "rcvrBaseAddr": "대전 유성구 엑스포로 123",
+        "rcvrDtlsAddr": "도룡동 엑스포아파트 2001호",
+        "sellerNo": 2664,
+        "ordCollectDttm": "2024/01/01 00:00:00",
         "orderItems": [
           {
             "ordPrdNo": 1,
-            "ordNo": "2024080310015581",
-            "prdNm": "아메리카노",
-            "optVal": "핫"
+            "ordNo": "202406277720066020",
+            "prdNm": "서울우유 1L",
+            "optVal": ""
           },
           {
             "ordPrdNo": 2,
-            "ordNo": "2024080310015581",
-            "prdNm": "아메리카노",
-            "optVal": "아이스"
+            "ordNo": "202406277720066020",
+            "prdNm": "사조참치 150g",
+            "optVal": ""
           }
         ]
       },
       {
-        "ordNo": "2024080410015582",
-        "ordDttm": "2024/08/04 10:22:23",
-        "rcvrNm": "한유정",
-        "rcvrMphnNo": "01056789012",
-        "rcvrBaseAddr": "서울 중구 중구로 55 (중구프라자)",
-        "rcvrDtlsAddr": "301호",
-        "sellerNo": 2644,
+        "ordNo": "202406278995882440",
+        "ordDttm": "2024/06/27 02:20:52",
+        "rcvrNm": "김민준",
+        "rcvrMphnNo": "01073771160",
+        "rcvrBaseAddr": "서울 서초구 서초대로 123",
+        "rcvrDtlsAddr": "서초동 1004빌딩 5층",
+        "sellerNo": 2664,
+        "ordCollectDttm": "2024/01/01 00:00:00",
         "orderItems": [
           {
             "ordPrdNo": 1,
-            "ordNo": "2024080410015582",
-            "prdNm": "카페모카",
-            "optVal": "휘핑크림 추가"
+            "ordNo": "202406278995882440",
+            "prdNm": "헤라 블랙쿠션",
+            "optVal": "23호"
           },
           {
             "ordPrdNo": 2,
-            "ordNo": "2024080410015582",
-            "prdNm": "카페모카",
-            "optVal": "초콜릿 소스 추가"
+            "ordNo": "202406278995882440",
+            "prdNm": "설화수 윤조에센스",
+            "optVal": "50ml"
           }
         ]
       },
       {
-        "ordNo": "2024080510015583",
-        "ordDttm": "2024/08/05 11:33:34",
-        "rcvrNm": "윤도영",
-        "rcvrMphnNo": "01067890123",
-        "rcvrBaseAddr": "서울 은평구 은평대로 88 (은평빌딩)",
-        "rcvrDtlsAddr": "801호",
-        "sellerNo": 2644,
+        "ordNo": "202406285626688870",
+        "ordDttm": "2024/06/28 14:30:01",
+        "rcvrNm": "윤도윤",
+        "rcvrMphnNo": "01010850876",
+        "rcvrBaseAddr": "인천 남동구 예술로 56",
+        "rcvrDtlsAddr": "구월동 더샵퍼스트파크 3층",
+        "sellerNo": 2664,
+        "ordCollectDttm": "2024/01/01 00:00:00",
         "orderItems": [
           {
             "ordPrdNo": 1,
-            "ordNo": "2024080510015583",
-            "prdNm": "카라멜마키아토",
-            "optVal": "카라멜 드리즐 추가"
-          },
-          {
-            "ordPrdNo": 2,
-            "ordNo": "2024080510015583",
-            "prdNm": "카라멜마키아토",
-            "optVal": "저지방 우유"
+            "ordNo": "202406285626688870",
+            "prdNm": "설화수 윤조에센스",
+            "optVal": "50ml"
           }
         ]
       },
       {
-        "ordNo": "2024080610015583",
-        "ordDttm": "2024/08/06 11:33:34",
-        "rcvrNm": "윤도영",
-        "rcvrMphnNo": "01067890123",
-        "rcvrBaseAddr": "서울 은평구 은평대로 88 (은평빌딩)",
-        "rcvrDtlsAddr": "801호",
-        "sellerNo": 2644,
+        "ordNo": "202406307252249484",
+        "ordDttm": "2024/06/30 01:58:21",
+        "rcvrNm": "한서준",
+        "rcvrMphnNo": "01097700037",
+        "rcvrBaseAddr": "경기 수원시 영통구 광교로 77",
+        "rcvrDtlsAddr": "광교 아브뉴프랑 5층",
+        "sellerNo": 2664,
+        "ordCollectDttm": "2024/01/01 00:00:00",
         "orderItems": [
           {
             "ordPrdNo": 1,
-            "ordNo": "2024080610015583",
-            "prdNm": "카라멜마키아토",
-            "optVal": "카라멜 드리즐 추가"
+            "ordNo": "202406307252249484",
+            "prdNm": "나이키 에어포스 1",
+            "optVal": "270mm"
           },
           {
             "ordPrdNo": 2,
-            "ordNo": "2024080610015583",
-            "prdNm": "카라멜마키아토",
-            "optVal": "저지방 우유"
+            "ordNo": "202406307252249484",
+            "prdNm": "유니클로 히트텍",
+            "optVal": "S"
+          },
+          {
+            "ordPrdNo": 3,
+            "ordNo": "202406307252249484",
+            "prdNm": "아디다스 트레이닝복",
+            "optVal": "M"
+          }
+        ]
+      },
+      {
+        "ordNo": "202407015171098457",
+        "ordDttm": "2024/07/01 10:43:51",
+        "rcvrNm": "한서준",
+        "rcvrMphnNo": "01031313200",
+        "rcvrBaseAddr": "울산 남구 삼산로 111",
+        "rcvrDtlsAddr": "삼산동 롯데백화점 2층",
+        "sellerNo": 2664,
+        "ordCollectDttm": "2024/01/01 00:00:00",
+        "orderItems": [
+          {
+            "ordPrdNo": 1,
+            "ordNo": "202407015171098457",
+            "prdNm": "사조참치 150g",
+            "optVal": ""
+          },
+          {
+            "ordPrdNo": 2,
+            "ordNo": "202407015171098457",
+            "prdNm": "농심 신라면 5개입",
+            "optVal": ""
+          }
+        ]
+      },
+      {
+        "ordNo": "202407026362978793",
+        "ordDttm": "2024/07/02 13:15:36",
+        "rcvrNm": "한서준",
+        "rcvrMphnNo": "01050138870",
+        "rcvrBaseAddr": "대전 유성구 엑스포로 123",
+        "rcvrDtlsAddr": "도룡동 엑스포아파트 2001호",
+        "sellerNo": 2664,
+        "ordCollectDttm": "2024/01/01 00:00:00",
+        "orderItems": [
+          {
+            "ordPrdNo": 1,
+            "ordNo": "202407026362978793",
+            "prdNm": "이니스프리 그린티 씨드 세럼",
+            "optVal": "30ml"
+          },
+          {
+            "ordPrdNo": 2,
+            "ordNo": "202407026362978793",
+            "prdNm": "헤라 블랙쿠션",
+            "optVal": "23호"
+          },
+          {
+            "ordPrdNo": 3,
+            "ordNo": "202407026362978793",
+            "prdNm": "설화수 윤조에센스",
+            "optVal": "50ml"
+          }
+        ]
+      },
+      {
+        "ordNo": "202407034649395636",
+        "ordDttm": "2024/07/03 07:20:36",
+        "rcvrNm": "김민준",
+        "rcvrMphnNo": "01068993345",
+        "rcvrBaseAddr": "광주 서구 상무대로 789",
+        "rcvrDtlsAddr": "상무지구 베스트타워 8층",
+        "sellerNo": 2664,
+        "ordCollectDttm": "2024/01/01 00:00:00",
+        "orderItems": [
+          {
+            "ordPrdNo": 1,
+            "ordNo": "202407034649395636",
+            "prdNm": "나이키 에어포스 1",
+            "optVal": "270mm"
+          }
+        ]
+      },
+      {
+        "ordNo": "202407037069673650",
+        "ordDttm": "2024/07/03 00:37:53",
+        "rcvrNm": "정다은",
+        "rcvrMphnNo": "01080995702",
+        "rcvrBaseAddr": "부산 해운대구 해운대해변로 45",
+        "rcvrDtlsAddr": "해운대 아라빌 12층",
+        "sellerNo": 2664,
+        "ordCollectDttm": "2024/01/01 00:00:00",
+        "orderItems": [
+          {
+            "ordPrdNo": 1,
+            "ordNo": "202407037069673650",
+            "prdNm": "애플 맥북 프로",
+            "optVal": "13인치"
+          },
+          {
+            "ordPrdNo": 2,
+            "ordNo": "202407037069673650",
+            "prdNm": "LG OLED  V",
+            "optVal": "65인치"
+          }
+        ]
+      },
+      {
+        "ordNo": "202407048954123301",
+        "ordDttm": "2024/07/04 06:25:00",
+        "rcvrNm": "이서윤",
+        "rcvrMphnNo": "01063160167",
+        "rcvrBaseAddr": "대구 달서구 월배로 203",
+        "rcvrDtlsAddr": "성서 하늘채아파트 101동 1503호",
+        "sellerNo": 2664,
+        "ordCollectDttm": "2024/01/01 00:00:00",
+        "orderItems": [
+          {
+            "ordPrdNo": 1,
+            "ordNo": "202407048954123301",
+            "prdNm": "쿠쿠 압력밥솥",
+            "optVal": "6인용"
+          }
+        ]
+      },
+      {
+        "ordNo": "202407061054586184",
+        "ordDttm": "2024/07/06 04:46:32",
+        "rcvrNm": "박지호",
+        "rcvrMphnNo": "01057496966",
+        "rcvrBaseAddr": "서울 강남구 테헤란로 101",
+        "rcvrDtlsAddr": "삼성동 현대백화점 3층",
+        "sellerNo": 2664,
+        "ordCollectDttm": "2024/01/01 00:00:00",
+        "orderItems": [
+          {
+            "ordPrdNo": 1,
+            "ordNo": "202407061054586184",
+            "prdNm": "애플 맥북 프로",
+            "optVal": "13인치"
+          },
+          {
+            "ordPrdNo": 2,
+            "ordNo": "202407061054586184",
+            "prdNm": "삼성 갤럭시 S22",
+            "optVal": "256GB"
+          }
+        ]
+      },
+      {
+        "ordNo": "202407098347814182",
+        "ordDttm": "2024/07/09 14:44:34",
+        "rcvrNm": "한서준",
+        "rcvrMphnNo": "01010222287",
+        "rcvrBaseAddr": "광주 서구 상무대로 789",
+        "rcvrDtlsAddr": "상무지구 베스트타워 8층",
+        "sellerNo": 2664,
+        "ordCollectDttm": "2024/01/01 00:00:00",
+        "orderItems": [
+          {
+            "ordPrdNo": 1,
+            "ordNo": "202407098347814182",
+            "prdNm": "다이슨 V11 청소기",
+            "optVal": "플러피"
+          }
+        ]
+      },
+      {
+        "ordNo": "202407101208160827",
+        "ordDttm": "2024/07/10 03:25:42",
+        "rcvrNm": "이서윤",
+        "rcvrMphnNo": "01063160167",
+        "rcvrBaseAddr": "대구 달서구 월배로 203",
+        "rcvrDtlsAddr": "성서 하늘채아파트 101동 1503호",
+        "sellerNo": 2664,
+        "ordCollectDttm": "2024/01/01 00:00:00",
+        "orderItems": [
+          {
+            "ordPrdNo": 1,
+            "ordNo": "202407101208160827",
+            "prdNm": "헤라 블랙쿠션",
+            "optVal": "21호"
+          }
+        ]
+      },
+      {
+        "ordNo": "202407102553923236",
+        "ordDttm": "2024/07/10 05:28:43",
+        "rcvrNm": "김민준",
+        "rcvrMphnNo": "01020028738",
+        "rcvrBaseAddr": "경기 수원시 영통구 광교로 77",
+        "rcvrDtlsAddr": "광교 아브뉴프랑 5층",
+        "sellerNo": 2664,
+        "ordCollectDttm": "2024/01/01 00:00:00",
+        "orderItems": [
+          {
+            "ordPrdNo": 1,
+            "ordNo": "202407102553923236",
+            "prdNm": "나이키 에어포스 1",
+            "optVal": "250mm"
+          },
+          {
+            "ordPrdNo": 2,
+            "ordNo": "202407102553923236",
+            "prdNm": "유니클로 히트텍",
+            "optVal": "L"
+          },
+          {
+            "ordPrdNo": 3,
+            "ordNo": "202407102553923236",
+            "prdNm": "아디다스 트레이닝복",
+            "optVal": "M"
+          }
+        ]
+      },
+      {
+        "ordNo": "202407107209191834",
+        "ordDttm": "2024/07/10 07:19:20",
+        "rcvrNm": "최지우",
+        "rcvrMphnNo": "01069333985",
+        "rcvrBaseAddr": "울산 남구 삼산로 111",
+        "rcvrDtlsAddr": "삼산동 롯데백화점 2층",
+        "sellerNo": 2664,
+        "ordCollectDttm": "2024/01/01 00:00:00",
+        "orderItems": [
+          {
+            "ordPrdNo": 1,
+            "ordNo": "202407107209191834",
+            "prdNm": "아디다스 트레이닝복",
+            "optVal": "L"
+          },
+          {
+            "ordPrdNo": 2,
+            "ordNo": "202407107209191834",
+            "prdNm": "나이키 에어포스 1",
+            "optVal": "270mm"
+          }
+        ]
+      },
+      {
+        "ordNo": "202407115978808195",
+        "ordDttm": "2024/07/11 01:39:58",
+        "rcvrNm": "윤도윤",
+        "rcvrMphnNo": "01099860845",
+        "rcvrBaseAddr": "충북 청주시 상당구 상당로 88",
+        "rcvrDtlsAddr": "충북대 정문앞 7층",
+        "sellerNo": 2664,
+        "ordCollectDttm": "2024/01/01 00:00:00",
+        "orderItems": [
+          {
+            "ordPrdNo": 1,
+            "ordNo": "202407115978808195",
+            "prdNm": "LG OLED  V",
+            "optVal": "65인치"
+          },
+          {
+            "ordPrdNo": 2,
+            "ordNo": "202407115978808195",
+            "prdNm": "애플 맥북 프로",
+            "optVal": "16인치"
+          },
+          {
+            "ordPrdNo": 3,
+            "ordNo": "202407115978808195",
+            "prdNm": "삼성 갤럭시 S22",
+            "optVal": "128GB"
+          }
+        ]
+      },
+      {
+        "ordNo": "202407116452337471",
+        "ordDttm": "2024/07/11 06:48:24",
+        "rcvrNm": "한서준",
+        "rcvrMphnNo": "01016259057",
+        "rcvrBaseAddr": "서울 강남구 테헤란로 101",
+        "rcvrDtlsAddr": "삼성동 현대백화점 3층",
+        "sellerNo": 2664,
+        "ordCollectDttm": "2024/01/01 00:00:00",
+        "orderItems": [
+          {
+            "ordPrdNo": 1,
+            "ordNo": "202407116452337471",
+            "prdNm": "헤라 블랙쿠션",
+            "optVal": "21호"
+          }
+        ]
+      },
+      {
+        "ordNo": "202407125447413376",
+        "ordDttm": "2024/07/12 22:05:13",
+        "rcvrNm": "정다은",
+        "rcvrMphnNo": "01099412482",
+        "rcvrBaseAddr": "광주 서구 상무대로 789",
+        "rcvrDtlsAddr": "상무지구 베스트타워 8층",
+        "sellerNo": 2664,
+        "ordCollectDttm": "2024/01/01 00:00:00",
+        "orderItems": [
+          {
+            "ordPrdNo": 1,
+            "ordNo": "202407125447413376",
+            "prdNm": "헤라 블랙쿠션",
+            "optVal": "23호"
+          }
+        ]
+      },
+      {
+        "ordNo": "202407127710439028",
+        "ordDttm": "2024/07/12 21:12:53",
+        "rcvrNm": "이서윤",
+        "rcvrMphnNo": "01090748994",
+        "rcvrBaseAddr": "부산 해운대구 해운대해변로 45",
+        "rcvrDtlsAddr": "해운대 아라빌 12층",
+        "sellerNo": 2664,
+        "ordCollectDttm": "2024/01/01 00:00:00",
+        "orderItems": [
+          {
+            "ordPrdNo": 1,
+            "ordNo": "202407127710439028",
+            "prdNm": "이니스프리 그린티 씨드 세럼",
+            "optVal": "80ml"
+          }
+        ]
+      },
+      {
+        "ordNo": "202407129748692929",
+        "ordDttm": "2024/07/12 18:38:09",
+        "rcvrNm": "한서준",
+        "rcvrMphnNo": "01093694859",
+        "rcvrBaseAddr": "부산 해운대구 해운대해변로 45",
+        "rcvrDtlsAddr": "해운대 아라빌 12층",
+        "sellerNo": 2664,
+        "ordCollectDttm": "2024/01/01 00:00:00",
+        "orderItems": [
+          {
+            "ordPrdNo": 1,
+            "ordNo": "202407129748692929",
+            "prdNm": "필립스 전기면도기",
+            "optVal": "7000시리즈"
+          }
+        ]
+      },
+      {
+        "ordNo": "202407148964874467",
+        "ordDttm": "2024/07/14 20:10:40",
+        "rcvrNm": "오하늘",
+        "rcvrMphnNo": "01065812629",
+        "rcvrBaseAddr": "부산 해운대구 해운대해변로 45",
+        "rcvrDtlsAddr": "해운대 아라빌 12층",
+        "sellerNo": 2664,
+        "ordCollectDttm": "2024/01/01 00:00:00",
+        "orderItems": [
+          {
+            "ordPrdNo": 1,
+            "ordNo": "202407148964874467",
+            "prdNm": "애플 맥북 프로",
+            "optVal": "16인치"
+          },
+          {
+            "ordPrdNo": 2,
+            "ordNo": "202407148964874467",
+            "prdNm": "LG OLED  V",
+            "optVal": "55인치"
+          },
+          {
+            "ordPrdNo": 3,
+            "ordNo": "202407148964874467",
+            "prdNm": "삼성 갤럭시 S22",
+            "optVal": "256GB"
+          }
+        ]
+      },
+      {
+        "ordNo": "202407162088867809",
+        "ordDttm": "2024/07/16 17:43:29",
+        "rcvrNm": "윤도윤",
+        "rcvrMphnNo": "01010850876",
+        "rcvrBaseAddr": "인천 남동구 예술로 56",
+        "rcvrDtlsAddr": "구월동 더샵퍼스트파크 3층",
+        "sellerNo": 2664,
+        "ordCollectDttm": "2024/01/01 00:00:00",
+        "orderItems": [
+          {
+            "ordPrdNo": 1,
+            "ordNo": "202407162088867809",
+            "prdNm": "애플 맥북 프로",
+            "optVal": "13인치"
+          },
+          {
+            "ordPrdNo": 2,
+            "ordNo": "202407162088867809",
+            "prdNm": "LG OLED  V",
+            "optVal": "55인치"
+          },
+          {
+            "ordPrdNo": 3,
+            "ordNo": "202407162088867809",
+            "prdNm": "삼성 갤럭시 S22",
+            "optVal": "256GB"
+          }
+        ]
+      },
+      {
+        "ordNo": "202407184192060979",
+        "ordDttm": "2024/07/18 21:16:46",
+        "rcvrNm": "서지훈",
+        "rcvrMphnNo": "01099188187",
+        "rcvrBaseAddr": "충북 청주시 상당구 상당로 88",
+        "rcvrDtlsAddr": "충북대 정문앞 7층",
+        "sellerNo": 2664,
+        "ordCollectDttm": "2024/01/01 00:00:00",
+        "orderItems": [
+          {
+            "ordPrdNo": 1,
+            "ordNo": "202407184192060979",
+            "prdNm": "서울우유 1L",
+            "optVal": ""
+          },
+          {
+            "ordPrdNo": 2,
+            "ordNo": "202407184192060979",
+            "prdNm": "사조참치 150g",
+            "optVal": ""
+          },
+          {
+            "ordPrdNo": 3,
+            "ordNo": "202407184192060979",
+            "prdNm": "농심 신라면 5개입",
+            "optVal": ""
+          }
+        ]
+      },
+      {
+        "ordNo": "202407193236522101",
+        "ordDttm": "2024/07/19 09:06:32",
+        "rcvrNm": "박지호",
+        "rcvrMphnNo": "01063389382",
+        "rcvrBaseAddr": "충북 청주시 상당구 상당로 88",
+        "rcvrDtlsAddr": "충북대 정문앞 7층",
+        "sellerNo": 2664,
+        "ordCollectDttm": "2024/01/01 00:00:00",
+        "orderItems": [
+          {
+            "ordPrdNo": 1,
+            "ordNo": "202407193236522101",
+            "prdNm": "필립스 전기면도기",
+            "optVal": "5000시리즈"
+          },
+          {
+            "ordPrdNo": 2,
+            "ordNo": "202407193236522101",
+            "prdNm": "다이슨 V11 청소기",
+            "optVal": "플러피"
+          },
+          {
+            "ordPrdNo": 3,
+            "ordNo": "202407193236522101",
+            "prdNm": "쿠쿠 압력밥솥",
+            "optVal": "6인용"
+          }
+        ]
+      },
+      {
+        "ordNo": "202407203623879267",
+        "ordDttm": "2024/07/20 18:09:34",
+        "rcvrNm": "김민준",
+        "rcvrMphnNo": "01037740308",
+        "rcvrBaseAddr": "대전 유성구 엑스포로 123",
+        "rcvrDtlsAddr": "도룡동 엑스포아파트 2001호",
+        "sellerNo": 2664,
+        "ordCollectDttm": "2024/01/01 00:00:00",
+        "orderItems": [
+          {
+            "ordPrdNo": 1,
+            "ordNo": "202407203623879267",
+            "prdNm": "헤라 블랙쿠션",
+            "optVal": "21호"
+          },
+          {
+            "ordPrdNo": 2,
+            "ordNo": "202407203623879267",
+            "prdNm": "설화수 윤조에센스",
+            "optVal": "90ml"
+          },
+          {
+            "ordPrdNo": 3,
+            "ordNo": "202407203623879267",
+            "prdNm": "이니스프리 그린티 씨드 세럼",
+            "optVal": "30ml"
+          }
+        ]
+      },
+      {
+        "ordNo": "202407205011206847",
+        "ordDttm": "2024/07/20 21:32:12",
+        "rcvrNm": "강하늘",
+        "rcvrMphnNo": "01099475596",
+        "rcvrBaseAddr": "서울 서초구 서초대로 123",
+        "rcvrDtlsAddr": "서초동 1004빌딩 5층",
+        "sellerNo": 2664,
+        "ordCollectDttm": "2024/01/01 00:00:00",
+        "orderItems": [
+          {
+            "ordPrdNo": 1,
+            "ordNo": "202407205011206847",
+            "prdNm": "다이슨 V11 청소기",
+            "optVal": "플러피"
+          },
+          {
+            "ordPrdNo": 2,
+            "ordNo": "202407205011206847",
+            "prdNm": "필립스 전기면도기",
+            "optVal": "7000시리즈"
+          }
+        ]
+      },
+      {
+        "ordNo": "202407208467713220",
+        "ordDttm": "2024/07/20 09:49:05",
+        "rcvrNm": "윤도윤",
+        "rcvrMphnNo": "01063424907",
+        "rcvrBaseAddr": "광주 서구 상무대로 789",
+        "rcvrDtlsAddr": "상무지구 베스트타워 8층",
+        "sellerNo": 2664,
+        "ordCollectDttm": "2024/01/01 00:00:00",
+        "orderItems": [
+          {
+            "ordPrdNo": 1,
+            "ordNo": "202407208467713220",
+            "prdNm": "이니스프리 그린티 씨드 세럼",
+            "optVal": "30ml"
+          },
+          {
+            "ordPrdNo": 2,
+            "ordNo": "202407208467713220",
+            "prdNm": "설화수 윤조에센스",
+            "optVal": "90ml"
+          }
+        ]
+      },
+      {
+        "ordNo": "202407225821976362",
+        "ordDttm": "2024/07/22 07:06:36",
+        "rcvrNm": "한서준",
+        "rcvrMphnNo": "01031313200",
+        "rcvrBaseAddr": "울산 남구 삼산로 111",
+        "rcvrDtlsAddr": "삼산동 롯데백화점 2층",
+        "sellerNo": 2664,
+        "ordCollectDttm": "2024/01/01 00:00:00",
+        "orderItems": [
+          {
+            "ordPrdNo": 1,
+            "ordNo": "202407225821976362",
+            "prdNm": "유니클로 히트텍",
+            "optVal": "S"
+          },
+          {
+            "ordPrdNo": 2,
+            "ordNo": "202407225821976362",
+            "prdNm": "나이키 에어포스 1",
+            "optVal": "270mm"
+          }
+        ]
+      },
+      {
+        "ordNo": "202407259486224392",
+        "ordDttm": "2024/07/25 04:14:22",
+        "rcvrNm": "정다은",
+        "rcvrMphnNo": "01099412482",
+        "rcvrBaseAddr": "광주 서구 상무대로 789",
+        "rcvrDtlsAddr": "상무지구 베스트타워 8층",
+        "sellerNo": 2664,
+        "ordCollectDttm": "2024/01/01 00:00:00",
+        "orderItems": [
+          {
+            "ordPrdNo": 1,
+            "ordNo": "202407259486224392",
+            "prdNm": "아디다스 트레이닝복",
+            "optVal": "L"
+          },
+          {
+            "ordPrdNo": 2,
+            "ordNo": "202407259486224392",
+            "prdNm": "나이키 에어포스 1",
+            "optVal": "250mm"
+          },
+          {
+            "ordPrdNo": 3,
+            "ordNo": "202407259486224392",
+            "prdNm": "유니클로 히트텍",
+            "optVal": "L"
+          }
+        ]
+      },
+      {
+        "ordNo": "202407274799705383",
+        "ordDttm": "2024/07/27 02:22:04",
+        "rcvrNm": "정다은",
+        "rcvrMphnNo": "01028678894",
+        "rcvrBaseAddr": "충북 청주시 상당구 상당로 88",
+        "rcvrDtlsAddr": "충북대 정문앞 7층",
+        "sellerNo": 2664,
+        "ordCollectDttm": "2024/01/01 00:00:00",
+        "orderItems": [
+          {
+            "ordPrdNo": 1,
+            "ordNo": "202407274799705383",
+            "prdNm": "애플 맥북 프로",
+            "optVal": "13인치"
+          },
+          {
+            "ordPrdNo": 2,
+            "ordNo": "202407274799705383",
+            "prdNm": "삼성 갤럭시 S22",
+            "optVal": "128GB"
+          }
+        ]
+      },
+      {
+        "ordNo": "202407284309294589",
+        "ordDttm": "2024/07/28 23:32:57",
+        "rcvrNm": "박지호",
+        "rcvrMphnNo": "01063389382",
+        "rcvrBaseAddr": "충북 청주시 상당구 상당로 88",
+        "rcvrDtlsAddr": "충북대 정문앞 7층",
+        "sellerNo": 2664,
+        "ordCollectDttm": "2024/01/01 00:00:00",
+        "orderItems": [
+          {
+            "ordPrdNo": 1,
+            "ordNo": "202407284309294589",
+            "prdNm": "헤라 블랙쿠션",
+            "optVal": "23호"
+          }
+        ]
+      },
+      {
+        "ordNo": "202407316127096289",
+        "ordDttm": "2024/07/31 09:20:18",
+        "rcvrNm": "서지훈",
+        "rcvrMphnNo": "01081371118",
+        "rcvrBaseAddr": "경기 수원시 영통구 광교로 77",
+        "rcvrDtlsAddr": "광교 아브뉴프랑 5층",
+        "sellerNo": 2664,
+        "ordCollectDttm": "2024/01/01 00:00:00",
+        "orderItems": [
+          {
+            "ordPrdNo": 1,
+            "ordNo": "202407316127096289",
+            "prdNm": "농심 신라면 5개입",
+            "optVal": ""
+          }
+        ]
+      },
+      {
+        "ordNo": "202408011377209602",
+        "ordDttm": "2024/08/01 19:55:51",
+        "rcvrNm": "서지훈",
+        "rcvrMphnNo": "01032355190",
+        "rcvrBaseAddr": "울산 남구 삼산로 111",
+        "rcvrDtlsAddr": "삼산동 롯데백화점 2층",
+        "sellerNo": 2664,
+        "ordCollectDttm": "2024/01/01 00:00:00",
+        "orderItems": [
+          {
+            "ordPrdNo": 1,
+            "ordNo": "202408011377209602",
+            "prdNm": "헤라 블랙쿠션",
+            "optVal": "21호"
+          }
+        ]
+      },
+      {
+        "ordNo": "202408027059109706",
+        "ordDttm": "2024/08/02 21:16:27",
+        "rcvrNm": "박지호",
+        "rcvrMphnNo": "01085307414",
+        "rcvrBaseAddr": "울산 남구 삼산로 111",
+        "rcvrDtlsAddr": "삼산동 롯데백화점 2층",
+        "sellerNo": 2664,
+        "ordCollectDttm": "2024/01/01 00:00:00",
+        "orderItems": [
+          {
+            "ordPrdNo": 1,
+            "ordNo": "202408027059109706",
+            "prdNm": "아디다스 트레이닝복",
+            "optVal": "L"
+          },
+          {
+            "ordPrdNo": 2,
+            "ordNo": "202408027059109706",
+            "prdNm": "유니클로 히트텍",
+            "optVal": "L"
+          }
+        ]
+      },
+      {
+        "ordNo": "202408052053410397",
+        "ordDttm": "2024/08/05 23:38:24",
+        "rcvrNm": "한서준",
+        "rcvrMphnNo": "01031313200",
+        "rcvrBaseAddr": "울산 남구 삼산로 111",
+        "rcvrDtlsAddr": "삼산동 롯데백화점 2층",
+        "sellerNo": 2664,
+        "ordCollectDttm": "2024/01/01 00:00:00",
+        "orderItems": [
+          {
+            "ordPrdNo": 1,
+            "ordNo": "202408052053410397",
+            "prdNm": "나이키 에어포스 1",
+            "optVal": "270mm"
+          }
+        ]
+      },
+      {
+        "ordNo": "202408067728742241",
+        "ordDttm": "2024/08/06 16:31:48",
+        "rcvrNm": "서지훈",
+        "rcvrMphnNo": "01057177074",
+        "rcvrBaseAddr": "충북 청주시 상당구 상당로 88",
+        "rcvrDtlsAddr": "충북대 정문앞 7층",
+        "sellerNo": 2664,
+        "ordCollectDttm": "2024/01/01 00:00:00",
+        "orderItems": [
+          {
+            "ordPrdNo": 1,
+            "ordNo": "202408067728742241",
+            "prdNm": "농심 신라면 5개입",
+            "optVal": ""
+          },
+          {
+            "ordPrdNo": 2,
+            "ordNo": "202408067728742241",
+            "prdNm": "사조참치 150g",
+            "optVal": ""
+          },
+          {
+            "ordPrdNo": 3,
+            "ordNo": "202408067728742241",
+            "prdNm": "서울우유 1L",
+            "optVal": ""
+          }
+        ]
+      },
+      {
+        "ordNo": "202408069249479816",
+        "ordDttm": "2024/08/06 14:38:34",
+        "rcvrNm": "오하늘",
+        "rcvrMphnNo": "01050283987",
+        "rcvrBaseAddr": "인천 남동구 예술로 56",
+        "rcvrDtlsAddr": "구월동 더샵퍼스트파크 3층",
+        "sellerNo": 2664,
+        "ordCollectDttm": "2024/01/01 00:00:00",
+        "orderItems": [
+          {
+            "ordPrdNo": 1,
+            "ordNo": "202408069249479816",
+            "prdNm": "서울우유 1L",
+            "optVal": ""
           }
         ]
       }

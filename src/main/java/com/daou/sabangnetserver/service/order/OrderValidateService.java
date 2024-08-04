@@ -72,6 +72,7 @@ public class OrderValidateService {
         // 각 필드가 null이 아니고 특정 조건을 만족하는지 검사
         if (order.getOrdNo() == null || order.getOrdDttm() == null || order.getRcvrNm() == null ||
                 order.getRcvrBaseAddr() == null || order.getRcvrDtlsAddr() == null || order.getRcvrMphnNo() == null) {
+            log.error("Invalid order data: One or more fields are null for order: {}", order);
             return false; // 하나라도 null이면 유효하지 않음
         }
 
@@ -80,34 +81,38 @@ public class OrderValidateService {
                 order.getRcvrBaseAddr().isEmpty() || order.getRcvrBaseAddr().length() > 255 ||
                 order.getRcvrDtlsAddr().isEmpty() || order.getRcvrDtlsAddr().length() > 255 ||
                 order.getRcvrMphnNo().isEmpty() || order.getRcvrMphnNo().length() > 20) {
+            log.error("Invalid order data: One or more fields have invalid length for order: {}", order);
             return false; // 조건을 만족하지 않으면 유효하지 않음
         }
 
         try {
             // 주문 날짜와 시간이 유효한 형식 검사
             LocalDateTime.parse(order.getOrdDttm(), DATE_TIME_FORMATTER);
-        } catch (Exception e) {
+        } catch (Exception e1) {
+            log.error("Invalid order data: Order date and time format is invalid for order: {}", order);
             return false; // 형식이 맞지 않으면 유효하지 않음
         }
 
+
         // 수신자 전화번호가 10자리 또는 11자리 숫자인지 검사
         if (!order.getRcvrMphnNo().matches("\\d{10,11}")) {
+            log.error("Invalid order data: Receiver phone number format is invalid for order: {}", order);
             return false; // 조건을 만족하지 않으면 유효하지 않음
         }
 
         return true; // 모든 조건을 만족하면 유효
     }
 
+
     // OrderDetail 데이터 유효성 검증 함수
     public boolean isValidOrderDetailData(OrderApiResponseDetail detail) {
         // 각 필드가 적절한 값을 가지고 있는지 검사
-        if (detail.getOrdPrdNo() == 0 || detail.getOrdNo() == null || detail.getPrdNm() == null || detail.getOptVal() == null) {
+        if (detail.getOrdPrdNo() == 0 || detail.getOrdNo() == null || detail.getPrdNm() == null) {
             return false; // 하나라도 조건을 만족하지 않으면 유효하지 않음
         }
 
         // 각 필드의 값이 비어있지 않고 길이가 적절한지 검사
-        if (detail.getPrdNm().isEmpty() || detail.getPrdNm().length() > 255 ||
-                detail.getOptVal().isEmpty() || detail.getOptVal().length() > 255) {
+        if (detail.getPrdNm().isEmpty() || detail.getPrdNm().length() > 255 || detail.getOptVal().length() > 255) {
             return false; // 조건을 만족하지 않으면 유효하지 않음
         }
         return true; // 모든 조건을 만족하면 유효
