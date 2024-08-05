@@ -32,6 +32,9 @@ public class CustomersAiAnalysis {
     @CollectionTable(name = "purchase_info", joinColumns = @JoinColumn(name = "customers_id"))
     private List<PurchaseInfo> purchaseInfo;
 
+    @Column(name = "frequent_orders")
+    private List<String> frequentOrders;
+
     @Column(name = "personalized_recommendations")
     private List<String> personalizedRecommendations;
 

@@ -8,7 +8,9 @@ import com.daou.sabangnetserver.model.OrdersBase;
 import com.daou.sabangnetserver.model.OrdersDetail;
 import com.daou.sabangnetserver.repository.CustomersAiAnalysisRepository;
 import com.daou.sabangnetserver.repository.OrdersBaseRepository;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.openai.OpenAiChatModel;
@@ -20,10 +22,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -107,7 +106,6 @@ public class CustomersAiAnalysisService {
 
     @Transactional
     public CustomersAiAnalysisResponse updateCustomerAnalysis(int customerId) {
-
         // 데이터베이스에서 고객 정보 조회
         Optional<CustomersAiAnalysis> customerOpt = customersAiAnalysisRepository.findById((long) customerId);
         if (!customerOpt.isPresent()) {
@@ -115,6 +113,22 @@ public class CustomersAiAnalysisService {
         }
 
         CustomersAiAnalysis customer = customerOpt.get();
+
+        // personalizedRecommendations 칼럼에 데이터가 있고 analyzedTime이 30분이 안 지난 시점이라면 DB에서 값 가져오기
+        if (customer.getPersonalizedRecommendations() != null &&
+                customer.getAnalyzedTime() != null &&
+                customer.getAnalyzedTime().isAfter(LocalDateTime.now().minusMinutes(30))) {
+
+            log.info("Returning cached AI analysis for customer: {}", customerId);
+            return CustomersAiAnalysisResponse.builder()
+                    .name(customer.getName())
+                    .frequentOrders(customer.getFrequentOrders())
+                    .personalizedRecommendations(customer.getPersonalizedRecommendations())
+                    .personalizedRecommendationsReason(customer.getPersonalizedRecommendationsReason())
+                    .customerSegments(customer.getCustomerSegments())
+                    .analyzedTime(customer.getAnalyzedTime())
+                    .build();
+        }
 
         // PurchaseInfo 리스트를 String 리스트로 변환
         List<String> orderDescriptions = customer.getPurchaseInfo().stream()
@@ -138,27 +152,33 @@ public class CustomersAiAnalysisService {
         String message = aiMessage + "\n" + request;
         String aiResponse = (openAiChatModel.call(message));
 
-        System.out.println(aiResponse);
+        log.info("AI response received for customer {}: {}", customerId, aiResponse);
 
         // JSON 문자열을 객체로 변환
         ObjectMapper objectMapper = new ObjectMapper();
-        CustomersAiAnalysisResponse response;
+        JsonNode aiResponseNode;
 
         try {
             // 불필요한 특수문자 제거
             aiResponse = aiResponse.replaceAll("```json", "").replaceAll("```", "").trim();
-            System.out.println("\n\n\n");
-            System.out.println(aiResponse);
-            response = objectMapper.readValue(aiResponse, CustomersAiAnalysisResponse.class);
+            aiResponseNode = objectMapper.readTree(aiResponse);
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException("Failed to parse AI response", e);
         }
-        // 현재 시간 설정
+
+        // JSON 데이터를 CustomersAiAnalysisResponse 객체로 변환
+        CustomersAiAnalysisResponse response = new CustomersAiAnalysisResponse();
+        response.setName(customer.getName());
+        response.setFrequentOrders(extractArrayValues(aiResponseNode, "frequentOrders"));
+        response.setPersonalizedRecommendations(extractArrayValues(aiResponseNode, "personalizedRecommendations"));
+        response.setPersonalizedRecommendationsReason(aiResponseNode.path("personalizedRecommendationsReason").asText());
+        response.setCustomerSegments(aiResponseNode.path("customerSegments").asText());
         response.setAnalyzedTime(LocalDateTime.now());
 
         // CustomersAiAnalysis 업데이트
         customer.setPersonalizedRecommendations(response.getPersonalizedRecommendations());
+        customer.setFrequentOrders(response.getFrequentOrders());
         customer.setCustomerSegments(response.getCustomerSegments());
         customer.setPersonalizedRecommendationsReason(response.getPersonalizedRecommendationsReason());
         customer.setAnalyzedTime(response.getAnalyzedTime());
@@ -167,8 +187,87 @@ public class CustomersAiAnalysisService {
         customersAiAnalysisRepository.save(customer);
 
         return response;
+    }
 
+    @Transactional
+    public CustomersAiAnalysisResponse forceUpdateCustomerAnalysis(int customerId) {
+
+        // 데이터베이스에서 고객 정보 조회
+        Optional<CustomersAiAnalysis> customerOpt = customersAiAnalysisRepository.findById((long) customerId);
+        if (!customerOpt.isPresent()) {
+            throw new IllegalArgumentException("Customer not found");
+        }
+
+        CustomersAiAnalysis customer = customerOpt.get();
+        // PurchaseInfo 리스트를 String 리스트로 변환
+        List<String> orderDescriptions = customer.getPurchaseInfo().stream()
+                .map(info -> info.getOrdNo() + " " + info.getProductName() + " " + info.getOptionValue())
+                .collect(Collectors.toList());
+
+        // CustomersAiAnalysisRequest 생성
+        CustomersAiAnalysisRequest request = new CustomersAiAnalysisRequest();
+        request.setName(customer.getName());
+        request.setOrders(orderDescriptions);
+
+        // 파일에서 메시지 읽기
+        String aiMessage;
+        try {
+            aiMessage = new String(Files.readAllBytes(Paths.get("src/main/resources/Script.txt")));
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Failed to read message from file", e);
+        }
+
+        String message = aiMessage + "\n" + request;
+        String aiResponse = (openAiChatModel.call(message));
+
+        log.info("AI response received for customer {}: {}", customerId, aiResponse);
+
+        // JSON 문자열을 객체로 변환
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode aiResponseNode;
+
+        try {
+            // 불필요한 특수문자 제거
+            aiResponse = aiResponse.replaceAll("```json", "").replaceAll("```", "").trim();
+            aiResponseNode = objectMapper.readTree(aiResponse);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Failed to parse AI response", e);
+        }
+
+        // JSON 데이터를 CustomersAiAnalysisResponse 객체로 변환
+        CustomersAiAnalysisResponse response = new CustomersAiAnalysisResponse();
+        response.setName(customer.getName());
+        response.setFrequentOrders(extractArrayValues(aiResponseNode, "frequentOrders"));
+        response.setPersonalizedRecommendations(extractArrayValues(aiResponseNode, "personalizedRecommendations"));
+        response.setPersonalizedRecommendationsReason(aiResponseNode.path("personalizedRecommendationsReason").asText());
+        response.setCustomerSegments(aiResponseNode.path("customerSegments").asText());
+        response.setAnalyzedTime(LocalDateTime.now());
+
+        // CustomersAiAnalysis 업데이트
+        customer.setPersonalizedRecommendations(response.getPersonalizedRecommendations());
+        customer.setFrequentOrders(response.getFrequentOrders());
+        customer.setCustomerSegments(response.getCustomerSegments());
+        customer.setPersonalizedRecommendationsReason(response.getPersonalizedRecommendationsReason());
+        customer.setAnalyzedTime(response.getAnalyzedTime());
+
+        // 저장
+        customersAiAnalysisRepository.save(customer);
+
+        return response;
     }
 
 
+    private List<String> extractArrayValues(JsonNode node, String fieldName) {
+        List<String> values = new ArrayList<>();
+        if (node.has(fieldName) && node.get(fieldName).isArray()) {
+            ArrayNode arrayNode = (ArrayNode) node.get(fieldName);
+            for (JsonNode jsonNode : arrayNode) {
+                values.add(jsonNode.asText());
+            }
+        }
+
+        return values;
+    }
 }

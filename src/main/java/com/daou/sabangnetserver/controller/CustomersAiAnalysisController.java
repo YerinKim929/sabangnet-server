@@ -37,5 +37,11 @@ public class CustomersAiAnalysisController {
         return ResponseEntity.ok(responses);
     }
 
+    @GetMapping("/CustomersAiAnalysis/force/{customerId}")
+    public ResponseEntity<CustomersAiAnalysisResponse> updateForceCustomerAnalysis(@PathVariable int customerId) {
+        CustomersAiAnalysisResponse responses = customerAnalysisService.forceUpdateCustomerAnalysis(customerId);
+        return ResponseEntity.ok(responses);
+    }
+
 }
 
