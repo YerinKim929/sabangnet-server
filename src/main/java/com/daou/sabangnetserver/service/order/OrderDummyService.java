@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -38,31 +39,37 @@ public class OrderDummyService {
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
         try {
-            OrderApiResponse orders = objectMapper.readValue(new File("src/main/resources/dummyorder.json"), OrderApiResponse.class);
+            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+            try (InputStream inputStream = classLoader.getResourceAsStream("dummyorder.json")) {
+                if (inputStream == null) {
+                    throw new IOException("Resource not found: dummyorder.json");
+                }
+                OrderApiResponse orders = objectMapper.readValue(inputStream, OrderApiResponse.class);
 
-            // Parse startDate and endDate
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            LocalDate start = LocalDate.parse(startDate, formatter);
-            LocalDate end = LocalDate.parse(endDate, formatter);
+                // Parse startDate and endDate
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                LocalDate start = LocalDate.parse(startDate, formatter);
+                LocalDate end = LocalDate.parse(endDate, formatter);
 
-            // Convert to LocalDateTime for comparison
-            LocalDateTime startDateTime = start.atStartOfDay();
-            LocalDateTime endDateTime = end.atTime(LocalTime.MAX);
+                // Convert to LocalDateTime for comparison
+                LocalDateTime startDateTime = start.atStartOfDay();
+                LocalDateTime endDateTime = end.atTime(LocalTime.MAX);
 
-            // DateTimeFormatter for order date format
-            DateTimeFormatter orderDateFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+                // DateTimeFormatter for order date format
+                DateTimeFormatter orderDateFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 
-            // Filter orders based on the date range
-            List<OrderApiResponseBase> filteredOrders = orders.getResponse().getListElements().stream()
-                    .filter(order -> {
-                        LocalDateTime orderDate = LocalDateTime.parse(order.getOrdDttm(), orderDateFormatter);
-                        return (orderDate.isEqual(startDateTime) || orderDate.isAfter(startDateTime)) && (orderDate.isEqual(endDateTime) || orderDate.isBefore(endDateTime));
-                    })
-                    .collect(Collectors.toList());
-            orderValidateService.validateOrders(filteredOrders, sellerNo, orderResults);
-        }
-        catch (IOException e) {
-            e.printStackTrace();
+                // Filter orders based on the date range
+                List<OrderApiResponseBase> filteredOrders = orders.getResponse().getListElements().stream()
+                        .filter(order -> {
+                            LocalDateTime orderDate = LocalDateTime.parse(order.getOrdDttm(), orderDateFormatter);
+                            return (orderDate.isEqual(startDateTime) || orderDate.isAfter(startDateTime)) && (orderDate.isEqual(endDateTime) || orderDate.isBefore(endDateTime));
+                        })
+                        .collect(Collectors.toList());
+
+                orderValidateService.validateOrders(filteredOrders, sellerNo, orderResults);
+            }
+        } catch (IOException e) {
+            log.error("Failed to read dummyorder.json", e);
         }
     }
 }
