@@ -141,13 +141,31 @@ public class CustomersAiAnalysisService {
         request.setOrders(orderDescriptions);
 
         // 파일에서 메시지 읽기
-        String aiMessage;
+        String aiMessage = "You are an AI model designed to analyze customer purchase data from an e-commerce platform. Using the data provided, perform the following tasks and return a JSON object with the specified keys:\n" +
+                "\n" +
+                "        \"name\": The name of the customer.\n" +
+                "\n" +
+                "                \"frequentOrders\": List up to 3 products that the customer frequently purchases, including options if available, sorted by descending frequency. [array]\n" +
+                "        Example: [ \"초콜릿 우유 3회 구매 (제로 슈거 2회, 기본 옵션 1회)\", \"바나나 우유 3회 구매 (기본 옵션 3회)\"]\n" +
+                "\n" +
+                "        \"personalizedRecommendations\": List up to 3 related products that the customer might also be interested in based on their past purchases and preferences (considering option values). [array]\n" +
+                "        Related products should be specific and realistic, combining actual products and options.\n" +
+                "\n" +
+                "        \"personalizedRecommendationsReason\": Explain in two or three sentences why you made these recommendations. Start the explanation with the fixed phrase \" \"name\" 고객님은 ~선호하십니다.\" followed by a justification that logically connects the customer's past purchases and preferences to the recommended products. Ensure the explanation is reasonable and well-supported.\n" +
+                "\n" +
+                "        \"customerSegments\": Categorize the customer based on their purchase preferences (which category they mainly purchase from).\n" +
+                "        Customers only purchase from the following categories: [Beauty, Electronics & Digital, Household Goods, Food, Fashion & Apparel]\n" +
+                "        Based on the provided orders, classify them into one of the following segments: 뷰티 중시형 / 가전 디지털 중시형 / 생활용품 중시형 / 식품 중시형 / 패션 의류 중시형 / 다중 카테고리형\n" +
+                "\n" +
+                "        Ensure all outputs are in KOREAN and the JSON object is properly formatted. Do not format the result in markdown. Process the diary text specified below ##CONTENT##.";
+    /*
         try {
             aiMessage = new String(Files.readAllBytes(Paths.get("src/main/resources/Script.txt")));
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException("Failed to read message from file", e);
         }
+        */
 
         String message = aiMessage + "\n" + request;
         String aiResponse = (openAiChatModel.call(message));
@@ -210,13 +228,33 @@ public class CustomersAiAnalysisService {
         request.setOrders(orderDescriptions);
 
         // 파일에서 메시지 읽기
-        String aiMessage;
+        // 파일에서 메시지 읽기
+        String aiMessage = "You are an AI model designed to analyze customer purchase data from an e-commerce platform. Using the data provided, perform the following tasks and return a JSON object with the specified keys:\n" +
+                "\n" +
+                "        \"name\": The name of the customer.\n" +
+                "\n" +
+                "                \"frequentOrders\": List up to 3 products that the customer frequently purchases, including options if available, sorted by descending frequency. [array]\n" +
+                "        Example: [ \"초콜릿 우유 3회 구매 (제로 슈거 2회, 기본 옵션 1회)\", \"바나나 우유 3회 구매 (기본 옵션 3회)\"]\n" +
+                "\n" +
+                "        \"personalizedRecommendations\": List up to 3 related products that the customer might also be interested in based on their past purchases and preferences (considering option values). [array]\n" +
+                "        Related products should be specific and realistic, combining actual products and options.\n" +
+                "\n" +
+                "        \"personalizedRecommendationsReason\": Explain in two or three sentences why you made these recommendations. Start the explanation with the fixed phrase \" \"name\" 고객님은 ~선호하십니다.\" followed by a justification that logically connects the customer's past purchases and preferences to the recommended products. Ensure the explanation is reasonable and well-supported.\n" +
+                "\n" +
+                "        \"customerSegments\": Categorize the customer based on their purchase preferences (which category they mainly purchase from).\n" +
+                "        Customers only purchase from the following categories: [Beauty, Electronics & Digital, Household Goods, Food, Fashion & Apparel]\n" +
+                "        Based on the provided orders, classify them into one of the following segments: 뷰티 중시형 / 가전 디지털 중시형 / 생활용품 중시형 / 식품 중시형 / 패션 의류 중시형 / 다중 카테고리형\n" +
+                "\n" +
+                "        Ensure all outputs are in KOREAN and the JSON object is properly formatted. Do not format the result in markdown. Process the diary text specified below ##CONTENT##.";
+        /*
         try {
             aiMessage = new String(Files.readAllBytes(Paths.get("src/main/resources/Script.txt")));
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException("Failed to read message from file", e);
         }
+        */
+
 
         String message = aiMessage + "\n" + request;
         String aiResponse = (openAiChatModel.call(message));
