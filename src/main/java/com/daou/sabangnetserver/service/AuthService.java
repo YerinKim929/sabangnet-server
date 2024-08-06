@@ -126,8 +126,8 @@ public class AuthService {
         tokens.setAccessToken(tokenResponse.getAccessToken());
         tokens.setRefreshToken(tokenResponse.getRefreshToken());
         tokens.setIssuedAt(LocalDateTime.now());
-        tokens.setExpiresAt(LocalDateTime.now().plusHours(3));
-        tokens.setRefreshExpiresAt(LocalDateTime.now().plusDays(1));
+        tokens.setExpiresAt(LocalDateTime.now().plusMinutes(15));
+        tokens.setRefreshExpiresAt(LocalDateTime.now().plusMinutes(30));
         tokensRepository.save(tokens);
     }
 
