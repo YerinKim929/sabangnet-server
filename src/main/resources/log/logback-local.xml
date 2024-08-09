@@ -1,0 +1,20 @@
+<included>
+    <springProperty scope="context" name="LOG_LEVEL_ROOT" source="logging.level.root"/>
+    <springProperty scope="context" name="LOG_LEVEL_DAOU" source="logging.level.com.daou.sabangnetserver"/>
+    <springProperty scope="context" name="LOG_PATTERN_CONSOLE" source="logging.pattern.console"/>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${LOG_PATTERN_CONSOLE}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <root level="${LOG_LEVEL_ROOT}">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+    <logger name="com.daou.sabangnetserver" level="${LOG_LEVEL_DAOU}" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+</included>

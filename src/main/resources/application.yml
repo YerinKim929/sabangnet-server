@@ -1,5 +1,40 @@
-spring:
-  application:
-    name: sabangnet-server
 server:
   port: 8099
+
+spring:
+  profiles:
+    active: local
+    include: web
+  application:
+    name: sabangnet-server
+  h2:
+    console:
+      enabled: true
+      path: /h2
+  sql:
+    init:
+      mode: always
+      encoding: utf-8
+      data-locations: classpath:data.sql
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create
+    defer-datasource-initialization: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        format_sql: true      # 쿼리 로그 포맷 (정렬)
+        show_sql: true
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:tcp://localhost/~/develop/h2
+    username: sa
+    password:
+
+jwt:
+  header: Authorization
+  token-expiration-in-seconds : 1800
+  secret: dG9i1zcHJpbmctYm9vdC1yb3Qppc3dHktand0LXR1d29vbzZWN1cml0ByaW5nLWJveS1qtc2VjdXJpaWFsLWd3QtdHV0b3JpYWwK #암호화 KEY값
+
+

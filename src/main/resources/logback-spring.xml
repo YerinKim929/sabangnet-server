@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds">
+    <springProfile name="dev">
+        <include resource="log/logback-dev.xml"/>
+    </springProfile>
+    <springProfile name="local">
+        <include resource="log/logback-local.xml"/>
+    </springProfile>
+</configuration>

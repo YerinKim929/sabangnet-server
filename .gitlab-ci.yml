@@ -1,0 +1,4 @@
+include:
+  - project: 'framework/sabangnet-config'
+    ref: main
+    file: '.sabangnet-gitlab-ci-template-was.yml'
